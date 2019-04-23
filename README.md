@@ -1,10 +1,12 @@
-* Setup
+# Keep it simple
+
+# Setup
 
 ```bash
 echo "(load \"~/.emacs.d/init.el\")" > ~/.emacs
 ```
 
-** Install some package
+## Install some package
 
 ```bash
 emacs -nw
@@ -15,7 +17,7 @@ M-x list-packages
 
 Mark `company`, `ggtags` with keystroke `i` following `x` to install.
 
-* What can this configuration do for you
+# Features
 
 1. Add melpa as well as melpa-stable for package managing,
 
