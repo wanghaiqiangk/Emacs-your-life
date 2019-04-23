@@ -70,6 +70,7 @@ There are two things you can do about this warning:
 (electric-pair-mode 1)
 
 (setq x-select-enable-clipboard t)
+(xclip-mode 1)
 
 ;; Configuration of company
 (add-hook 'after-init-hook 'global-company-mode)
