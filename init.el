@@ -170,3 +170,5 @@ There are two things you can do about this warning:
 (define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
 
 (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
+
+(setq backup-directory-alist '(("." . "./.emacs.bak")))
