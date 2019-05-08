@@ -3,7 +3,9 @@
 # Setup
 
 ```bash
-echo "(load \"~/.emacs.d/init.el\")" > ~/.emacs
+touch ~/.emacs
+echo "(load \"~/.emacs.d/init.el\")" >> ~/.emacs
+echo "(load \"~/.emacs.d/org.el\")" >> ~/.emacs
 sudo apt install global # for ggtags
 sudo apt install libncurses-dev # I forget, it's either for xclip or ggtags (install from source)
 ```
@@ -42,6 +44,12 @@ Mark `company`, `ggtags`, `xclip` with keystroke `i` following `x` to install.
 
 10. Ggtags. I use it for its features that searches definitions/references in your project. Basiclly, it's like `grep <keyword> -R`. Keybindings are `M-.` for searching, `M-,` for going back, `C-c g f` for find file(header files) and open it,
 
-11. Still enable backup files but they will be saved into `./.emacs.bak` so that they won't borther you,
+11. Disabled backup files, but leaving the api of saving into `./.emacs.bak` so that they won't borther you for future use,
 
-12. To be continue...
+12. Add undo-tree
+
+13. Add doremi, which is used to adjust window size
+
+14. Add org configuration, see org.el
+
+15. ...

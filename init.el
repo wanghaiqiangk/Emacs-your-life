@@ -171,4 +171,11 @@ There are two things you can do about this warning:
 
 (define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
 
+(setq make-backup-files nil)
 (setq backup-directory-alist '(("." . "./.emacs.bak")))
+
+(require 'undo-tree)
+(global-undo-tree-mode)
+
+(require 'doremi)
+(require 'doremi-cmd)
