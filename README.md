@@ -20,7 +20,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip` with keystroke `i` following `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -52,4 +52,12 @@ Mark `company`, `ggtags`, `xclip` with keystroke `i` following `x` to install.
 
 14. Add org configuration, see org.el
 
-15. ...
+15. Add align type and variable name function(Currently not so good)
+
+16. Add skeleton "C-c i" inserting include and "C-c m" insert main function
+
+17. Show trailing whitspace
+
+18. Add markdown language support and realtime preview mode
+
+19. ...

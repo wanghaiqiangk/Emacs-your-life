@@ -179,3 +179,36 @@ There are two things you can do about this warning:
 
 (require 'doremi)
 (require 'doremi-cmd)
+
+(global-unset-key (kbd "M-'"))
+(defun align-type-var (BEG END)
+  (interactive "r")
+  (align-regexp BEG END "\\(\\s-*\\)[^ ]+\\((\\|;\\)" 1 1))
+(global-set-key (kbd "M-'") 'align-type-var)
+
+(require 'switch-window)
+(global-set-key (kbd "C-x o") 'switch-window)
+
+(define-skeleton cc-main
+  "Insert main function."
+  nil
+  \n >
+  "int main(int argc, char *argv[])"
+  \n >
+  -4 "{"
+  \n >
+  _
+  \n >
+  -4 "}"
+  )
+
+(define-skeleton cc-include
+  "Insert header"
+  "this prompt is ignored"
+  ("Enter header file: " "#include " str \n))
+
+(global-set-key (kbd "C-c i") 'cc-include)
+(global-set-key (kbd "C-c m") 'cc-main)
+
+(custom-set-variables
+ '(show-trailing-whitespace t))
