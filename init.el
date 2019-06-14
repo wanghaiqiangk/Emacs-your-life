@@ -65,8 +65,11 @@ There are two things you can do about this warning:
 (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
 (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
 
-(setq c-default-style "bsd"
-      c-basic-offset 4)
+;; Check c-default-style for avaiable values
+;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
+;; Change or not to 4 offset, so that it looks compact in emacs itself
+;; It's free and flexible to custom :-)
+(setq c-default-style "bsd")
 (electric-pair-mode 1)
 
 (setq x-select-enable-clipboard t)
