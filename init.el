@@ -69,7 +69,10 @@ There are two things you can do about this warning:
 ;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
 ;; Change or not to 4 offset, so that it looks compact in emacs itself
 ;; It's free and flexible to custom :-)
-(setq c-default-style "bsd")
+(setq c-default-style
+      '((java-mode . "java")
+	(awk-mode . "awk")
+	(other . "linux")))
 (electric-pair-mode 1)
 
 (setq x-select-enable-clipboard t)
@@ -214,4 +217,6 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c m") 'cc-main)
 
 (custom-set-variables
- '(show-trailing-whitespace t))
+ '(show-trailing-whitespace t)
+ '(c-basic-offset 4)
+ '(tab-width 4))
