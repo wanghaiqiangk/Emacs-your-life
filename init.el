@@ -198,15 +198,10 @@ There are two things you can do about this warning:
 (define-skeleton cc-main
   "Insert main function."
   nil
-  \n >
-  "int main(int argc, char *argv[])"
-  \n >
-  -4 "{"
-  \n >
+  "int main(int argc, char *argv[])" \n
+  -1 "{" \n
   _
-  \n >
-  -4 "}"
-  )
+  \n -1 "}")
 
 (define-skeleton cc-include
   "Insert header"
