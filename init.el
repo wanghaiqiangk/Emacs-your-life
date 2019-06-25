@@ -94,10 +94,10 @@ There are two things you can do about this warning:
 
 (defun isearch-yank-symbol (&optional partialp backward)
   "Put symbol at current point into search string.
-    
+
   If PARTIALP is non-nil, find all partial matches."
   (interactive "P")
-  
+
   (let (from to bound sym)
     (setq sym
 ; this block taken directly from find-tag-default
@@ -138,7 +138,7 @@ There are two things you can do about this warning:
 
 (defun isearch-current-symbol (&optional partialp)
   "Incremental search forward with symbol under point.
-    
+
     Prefixed with \\[universal-argument] will find all partial
     matches."
   (interactive "P")
@@ -148,7 +148,7 @@ There are two things you can do about this warning:
 
 (defun isearch-backward-current-symbol (&optional partialp)
   "Incremental search backward with symbol under point.
-    
+
     Prefixed with \\[universal-argument] will find all partial
     matches."
   (interactive "P")
