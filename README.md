@@ -61,4 +61,8 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 18. Add markdown language support and realtime preview mode
 
-19. ...
+19. Add my custom init file, myinit.el
+
+20. Add feature of highlighting TODO keyword, it mimics vim.
+
+21. ...

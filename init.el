@@ -65,8 +65,14 @@ There are two things you can do about this warning:
 (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
 (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
 
-(setq c-default-style "bsd"
-      c-basic-offset 4)
+;; Check c-default-style for avaiable values
+;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
+;; Change or not to 4 offset, so that it looks compact in emacs itself
+;; It's free and flexible to custom :-)
+(setq c-default-style
+      '((java-mode . "java")
+	(awk-mode . "awk")
+	(other . "linux")))
 (electric-pair-mode 1)
 
 (setq x-select-enable-clipboard t)
@@ -88,10 +94,10 @@ There are two things you can do about this warning:
 
 (defun isearch-yank-symbol (&optional partialp backward)
   "Put symbol at current point into search string.
-    
+
   If PARTIALP is non-nil, find all partial matches."
   (interactive "P")
-  
+
   (let (from to bound sym)
     (setq sym
 ; this block taken directly from find-tag-default
@@ -132,7 +138,7 @@ There are two things you can do about this warning:
 
 (defun isearch-current-symbol (&optional partialp)
   "Incremental search forward with symbol under point.
-    
+
     Prefixed with \\[universal-argument] will find all partial
     matches."
   (interactive "P")
@@ -142,7 +148,7 @@ There are two things you can do about this warning:
 
 (defun isearch-backward-current-symbol (&optional partialp)
   "Incremental search backward with symbol under point.
-    
+
     Prefixed with \\[universal-argument] will find all partial
     matches."
   (interactive "P")
@@ -192,15 +198,10 @@ There are two things you can do about this warning:
 (define-skeleton cc-main
   "Insert main function."
   nil
-  \n >
-  "int main(int argc, char *argv[])"
-  \n >
-  -4 "{"
-  \n >
+  "int main(int argc, char *argv[])" \n
+  -1 "{" \n
   _
-  \n >
-  -4 "}"
-  )
+  \n -1 "}")
 
 (define-skeleton cc-include
   "Insert header"
@@ -211,4 +212,6 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c m") 'cc-main)
 
 (custom-set-variables
- '(show-trailing-whitespace t))
+ '(show-trailing-whitespace t)
+ '(c-basic-offset 4)
+ '(tab-width 4))
