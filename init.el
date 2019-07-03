@@ -2,7 +2,7 @@
 
 (require 'package)
 (let* ((no-ssl (and (memq system-type '(windows-nt ms-dos))
-		    (not (gnutls-available-p))))
+					(not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
   (when no-ssl
     (warn "\
@@ -71,8 +71,8 @@ There are two things you can do about this warning:
 ;; It's free and flexible to custom :-)
 (setq c-default-style
       '((java-mode . "java")
-	(awk-mode . "awk")
-	(other . "linux")))
+		(awk-mode . "awk")
+		(other . "linux")))
 (electric-pair-mode 1)
 
 (setq x-select-enable-clipboard t)
@@ -100,39 +100,39 @@ There are two things you can do about this warning:
 
   (let (from to bound sym)
     (setq sym
-; this block taken directly from find-tag-default
-; we couldn't use the function because we need the internal from and to values
-	  (when (or (progn
-		      ;; Look at text around `point'.
-		      (save-excursion
-			(skip-syntax-backward "w_") (setq from (point)))
-		      (save-excursion
-			(skip-syntax-forward "w_") (setq to (point)))
-		      (> to from))
-		    ;; Look between `line-beginning-position' and `point'.
-		    (save-excursion
-		      (and (setq bound (line-beginning-position))
-			   (skip-syntax-backward "^w_" bound)
-			   (> (setq to (point)) bound)
-			   (skip-syntax-backward "w_")
-			   (setq from (point))))
-		    ;; Look between `point' and `line-end-position'.
-		    (save-excursion
-		      (and (setq bound (line-end-position))
-			   (skip-syntax-forward "^w_" bound)
-			   (< (setq from (point)) bound)
-			   (skip-syntax-forward "w_")
-			   (setq to (point)))))
-	    (buffer-substring-no-properties from to)))
+										; this block taken directly from find-tag-default
+										; we couldn't use the function because we need the internal from and to values
+		  (when (or (progn
+					  ;; Look at text around `point'.
+					  (save-excursion
+						(skip-syntax-backward "w_") (setq from (point)))
+					  (save-excursion
+						(skip-syntax-forward "w_") (setq to (point)))
+					  (> to from))
+					;; Look between `line-beginning-position' and `point'.
+					(save-excursion
+					  (and (setq bound (line-beginning-position))
+						   (skip-syntax-backward "^w_" bound)
+						   (> (setq to (point)) bound)
+						   (skip-syntax-backward "w_")
+						   (setq from (point))))
+					;; Look between `point' and `line-end-position'.
+					(save-excursion
+					  (and (setq bound (line-end-position))
+						   (skip-syntax-forward "^w_" bound)
+						   (< (setq from (point)) bound)
+						   (skip-syntax-forward "w_")
+						   (setq to (point)))))
+			(buffer-substring-no-properties from to)))
     (cond ((null sym)
-	   (message "No symbol at point"))
-	  ((null backward)
-	   (goto-char (1+ from)))
-	  (t
-	   (goto-char (1- to))))
+		   (message "No symbol at point"))
+		  ((null backward)
+		   (goto-char (1+ from)))
+		  (t
+		   (goto-char (1- to))))
     (isearch-search)
     (if partialp
-	(isearch-yank-string sym)
+		(isearch-yank-string sym)
       (isearch-yank-regexp
        (concat "\\_<" (regexp-quote sym) "\\_>")))))
 
@@ -164,9 +164,9 @@ There are two things you can do about this warning:
 ;; ggtags
 (require 'ggtags)
 (add-hook 'c-mode-common-hook
-	  (lambda ()
-	    (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-	      (ggtags-mode 1))))
+		  (lambda ()
+			(when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+			  (ggtags-mode 1))))
 
 (define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
 (define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)

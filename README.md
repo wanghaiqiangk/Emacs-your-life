@@ -7,6 +7,7 @@ touch ~/.emacs
 echo "(load \"~/.emacs.d/init.el\")" >> ~/.emacs
 echo "(load \"~/.emacs.d/org.el\")" >> ~/.emacs
 sudo apt install global # for ggtags
+sudo apt install xclip
 sudo apt install libncurses-dev # I forget, it's either for xclip or ggtags (install from source)
 ```
 Note: Installing global like this way is just ok because its version is too old. It's better to manually install the lastest version of global.
@@ -20,7 +21,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree` with keystroke `i` followed by `x` to install.
 
 # Features
 
