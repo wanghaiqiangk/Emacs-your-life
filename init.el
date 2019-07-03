@@ -214,4 +214,8 @@ There are two things you can do about this warning:
 (custom-set-variables
  '(show-trailing-whitespace t)
  '(c-basic-offset 4)
- '(tab-width 4))
+ '(tab-width 4)
+ '(shell-file-name "/bin/bash"))
+
+(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
+(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
