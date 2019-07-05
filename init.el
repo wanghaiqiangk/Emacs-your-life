@@ -72,7 +72,11 @@ There are two things you can do about this warning:
 (setq c-default-style
       '((java-mode . "java")
 		(awk-mode . "awk")
-		(other . "linux")))
+		(other . "gnu")))
+;; (custom-set-variables
+;;   '(c-basic-offset 4)
+;; 	'(tab-width 4))
+
 (electric-pair-mode 1)
 
 (setq x-select-enable-clipboard t)
@@ -213,9 +217,9 @@ There are two things you can do about this warning:
 
 (custom-set-variables
  '(show-trailing-whitespace t)
- '(c-basic-offset 4)
- '(tab-width 4)
  '(shell-file-name "/bin/bash"))
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+
+;; (add-hook 'after-init-hook #'global-flycheck-mode)
