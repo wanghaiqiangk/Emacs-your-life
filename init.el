@@ -73,11 +73,12 @@ There are two things you can do about this warning:
       '((java-mode . "java")
 		(awk-mode . "awk")
 		(other . "gnu")))
-;; (custom-set-variables
-;;   '(c-basic-offset 4)
-;; 	'(tab-width 4))
+(custom-set-variables
+  '(c-basic-offset 2)
+	'(tab-width 2))
 
 (electric-pair-mode 1)
+(show-paren-mode 1)
 
 (setq x-select-enable-clipboard t)
 (xclip-mode 1)

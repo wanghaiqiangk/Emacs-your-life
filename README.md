@@ -65,4 +65,4 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 20. Add feature of highlighting TODO keyword, it mimics vim.
 
-21. ...
+21. Show matching parentheses
