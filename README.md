@@ -21,7 +21,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -68,3 +68,5 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 21. Show matching parentheses
 
 22. Add fic-mode.el, providing highlight todo keywords feature, add fixme-mode.el and hl-todo.el but which is not used
+
+23. Comment original settings for `tab-width` and `c-basic-offset`. Instead, use smart-tabs-mode (need set `tab-width`)

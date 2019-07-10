@@ -72,10 +72,11 @@ There are two things you can do about this warning:
 (setq c-default-style
       '((java-mode . "java")
 		(awk-mode . "awk")
-		(other . "gnu")))
-(custom-set-variables
-  '(c-basic-offset 2)
-	'(tab-width 2))
+		(other . "linux")))
+
+;; (custom-set-variables
+;;  '(tab-width 4))
+;; (defvaralias 'c-basic-offset 'tab-width)
 
 (electric-pair-mode 1)
 (show-paren-mode 1)
@@ -229,3 +230,6 @@ There are two things you can do about this warning:
 (add-hook 'c++-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
 ;; (add-hook 'find-file-hook 'turn-on-fic-mode)
+
+(smart-tabs-insinuate 'c 'c++)
+(setq-default tab-width 4)
