@@ -224,3 +224,7 @@ There are two things you can do about this warning:
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
 ;; (add-hook 'after-init-hook #'global-flycheck-mode)
+
+(require 'fic-mode)
+(add-hook 'c++-mode-hook 'turn-on-fic-mode)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
