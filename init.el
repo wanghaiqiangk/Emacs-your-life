@@ -228,3 +228,4 @@ There are two things you can do about this warning:
 (require 'fic-mode)
 (add-hook 'c++-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
+;; (add-hook 'find-file-hook 'turn-on-fic-mode)
