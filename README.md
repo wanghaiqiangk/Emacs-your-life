@@ -70,3 +70,7 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 22. Add fic-mode.el, providing highlight todo keywords feature, add fixme-mode.el and hl-todo.el but which is not used
 
 23. Comment original settings for `tab-width` and `c-basic-offset`. Instead, use smart-tabs-mode (need set `tab-width`)
+
+24. Toggle truncating lines
+
+25. Change default builtin shell to bash, since zsh is not well compatible in displaying

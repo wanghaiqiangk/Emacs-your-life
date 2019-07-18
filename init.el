@@ -217,9 +217,9 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c i") 'cc-include)
 (global-set-key (kbd "C-c m") 'cc-main)
 
-(custom-set-variables
- '(show-trailing-whitespace t)
- '(shell-file-name "/bin/bash"))
+(setq-default truncate-lines t)
+(setq-default show-trailing-whitespace t)
+(setq shell-file-name "/bin/bash")
 
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
@@ -233,3 +233,7 @@ There are two things you can do about this warning:
 
 (smart-tabs-insinuate 'c 'c++)
 (setq-default tab-width 4)
+
+;; (require 'lsp-mode)
+;; (add-hook 'c++-mode-hook #'lsp)
+;; (require 'company-lsp)
