@@ -217,7 +217,6 @@ There are two things you can do about this warning:
 (global-set-key (kbd "C-c i") 'cc-include)
 (global-set-key (kbd "C-c m") 'cc-main)
 
-(setq-default truncate-lines t)
 (setq-default show-trailing-whitespace t)
 (setq shell-file-name "/bin/bash")
 

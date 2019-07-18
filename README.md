@@ -71,6 +71,6 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 23. Comment original settings for `tab-width` and `c-basic-offset`. Instead, use smart-tabs-mode (need set `tab-width`)
 
-24. Toggle truncating lines
+24. Disable truncating lines (which is default, toggle with `toggle-truncate-lines`)
 
 25. Change default builtin shell to bash, since zsh is not well compatible in displaying
