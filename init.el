@@ -234,5 +234,20 @@ There are two things you can do about this warning:
 (setq-default tab-width 4)
 
 ;; (require 'lsp-mode)
+;; (add-hook 'c-mode-hook #'lsp)
 ;; (add-hook 'c++-mode-hook #'lsp)
+
+;; (require 'cquery)
+;; (setq cquery-executable "/home/wang/gitrepo/cquery/build/release/bin/cquery")
+;; (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
+
 ;; (require 'company-lsp)
+;; (push 'company-lsp company-backends)
+;; (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
+
+;; (require 'yasnippet)
+
+;; (require 'projectile)
+;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
+;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+;; (projectile-mode +1)

@@ -21,7 +21,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -74,3 +74,5 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 24. Disable truncating lines (which is default, toggle with `toggle-truncate-lines`)
 
 25. Change default builtin shell to bash, since zsh is not well compatible in displaying
+
+26. Install magit package
