@@ -65,18 +65,10 @@ There are two things you can do about this warning:
 (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
 (set-face-foreground 'highlight-indent-guides-character-face "dimgray")
 
-;; Check c-default-style for avaiable values
-;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
-;; Change or not to 4 offset, so that it looks compact in emacs itself
-;; It's free and flexible to custom :-)
 (setq c-default-style
       '((java-mode . "java")
 		(awk-mode . "awk")
 		(other . "linux")))
-
-;; (custom-set-variables
-;;  '(tab-width 4))
-;; (defvaralias 'c-basic-offset 'tab-width)
 
 (electric-pair-mode 1)
 (show-paren-mode 1)
@@ -230,6 +222,7 @@ There are two things you can do about this warning:
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
 ;; (add-hook 'find-file-hook 'turn-on-fic-mode)
 
+;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
 (smart-tabs-insinuate 'c 'c++)
 (setq-default tab-width 4)
 
