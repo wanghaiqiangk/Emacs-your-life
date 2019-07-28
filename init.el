@@ -223,8 +223,10 @@ There are two things you can do about this warning:
 ;; (add-hook 'find-file-hook 'turn-on-fic-mode)
 
 ;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
-(smart-tabs-insinuate 'c 'c++)
+;; (smart-tabs-insinuate 'c 'c++)
+(setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
+(setq c-basic-offset 4)
 
 ;; (require 'lsp-mode)
 ;; (add-hook 'c-mode-hook #'lsp)

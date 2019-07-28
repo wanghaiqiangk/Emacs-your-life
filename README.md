@@ -65,7 +65,7 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 20. Add fic-mode.el, providing highlight todo keywords feature, add fixme-mode.el and hl-todo.el but which is not used
 
-21. Use smart-tabs-mode (need set `tab-width`)
+21. Disable smart-tabs-mode, becauce I want to use space as indentation character to avoid the mix of tab and space
 
 # Other Features
 
