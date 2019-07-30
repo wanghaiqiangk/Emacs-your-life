@@ -197,9 +197,9 @@ There are two things you can do about this warning:
   "Insert main function."
   nil
   "int main(int argc, char *argv[])" \n
-  -1 "{" \n
+  -4 "{" \n
   _
-  \n -1 "}")
+  \n -4 "}")
 
 (define-skeleton cc-include
   "Insert header"
