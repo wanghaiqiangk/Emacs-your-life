@@ -19,18 +19,14 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
-;; (keyboard-translate ?\C-h ?\C-?)
-
 (add-hook 'find-file-hook (lambda () (linum-mode 1)))
 
-(require 'hl-line)
+(load "hl-line")
 
 (defface my-linum-hl
   `((t :inherit linum :background "yellow",(face-background 'hl-line nil t)))
   "Face for the current line number."
   :group 'linum)
-
-(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 
 (defun my-linum-get-format-string ()
   (let* ((width (1+ (length (number-to-string
@@ -39,8 +35,6 @@ There are two things you can do about this warning:
     (setq my-linum-format-string format)))
 
 (defvar my-linum-current-line-number 0)
-
-(setq linum-format 'my-linum-format)
 
 (defun my-linum-format (line-number)
   (propertize (format my-linum-format-string line-number) 'face
@@ -51,19 +45,21 @@ There are two things you can do about this warning:
 (defadvice linum-update (around my-linum-update)
   (let ((my-linum-current-line-number (line-number-at-pos)))
     ad-do-it))
+
 (ad-activate 'linum-update)
+(setq linum-format 'my-linum-format)
+(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
 
-(require 'highlight-indent-guides)
-
+(load "highlight-indent-guides")
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-
 (setq highlight-indent-guides-method 'column)
-
 (setq highlight-indent-guides-auto-enabled nil)
-
 (set-face-background 'highlight-indent-guides-odd-face "#cd00cd")
 (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
-(set-face-foreground 'highlight-indent-guides-character-face "dimgray")
+(setq highlight-indent-guides-responsive 'top)
+(setq highlight-indent-guides-delay 0)
+(set-face-background 'highlight-indent-guides-top-odd-face "#00cdcd")
+(set-face-background 'highlight-indent-guides-top-even-face "#00cdcd")
 
 (setq c-default-style
       '((java-mode . "java")
@@ -73,7 +69,7 @@ There are two things you can do about this warning:
 (electric-pair-mode 1)
 (show-paren-mode 1)
 
-(setq x-select-enable-clipboard t)
+(setq select-enable-clipboard t)
 (xclip-mode 1)
 
 ;; Configuration of company
@@ -160,29 +156,18 @@ There are two things you can do about this warning:
 (define-key isearch-mode-map [(control f3)] 'isearch-repeat-backward)
 
 ;; ggtags
-(require 'ggtags)
 (add-hook 'c-mode-common-hook
 		  (lambda ()
 			(when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
 			  (ggtags-mode 1))))
 
-(define-key ggtags-mode-map (kbd "C-c g s") 'ggtags-find-other-symbol)
-(define-key ggtags-mode-map (kbd "C-c g h") 'ggtags-view-tag-history)
-(define-key ggtags-mode-map (kbd "C-c g r") 'ggtags-find-reference)
-(define-key ggtags-mode-map (kbd "C-c g f") 'ggtags-find-file)
-(define-key ggtags-mode-map (kbd "C-c g c") 'ggtags-create-tags)
-(define-key ggtags-mode-map (kbd "C-c g u") 'ggtags-update-tags)
-
-(define-key ggtags-mode-map (kbd "M-,") 'pop-tag-mark)
-
 (setq make-backup-files nil)
 (setq backup-directory-alist '(("." . "./.emacs.bak")))
 
-(require 'undo-tree)
 (global-undo-tree-mode)
 
-(require 'doremi)
-(require 'doremi-cmd)
+(load "doremi")
+(load "doremi-cmd")
 
 (global-unset-key (kbd "M-'"))
 (defun align-type-var (BEG END)
@@ -190,7 +175,6 @@ There are two things you can do about this warning:
   (align-regexp BEG END "\\(\\s-*\\)[^ ]+\\((\\|;\\)" 1 1))
 (global-set-key (kbd "M-'") 'align-type-var)
 
-(require 'switch-window)
 (global-set-key (kbd "C-x o") 'switch-window)
 
 (define-skeleton cc-main
@@ -215,12 +199,9 @@ There are two things you can do about this warning:
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
-;; (add-hook 'after-init-hook #'global-flycheck-mode)
-
-(require 'fic-mode)
+(autoload 'turn-on-fic-mode "fic-mode" nil t)
 (add-hook 'c++-mode-hook 'turn-on-fic-mode)
 (add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
-;; (add-hook 'find-file-hook 'turn-on-fic-mode)
 
 ;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
 ;; (smart-tabs-insinuate 'c 'c++)
@@ -228,23 +209,4 @@ There are two things you can do about this warning:
 (setq-default tab-width 4)
 (setq c-basic-offset 4)
 
-;; (require 'lsp-mode)
-;; (add-hook 'c-mode-hook #'lsp)
-;; (add-hook 'c++-mode-hook #'lsp)
-
-;; (require 'cquery)
-;; (setq cquery-executable "/home/wang/gitrepo/cquery/build/release/bin/cquery")
-;; (setq cquery-extra-init-params '(:index (:comments 2) :cacheFormat "msgpack" :completion (:detailedLabel t)))
-
-;; (require 'company-lsp)
-;; (push 'company-lsp company-backends)
-;; (setq company-transformers nil company-lsp-async t company-lsp-cache-candidates nil)
-
-;; (require 'yasnippet)
-
-;; (require 'projectile)
-;; (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-;; (projectile-mode +1)
-
-(require 'cmake-mode)
+(load "cmake-mode")
