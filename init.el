@@ -210,3 +210,5 @@ There are two things you can do about this warning:
 (setq c-basic-offset 4)
 
 (load "cmake-mode")
+
+(global-set-key (kbd "C-c C-r") 'replace-regexp)
