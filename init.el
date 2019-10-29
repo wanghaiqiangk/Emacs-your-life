@@ -212,3 +212,17 @@ There are two things you can do about this warning:
 (load "cmake-mode")
 
 (global-set-key (kbd "C-c C-r") 'replace-regexp)
+
+(global-whitespace-newline-mode 1)
+(progn
+  (setq whitespace-style (quote (tabs tab-mark newline newline-mark)))
+  ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “↦” for tab.
+  (setq whitespace-display-mappings
+        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+        '(
+          (newline-mark 10 [182 10])
+          (tab-mark 9 [8614 9] [92 9])
+          )))
+(set-face-attribute 'whitespace-newline t :foreground "#cd00cd")
+(set-face-attribute 'whitespace-tab t :foreground "#cd00cd")
+(set-face-attribute 'whitespace-tab t :background 'unspecified)

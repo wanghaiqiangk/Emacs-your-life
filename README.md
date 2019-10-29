@@ -67,6 +67,12 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 21. Disable smart-tabs-mode, becauce I want to use space as indentation character to avoid the mix of tab and space
 
+22. Highlight cmake syntax
+
+23. Keybinding for regular expression replacement
+
+24. Enable whitespace mode and customize newline & tab characters as well as their faces
+
 # Other Features
 
 - Add markdown language support and realtime preview mode
