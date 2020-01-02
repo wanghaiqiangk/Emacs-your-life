@@ -212,6 +212,7 @@ There are two things you can do about this warning:
 (load "cmake-mode")
 
 (global-set-key (kbd "C-c C-r") 'replace-regexp)
+(global-set-key (kbd "C-c r") 'replace-string)
 
 (global-whitespace-newline-mode 1)
 (progn
