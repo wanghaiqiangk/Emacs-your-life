@@ -73,6 +73,10 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 24. Enable whitespace mode and customize newline & tab characters as well as their faces
 
+25. Accept both UTF-8 and utf-8 coding system. They are alias
+
+26. Configure for vlf mode
+
 # Other Features
 
 - Add markdown language support and realtime preview mode

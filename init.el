@@ -229,3 +229,5 @@ There are two things you can do about this warning:
 (set-face-attribute 'whitespace-tab t :background 'unspecified)
 
 (define-coding-system-alias 'UTF-8 'utf-8)
+
+(require 'vlf-setup)
