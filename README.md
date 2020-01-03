@@ -77,6 +77,8 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 26. Configure for vlf mode
 
+27. Bind key for magit
+
 # Other Features
 
 - Add markdown language support and realtime preview mode

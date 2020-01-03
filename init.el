@@ -231,3 +231,4 @@ There are two things you can do about this warning:
 (define-coding-system-alias 'UTF-8 'utf-8)
 
 (require 'vlf-setup)
+(global-set-key (kbd "C-x g") 'magit-status)
