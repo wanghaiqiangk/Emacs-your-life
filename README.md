@@ -9,6 +9,7 @@ echo "(load \"~/.emacs.d/org.el\")" >> ~/.emacs
 sudo apt install global # for ggtags
 sudo apt install xclip
 sudo apt install libncurses-dev # I forget, it's either for xclip or ggtags (install from source)
+sudo apt install libclang-VERSION clang-VERSION llvm-VERSION
 ```
 Note: Installing global like this way is just ok because its version is too old. It's better to manually install the lastest version of global.
 
@@ -21,7 +22,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -78,6 +79,8 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 26. Configure for vlf mode
 
 27. Bind key for magit
+
+28. Install irony and company-irony for better completion
 
 # Other Features
 

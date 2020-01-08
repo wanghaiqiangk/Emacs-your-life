@@ -72,10 +72,24 @@ There are two things you can do about this warning:
 (setq select-enable-clipboard t)
 (xclip-mode 1)
 
-;; Configuration of company
+;; Configure company, irony and company-irony
 (add-hook 'after-init-hook 'global-company-mode)
 (global-set-key (kbd "C-x p") 'company-complete)
 (setq company-clang-executable "/usr/bin/clang-3.9")
+
+(add-hook 'c++-mode-hook 'irony-mode)
+(add-hook 'c-mode-hook 'irony-mode)
+(add-hook 'objc-mode-hook 'irony-mode)
+(defun my-irony-mode-hook ()
+  (define-key irony-mode-map [remap completion-at-point]
+    'irony-completion-at-point-async)
+  (define-key irony-mode-map [remap complete-symbol]
+    'irony-completion-at-point-async))
+(add-hook 'irony-mode-hook 'my-irony-mode-hook)
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(eval-after-load 'company
+  '(add-to-list 'company-backends 'company-irony))
+(company-irony 1)
 
 ;; Use "M-s ." to search symbol at current point
 ;; Then it works like Vim, which remember your last search contents
