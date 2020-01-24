@@ -86,6 +86,8 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 30. Add function to toggle window split mode (v->h or h->v)
 
+31. Add neotree package for navigation and bind with keystroke F6
+
 # Other Features
 
 - Add markdown language support and realtime preview mode
