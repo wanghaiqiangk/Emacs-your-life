@@ -82,6 +82,10 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 28. Install irony and company-irony for better completion
 
+29. Install ECB for code outline and bind with keystroke F5
+
+30. Add function to toggle window split mode (v->h or h->v)
+
 # Other Features
 
 - Add markdown language support and realtime preview mode
