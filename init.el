@@ -285,6 +285,7 @@ There are two things you can do about this warning:
 (require 'neotree)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (set-face-attribute 'neo-file-link-face t :foreground "white")
+(setq neo-smart-open t)
 
 ;; Add automatically by Customization
 (custom-set-variables
