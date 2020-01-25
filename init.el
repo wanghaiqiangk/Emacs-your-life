@@ -286,22 +286,3 @@ There are two things you can do about this warning:
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (set-face-attribute 'neo-file-link-face t :foreground "white")
 (setq neo-smart-open t)
-
-;; Add automatically by Customization
-(custom-set-variables
- ;; custom-set-variables was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- '(ecb-layout-name "left11")
- '(ecb-options-version "2.50")
- '(ecb-windows-width 0.33)
- '(package-selected-packages
-   (quote
-    (ecb xclip vlf switch-window markdown-mode magit highlight-indent-guides gnu-elpa-keyring-update ggtags evil counsel company-irony))))
-(custom-set-faces
- ;; custom-set-faces was added by Custom.
- ;; If you edit it by hand, you could mess it up, so be careful.
- ;; Your init file should contain only one such instance.
- ;; If there is more than one, they won't work right.
- )
