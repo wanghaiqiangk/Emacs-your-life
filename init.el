@@ -255,6 +255,8 @@ There are two things you can do about this warning:
       (apply 'display-buffer-use-some-window args)
     (apply orig-fun args)))
 (advice-add 'display-buffer-at-bottom :around #'display-buffer-at-bottom--display-buffer-at-bottom-around)
+(setq ecb-layout-name "left11")
+(setq ecb-new-ecb-frame t)
 
 (defun toggle-window-split ()
   (interactive)
