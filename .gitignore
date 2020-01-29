@@ -5,3 +5,4 @@ irony/
 transient/
 init.elc
 init.el.before_ecb*
+projectile*

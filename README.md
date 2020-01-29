@@ -28,7 +28,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode`, `projectile` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -97,6 +97,8 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 32. Install flycheck(alternatively, flymake is obsolete nowadays) as syntax validator.
 
 33. Install jsonlint for json sytax validation.
+
+34. Install projectile and enable it. Using `C-c p` as command prefix.
 
 # Other Features
 
