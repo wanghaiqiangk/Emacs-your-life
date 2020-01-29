@@ -13,6 +13,12 @@ sudo apt install libclang-VERSION clang-VERSION llvm-VERSION
 ```
 Note: Installing global like this way is just ok because its version is too old. It's better to manually install the lastest version of global.
 
+```bash
+sudo apt install npm # npm is a package manager writen by javascript
+sudo npm install jsonlint -g # using apt to install jsonlint doesn't take effect
+sudo ln -s /usr/bin/nodejs /usr/bin/node # if omit such step, emacs can't execute flycheck using jsonlint
+```
+
 ## Install some package
 
 ```bash
@@ -22,7 +28,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -87,6 +93,10 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 30. Add function to toggle window split mode (v->h or h->v)
 
 31. Add neotree package for navigation and bind with keystroke F6
+
+32. Install flycheck(alternatively, flymake is obsolete nowadays) as syntax validator.
+
+33. Install jsonlint for json sytax validation.
 
 # Other Features
 

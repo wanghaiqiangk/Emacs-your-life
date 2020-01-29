@@ -288,3 +288,7 @@ There are two things you can do about this warning:
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (set-face-attribute 'neo-file-link-face t :foreground "white")
 (setq neo-smart-open t)
+
+(require 'flycheck)
+(flycheck-add-mode 'json-jsonlint 'json-mode)
+(add-hook 'json-mode-hook 'flycheck-mode)
