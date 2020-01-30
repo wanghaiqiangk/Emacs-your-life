@@ -223,7 +223,6 @@ There are two things you can do about this warning:
 (setq-default tab-width 4)
 (setq c-basic-offset 4)
 
-(require 'cmake-mode)
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
