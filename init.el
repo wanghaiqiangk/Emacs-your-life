@@ -299,6 +299,8 @@ There are two things you can do about this warning:
 (require 'flycheck)
 (flycheck-add-mode 'json-jsonlint 'json-mode)
 (add-hook 'json-mode-hook 'flycheck-mode)
+(add-hook 'c-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook 'flycheck-mode)
 
 ;; projectile is a project manager, like any IDE does
 (require 'projectile)
