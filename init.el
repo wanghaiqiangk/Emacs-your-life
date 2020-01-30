@@ -301,6 +301,7 @@ There are two things you can do about this warning:
 (add-hook 'json-mode-hook 'flycheck-mode)
 (add-hook 'c-mode-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook 'flycheck-mode)
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 
 ;; projectile is a project manager, like any IDE does
 (require 'projectile)
