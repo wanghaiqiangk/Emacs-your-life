@@ -223,7 +223,9 @@ There are two things you can do about this warning:
 (setq-default tab-width 4)
 (setq c-basic-offset 4)
 
-(load "cmake-mode")
+(require 'cmake-mode)
+(autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
+(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
 
 (global-set-key (kbd "C-c C-r") 'replace-regexp)
 (global-set-key (kbd "C-c r") 'replace-string)
@@ -244,9 +246,12 @@ There are two things you can do about this warning:
 
 (define-coding-system-alias 'UTF-8 'utf-8)
 
+;; vlf is view-large-file
 (require 'vlf-setup)
+
 (global-set-key (kbd "C-x g") 'magit-status)
 
+;; Emacs Code Brower
 (require 'ecb)
 (global-set-key (kbd "<f5>") 'ecb-minor-mode)
 (defun display-buffer-at-bottom--display-buffer-at-bottom-around (orig-fun &rest args)
@@ -284,15 +289,18 @@ There are two things you can do about this warning:
           (if this-win-2nd (other-window 1))))))
 (global-set-key (kbd "C-x |") 'toggle-window-split)
 
+;; neotree is a file navigator
 (require 'neotree)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (set-face-attribute 'neo-file-link-face t :foreground "white")
 (setq neo-smart-open t)
 
+;; flycheck is syntax validator
 (require 'flycheck)
 (flycheck-add-mode 'json-jsonlint 'json-mode)
 (add-hook 'json-mode-hook 'flycheck-mode)
 
+;; projectile is a project manager, like any IDE does
 (require 'projectile)
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
