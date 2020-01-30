@@ -307,3 +307,11 @@ There are two things you can do about this warning:
 (define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (projectile-mode +1)
+
+;; yasnippet configuration
+(require 'yasnippet)
+(setq yas-snippet-dirs
+      '("~/.emacs.d/snippets"))
+(add-hook 'prog-mode-hook #'yas-minor-mode)
+(eval-after-load 'yasnippet
+  '(yas-reload-all))

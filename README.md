@@ -28,7 +28,7 @@ M-x package-refresh-contents
 M-x list-packages
 ```
 
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode`, `projectile` with keystroke `i` followed by `x` to install.
+Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode`, `projectile`, `yasnippets`, `yasnippets-snippets` with keystroke `i` followed by `x` to install.
 
 # Features
 
@@ -99,6 +99,8 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 33. Install jsonlint for json sytax validation.
 
 34. Install projectile and enable it. Using `C-c p` as command prefix.
+
+35. Install yasnippets for template collections. It's convenient.
 
 # Other Features
 

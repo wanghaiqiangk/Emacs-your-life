@@ -4,5 +4,5 @@ auto-save-list/
 irony/
 transient/
 init.elc
-init.el.before_ecb*
-projectile*
+init.el.before_ecb
+projectile-bookmarks.eld
