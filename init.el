@@ -19,36 +19,11 @@ There are two things you can do about this warning:
     (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")))))
 (package-initialize)
 
-(add-hook 'find-file-hook (lambda () (linum-mode 1)))
-
-(load "hl-line")
-
-(defface my-linum-hl
-  `((t :inherit linum :background "yellow",(face-background 'hl-line nil t)))
-  "Face for the current line number."
-  :group 'linum)
-
-(defun my-linum-get-format-string ()
-  (let* ((width (1+ (length (number-to-string
-                             (count-lines (point-min) (point-max))))))
-         (format (concat "%" (number-to-string width) "d \u2502")))
-    (setq my-linum-format-string format)))
-
-(defvar my-linum-current-line-number 0)
-
-(defun my-linum-format (line-number)
-  (propertize (format my-linum-format-string line-number) 'face
-              (if (eq line-number my-linum-current-line-number)
-                  'my-linum-hl
-                'linum)))
-
-(defadvice linum-update (around my-linum-update)
-  (let ((my-linum-current-line-number (line-number-at-pos)))
-    ad-do-it))
-
-(ad-activate 'linum-update)
-(setq linum-format 'my-linum-format)
-(add-hook 'linum-before-numbering-hook 'my-linum-get-format-string)
+;; Display line number >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(add-hook 'find-file-hook (lambda () (display-line-numbers-mode 1)))
+(set-face-attribute 'line-number-current-line t :background "yellow"
+                    :foreground "black")
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Display line number
 
 (load "highlight-indent-guides")
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
@@ -91,89 +66,40 @@ There are two things you can do about this warning:
   '(add-to-list 'company-backends 'company-irony))
 (company-irony 1)
 
-;; Use "M-s ." to search symbol at current point
-;; Then it works like Vim, which remember your last search contents
-;; "C-s" to search forward, while "C-r" to search backward
-(defun isearch-yank-regexp (regexp)
-  "Pull REGEXP into search regexp."
-  (let ((isearch-regexp nil)) ;; Dynamic binding of global.
-    (isearch-yank-string regexp))
-  (isearch-search-and-update))
-
-(defun isearch-yank-symbol (&optional partialp backward)
-  "Put symbol at current point into search string.
-
-  If PARTIALP is non-nil, find all partial matches."
-  (interactive "P")
-
-  (let (from to bound sym)
-    (setq sym
-                                        ; this block taken directly from find-tag-default
-                                        ; we couldn't use the function because we need the internal from and to values
-          (when (or (progn
-                      ;; Look at text around `point'.
-                      (save-excursion
-                        (skip-syntax-backward "w_") (setq from (point)))
-                      (save-excursion
-                        (skip-syntax-forward "w_") (setq to (point)))
-                      (> to from))
-                    ;; Look between `line-beginning-position' and `point'.
-                    (save-excursion
-                      (and (setq bound (line-beginning-position))
-                           (skip-syntax-backward "^w_" bound)
-                           (> (setq to (point)) bound)
-                           (skip-syntax-backward "w_")
-                           (setq from (point))))
-                    ;; Look between `point' and `line-end-position'.
-                    (save-excursion
-                      (and (setq bound (line-end-position))
-                           (skip-syntax-forward "^w_" bound)
-                           (< (setq from (point)) bound)
-                           (skip-syntax-forward "w_")
-                           (setq to (point)))))
-            (buffer-substring-no-properties from to)))
-    (cond ((null sym)
-           (message "No symbol at point"))
-          ((null backward)
-           (goto-char (1+ from)))
-          (t
-           (goto-char (1- to))))
-    (isearch-search)
-    (if partialp
-        (isearch-yank-string sym)
-      (isearch-yank-regexp
-       (concat "\\_<" (regexp-quote sym) "\\_>")))))
-
-(defun isearch-current-symbol (&optional partialp)
-  "Incremental search forward with symbol under point.
-
-    Prefixed with \\[universal-argument] will find all partial
-    matches."
-  (interactive "P")
-  (let ((start (point)))
-    (isearch-forward-regexp nil 1)
-    (isearch-yank-symbol partialp)))
-
-(defun isearch-backward-current-symbol (&optional partialp)
-  "Incremental search backward with symbol under point.
-
-    Prefixed with \\[universal-argument] will find all partial
-    matches."
-  (interactive "P")
-  (let ((start (point)))
-    (isearch-backward-regexp nil 1)
-    (isearch-yank-symbol partialp)))
-
-;; Subsequent hitting of the keys will increment to the next
-;; match--duplicating `C-s' and `C-r', respectively.
-(define-key isearch-mode-map [f3] 'isearch-repeat-forward)
-(define-key isearch-mode-map [(control f3)] 'isearch-repeat-backward)
-
 ;; ggtags
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
               (ggtags-mode 1))))
+
+
+;; Ivy, counsel, and swiper >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;; (ivy-mode 1)
+;; (setq ivy-use-virtual-buffers t)
+;; (setq enable-recursive-minibuffers t)
+;; (global-set-key (kbd "C-s") 'swiper-isearch)
+;; (global-set-key (kbd "C-r") 'swiper-isearch-backward)
+;; (setq ivy-display-style 'fancy
+;;       swiper-include-line-number-in-search t)
+(global-set-key (kbd "M-y") 'counsel-yank-pop)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Ivy, counsel, and swiper
+
+
+;; smex >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(smex-initialize)
+(global-set-key (kbd "M-x") 'smex)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< smex
+
+
+;; ido >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(require 'flx-ido)
+(ido-mode 1)
+(ido-everywhere 1)
+(flx-ido-mode 1)
+;; disable ido faces to see flx highlights.
+(setq ido-enable-flex-matching t)
+(setq ido-use-faces nil)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ido
 
 (setq make-backup-files nil)
 (setq backup-directory-alist '(("." . "./.emacs.bak")))
@@ -183,29 +109,32 @@ There are two things you can do about this warning:
 (load "doremi")
 (load "doremi-cmd")
 
-(global-unset-key (kbd "M-'"))
-(defun align-type-var (BEG END)
-  (interactive "r")
-  (align-regexp BEG END "\\(\\s-*\\)[^ ]+\\((\\|;\\)" 1 1))
-(global-set-key (kbd "M-'") 'align-type-var)
+;; In vim there's easyalign
+;; (global-unset-key (kbd "M-'"))
+;; (defun align-type-var (BEG END)
+;;   (interactive "r")
+;;   (align-regexp BEG END "\\(\\s-*\\)[^ ]+\\((\\|;\\)" 1 1))
+;; (global-set-key (kbd "M-'") 'align-type-var)
 
 (global-set-key (kbd "C-x o") 'switch-window)
 
-(define-skeleton cc-main
-  "Insert main function."
-  nil
-  "int main(int argc, char *argv[])" \n
-  -4 "{" \n
-  _
-  \n -4 "}")
+;; skeleton >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;; (define-skeleton cc-main
+;;   "Insert main function."
+;;   nil
+;;   "int main(int argc, char *argv[])" \n
+;;   -4 "{" \n
+;;   _
+;;   \n -4 "}")
 
-(define-skeleton cc-include
-  "Insert header"
-  "this prompt is ignored"
-  ("Enter header file: " "#include " str \n))
+;; (define-skeleton cc-include
+;;   "Insert header"
+;;   "this prompt is ignored"
+;;   ("Enter header file: " "#include " str \n))
 
-(global-set-key (kbd "C-c i") 'cc-include)
-(global-set-key (kbd "C-c m") 'cc-main)
+;; (global-set-key (kbd "C-c i") 'cc-include)
+;; (global-set-key (kbd "C-c m") 'cc-main)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< skeleton
 
 (setq-default show-trailing-whitespace t)
 (setq shell-file-name "/bin/bash")
@@ -213,15 +142,20 @@ There are two things you can do about this warning:
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
-(autoload 'turn-on-fic-mode "fic-mode" nil t)
-(add-hook 'c++-mode-hook 'turn-on-fic-mode)
-(add-hook 'emacs-lisp-mode-hook 'turn-on-fic-mode)
+;; Highlight todo keywords in comment >>>>>>>>>>>>>>>>>
+(add-hook 'prog-mode-hook 'hl-todo-mode)
+;; <<<<<<<<<<<<<<<<< Highlight todo keywords in comment
 
 ;; Default bsd style use 8 offset, which is compatible to other editors, like subl, vim
 ;; (smart-tabs-insinuate 'c 'c++)
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-(setq c-basic-offset 4)
+(defun set-auto-indentation-offset ()
+  (setq c-basic-offset 4)
+  (c-set-offset 'inlambda 0)
+  (c-set-offset 'inline-open 0))
+(add-hook 'c-mode-hook 'set-auto-indentation-offset)
+(add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
@@ -315,3 +249,20 @@ There are two things you can do about this warning:
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 (eval-after-load 'yasnippet
   '(yas-reload-all))
+
+;; Keybinding for regular expression isearch
+(global-set-key (kbd "C-s") 'isearch-forward-regexp)
+(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+;; Keybinding for fuzzy isearch
+(global-set-key (kbd "C-M-s") 'flx-isearch-forward)
+(global-set-key (kbd "C-M-r") 'flx-isearch-backward)
+
+;; diff-hl >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
+(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
+(eval-after-load 'diff-hl
+  '(diff-hl-margin-mode t))
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< diff-hl
+
+;; Idel highlight symbols >>>>>>>>>>>>>>>>>>>>>>>>>>
+(add-hook 'prog-mode-hook 'idle-highlight-mode)

@@ -6,3 +6,8 @@ transient/
 init.elc
 init.el.before_ecb*
 projectile-bookmarks.eld
+.cache/
+eshell/
+ido.last
+recentf
+smex-items
