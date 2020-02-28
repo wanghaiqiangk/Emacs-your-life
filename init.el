@@ -66,11 +66,30 @@ There are two things you can do about this warning:
   '(add-to-list 'company-backends 'company-irony))
 (company-irony 1)
 
-;; ggtags
+;; ggtags >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;; Commit original ggtags if use counsel-gtags
+;; (add-hook 'c-mode-common-hook
+;;           (lambda ()
+;;             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
+;;               (ggtags-mode 1))))
+
+(require 'counsel-gtags)
+(setq counsel-gtags-auto-update t
+      counsel-gtags-ignore-case t
+      counsel-gtags-prefix-key "C-cg"
+      counsel-gtags-use-suggested-key-map t
+      counsel-gtags-use-input-at-point t)
+
 (add-hook 'c-mode-common-hook
           (lambda ()
             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-              (ggtags-mode 1))))
+              (counsel-gtags-mode 1))))
+
+(define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
+(define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-pop)
+(define-key counsel-gtags-mode-map (kbd "C-c <") 'counsel-gtags-go-forward)
+(define-key counsel-gtags-mode-map (kbd "C-c >") 'counsel-gtags-go-backward)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ggtags
 
 
 ;; Ivy, counsel, and swiper >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -83,7 +102,19 @@ There are two things you can do about this warning:
 ;;       swiper-include-line-number-in-search t)
 ;; (global-set-key (kbd "M-y") 'counsel-yank-pop)
 (global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
-(global-set-key (kbd "C-c m") 'counsel-imenu)
+(global-set-key (kbd "C-c m") 'counsel-semantic-or-imenu)
+(global-set-key (kbd "C-h f") 'counsel-describe-function)
+(global-set-key (kbd "C-h v") 'counsel-describe-variable)
+(global-set-key (kbd "C-h b") 'counsel-descbinds)
+;; Install function-args and activate it,
+;; which makes semantic-or-imenu better,
+;; or use moo-jump-local instead
+(fa-config-default)
+(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+(set-default 'semantic-case-fold t)
+;; NOTE Add the backslash before M,
+;; or don't take effect
+(define-key function-args-mode-map "\M-u" nil)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Ivy, counsel, and swiper
 
 
@@ -258,6 +289,10 @@ There are two things you can do about this warning:
 ;; Keybinding for fuzzy isearch
 (global-set-key (kbd "C-M-s") 'flx-isearch-forward)
 (global-set-key (kbd "C-M-r") 'flx-isearch-backward)
+;; Keybinding for c-function-movement
+(add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "C-x [") #'c-beginning-of-defun)))
+(add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "C-x ]") #'c-end-of-defun)))
+
 
 ;; diff-hl >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
@@ -266,9 +301,11 @@ There are two things you can do about this warning:
   '(diff-hl-margin-mode t))
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< diff-hl
 
+
 ;; Idel highlight symbols >>>>>>>>>>>>>>>>>>>>>>>>>>
 (add-hook 'prog-mode-hook 'idle-highlight-mode)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<< Idel highlight symbols
+
 
 ;; Zeal Plugin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (global-set-key (kbd "C-c z .") 'zeal-at-point)
