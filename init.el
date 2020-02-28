@@ -81,7 +81,9 @@ There are two things you can do about this warning:
 ;; (global-set-key (kbd "C-r") 'swiper-isearch-backward)
 ;; (setq ivy-display-style 'fancy
 ;;       swiper-include-line-number-in-search t)
-(global-set-key (kbd "M-y") 'counsel-yank-pop)
+;; (global-set-key (kbd "M-y") 'counsel-yank-pop)
+(global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
+(global-set-key (kbd "C-c m") 'counsel-imenu)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Ivy, counsel, and swiper
 
 
@@ -116,7 +118,7 @@ There are two things you can do about this warning:
 ;;   (align-regexp BEG END "\\(\\s-*\\)[^ ]+\\((\\|;\\)" 1 1))
 ;; (global-set-key (kbd "M-'") 'align-type-var)
 
-(global-set-key (kbd "C-x o") 'switch-window)
+(global-set-key (kbd "C-x o") 'ace-window)
 
 ;; skeleton >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ;; (define-skeleton cc-main
@@ -266,3 +268,8 @@ There are two things you can do about this warning:
 
 ;; Idel highlight symbols >>>>>>>>>>>>>>>>>>>>>>>>>>
 (add-hook 'prog-mode-hook 'idle-highlight-mode)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<< Idel highlight symbols
+
+;; Zeal Plugin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(global-set-key (kbd "C-c z .") 'zeal-at-point)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Zeal Plugin
