@@ -47,24 +47,68 @@ There are two things you can do about this warning:
 (setq select-enable-clipboard t)
 (xclip-mode 1)
 
-;; Configure company, irony and company-irony
+;; Company and Irony  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;; Company only config
+(require 'company-try-hard)
 (add-hook 'after-init-hook 'global-company-mode)
-(global-set-key (kbd "C-x p") 'company-complete)
 (setq company-clang-executable "/usr/bin/clang-3.9")
+(setq company-idle-delay 0)
+(global-set-key (kbd "C-x p") 'company-try-hard)
 
-(add-hook 'c++-mode-hook 'irony-mode)
-(add-hook 'c-mode-hook 'irony-mode)
-(add-hook 'objc-mode-hook 'irony-mode)
-(defun my-irony-mode-hook ()
-  (define-key irony-mode-map [remap completion-at-point]
-    'irony-completion-at-point-async)
-  (define-key irony-mode-map [remap complete-symbol]
-    'irony-completion-at-point-async))
-(add-hook 'irony-mode-hook 'my-irony-mode-hook)
-(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(require 'company-c-headers)
 (eval-after-load 'company
-  '(add-to-list 'company-backends 'company-irony))
-(company-irony 1)
+  '(add-to-list 'company-c-headers-path-system "/usr/include/c++/5.4.0/"))
+
+;; Irony only
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (irony-mode t))))
+;; To make irony work better,
+;; 1. irony-install-server, but this only need to run once.
+;; 2. For simple project with clear architecture,
+;;    irony-cdb-autosetup-compile-options can handle,
+;;    and always check irony-cdb-menu for validation.
+;; 3. For architecture being not clear,
+;;    run irony-cdb-json-add-compile-commands-path
+;;    to setup root directory and path to compile_commands.json,
+;;    and always check irony-cdb-menu for validation.
+(add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+
+;; Company-Irony, backends setup
+(setq-default company-backends
+              '((company-files
+                 company-keywords
+                 company-capf)
+                (company-dabbrev
+                 company-dabbrev-code)))
+;; For CMake mode
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'cmake-mode)
+              (add-to-list (make-local-variable 'company-backends)
+                         'company-cmake))))
+;; For c/c++
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (add-to-list (make-local-variable 'company-backends)
+                           '(company-c-headers
+                              company-irony)))))
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (add-to-list (make-local-variable 'company-backends)
+                           '(company-clang
+                             company-semantic)))))
+;; For python
+(require 'python)
+(add-hook 'python-mode-hook
+          (lambda ()
+            (add-to-list (make-local-variable 'company-backends)
+                         '(company-anaconda))))
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Company and Irony
+
 
 ;; ggtags >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 ;; Commit original ggtags if use counsel-gtags
@@ -191,7 +235,10 @@ There are two things you can do about this warning:
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
-(add-hook 'cmake-mode-hook 'cmake-font-lock-activate)
+(add-hook 'prog-mode-hook
+          (lambda ()
+            (when (derived-mode-p 'cmake-mode)
+              (cmake-font-lock-activate))))
 
 (global-set-key (kbd "C-c C-r") 'replace-regexp)
 (global-set-key (kbd "C-c r") 'replace-string)
@@ -217,18 +264,21 @@ There are two things you can do about this warning:
 
 (global-set-key (kbd "C-x g") 'magit-status)
 
-;; Emacs Code Brower
-(require 'ecb)
-(global-set-key (kbd "<f5>") 'ecb-minor-mode)
-(defun display-buffer-at-bottom--display-buffer-at-bottom-around (orig-fun &rest args)
-  "Bugfix for ECB: cannot use display-buffer-at-bottom', call display-buffer-use-some-window' instead in ECB frame."
-  (if (and ecb-minor-mode (equal (selected-frame) ecb-frame))
-      (apply 'display-buffer-use-some-window args)
-    (apply orig-fun args)))
-(advice-add 'display-buffer-at-bottom :around #'display-buffer-at-bottom--display-buffer-at-bottom-around)
-(setq ecb-layout-name "left11")
-(setq ecb-new-ecb-frame t)
 
+;; Emacs Code Brower >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;; (require 'ecb)
+;; (global-set-key (kbd "<f5>") 'ecb-minor-mode)
+;; (defun display-buffer-at-bottom--display-buffer-at-bottom-around (orig-fun &rest args)
+;;   "Bugfix for ECB: cannot use display-buffer-at-bottom', call display-buffer-use-some-window' instead in ECB frame."
+;;   (if (and ecb-minor-mode (equal (selected-frame) ecb-frame))
+;;       (apply 'display-buffer-use-some-window args)
+;;     (apply orig-fun args)))
+;; (advice-add 'display-buffer-at-bottom :around #'display-buffer-at-bottom--display-buffer-at-bottom-around)
+;; (setq ecb-layout-name "left11")
+;; (setq ecb-new-ecb-frame t)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Emacs Code Brower
+
+;; Split two window vertically >>>>>>>>>>>>>>>>>>>>>>>>>
 (defun toggle-window-split ()
   (interactive)
   (if (= (count-windows) 2)
@@ -254,6 +304,7 @@ There are two things you can do about this warning:
           (select-window first-win)
           (if this-win-2nd (other-window 1))))))
 (global-set-key (kbd "C-x |") 'toggle-window-split)
+;; <<<<<<<<<<<<<<<<<<<<<<<<< Split two window vertically
 
 ;; neotree is a file navigator
 (require 'neotree)
