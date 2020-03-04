@@ -3,7 +3,7 @@ elpa/
 auto-save-list/
 irony/
 transient/
-init.elc
+*.elc
 init.el.before_ecb*
 projectile-bookmarks.eld
 .cache/
