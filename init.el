@@ -296,13 +296,21 @@
 (set-face-attribute 'neo-file-link-face t :foreground "white")
 (setq neo-smart-open t)
 
-;; flycheck is syntax validator
+;; flycheck is syntax validator >>>>>>>>>>>>>>>>>>>>
 (require 'flycheck)
 (flycheck-add-mode 'json-jsonlint 'json-mode)
-(add-hook 'json-mode-hook 'flycheck-mode)
-(add-hook 'c-mode-hook 'flycheck-mode)
-(add-hook 'c++-mode-hook 'flycheck-mode)
+;; (add-hook 'json-mode-hook 'flycheck-mode)
+;; (add-hook 'c-mode-hook 'flycheck-mode)
+;; (add-hook 'c++-mode-hook 'flycheck-mode)
+;; (add-hook 'python-mode-hook 'flycheck-mode)
+(add-hook 'prog-mode-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+;; flycheck for python
+(setq flycheck-python-pycompile-executable "python3")
+(setq flycheck-python-pylint-executable "python3")
+(setq flycheck-python-flake8-executable "python3")
+;; <<<<<<<<<<<<<<<<<<<< flycheck
+
 
 ;; projectile is a project manager, like any IDE does
 (require 'projectile)
@@ -345,3 +353,8 @@
 ;; Zeal Plugin >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (global-set-key (kbd "C-c z .") 'zeal-at-point)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Zeal Plugin
+
+;; Python complete >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(add-hook 'python-mode-hook 'anaconda-mode)
+(add-hook 'python-mode-hook 'anaconda-eldoc-mode)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Python complete
