@@ -214,7 +214,8 @@
 (defun set-auto-indentation-offset ()
   (setq c-basic-offset 4)
   (c-set-offset 'inlambda 0)
-  (c-set-offset 'inline-open 0))
+  (c-set-offset 'inline-open 0)
+  (c-set-offset 'case-label '+))
 (add-hook 'c-mode-hook 'set-auto-indentation-offset)
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
@@ -305,6 +306,9 @@
 ;; (add-hook 'python-mode-hook 'flycheck-mode)
 (add-hook 'prog-mode-hook 'flycheck-mode)
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
+(add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
+;; Setup clang executable for flycheck, it's usually the first checker to use
+(setq flycheck-c/c++-clang-executable "/usr/bin/clang-3.9")
 ;; flycheck for python
 (setq flycheck-python-pycompile-executable "python3")
 (setq flycheck-python-pylint-executable "python3")
