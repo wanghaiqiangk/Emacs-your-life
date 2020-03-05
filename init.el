@@ -114,9 +114,8 @@
               (counsel-gtags-mode 1))))
 
 (define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
-(define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-pop)
-(define-key counsel-gtags-mode-map (kbd "C-c <") 'counsel-gtags-go-forward)
-(define-key counsel-gtags-mode-map (kbd "C-c >") 'counsel-gtags-go-backward)
+(define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
+(define-key counsel-gtags-mode-map (kbd "C-c >") 'counsel-gtags-go-forward)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< ggtags
 
 
@@ -362,3 +361,18 @@
 (add-hook 'python-mode-hook 'anaconda-mode)
 (add-hook 'python-mode-hook 'anaconda-eldoc-mode)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Python complete
+
+;; Keybindings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (local-set-key (kbd "C-c o") #'ff-find-other-file))))
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Keybindings
+
+;; eno >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(global-set-key (kbd "C-c e w") #'eno-word-goto-inline)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< eno
+
+;; Rainbow-delimiters >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Rainbow-delimiters
