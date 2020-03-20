@@ -330,11 +330,11 @@
   '(yas-reload-all))
 
 ;; Keybinding for regular expression isearch
-(global-set-key (kbd "C-s") 'isearch-forward-regexp)
-(global-set-key (kbd "C-r") 'isearch-backward-regexp)
+;; (global-set-key (kbd "C-s") 'isearch-forward-regexp)
+;; (global-set-key (kbd "C-r") 'isearch-backward-regexp)
 ;; Keybinding for fuzzy isearch
-(global-set-key (kbd "C-M-s") 'flx-isearch-forward)
-(global-set-key (kbd "C-M-r") 'flx-isearch-backward)
+(global-set-key (kbd "C-c f s") 'flx-isearch-forward)
+(global-set-key (kbd "C-c f r") 'flx-isearch-backward)
 ;; Keybinding for c-function-movement
 (add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "C-x [") #'c-beginning-of-defun)))
 (add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "C-x ]") #'c-end-of-defun)))
@@ -376,3 +376,9 @@
 ;; Rainbow-delimiters >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Rainbow-delimiters
+
+;; Search and highlight >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(setq lazy-highlight-cleanup nil)
+(setq lazy-highlight-max-at-a-time nil)
+(setq lazy-highlight-initial-delay 0)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<< Search and highlight
