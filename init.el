@@ -377,6 +377,10 @@
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Rainbow-delimiters
 
+;; Beacon >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(beacon-mode 1)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Beacon
+
 ;; Search and highlight >>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (setq lazy-highlight-cleanup nil)
 (setq lazy-highlight-max-at-a-time nil)
