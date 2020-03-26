@@ -382,6 +382,9 @@
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Beacon
 
 ;; Search and highlight >>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(eval-after-load "isearch" '(require 'isearch+))
+(setq isearch-lazy-highlight 'all-windows)
+(setq lazy-highlight-buffer t)
 (setq lazy-highlight-cleanup nil)
 (setq lazy-highlight-max-at-a-time nil)
 (setq lazy-highlight-initial-delay 0)
