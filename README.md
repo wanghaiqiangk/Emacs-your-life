@@ -1,36 +1,86 @@
-# Keep it simple
+## Keep it simple
 
-# Setup
+I would not make emacs a clumsy IDE. Although keeping use emacs strengthens the willingness to add more and more features, packages and to make it smarter, more versatile, I have to stop and think twice that do I really need it. Keep it simple.
+
+## C/C++ Oriented
+
+I mainly write C/C++ programs with Emacs. Most of features are therefore oriented to these programming languages as well as related facilities. 
+
+But I also include some configuration for other programming languages or extensions, like python, json, shell, etc.
+
+## Term Emacs
+
+I use Emacs in terminal ("Terminator" if it's the concern). However, I recommend anyone who doesn't have persistent desire for terminal to experience graphical Emacs.
+
+Why I use terminal Emacs:
+
+- The first use of Emacs is via terminal. I get used to it.
+- Convenient. Most works are done within terminal.
+
+Why to use graphical Emacs:
+
+- Better graphical experience.
+- More key bindings to use, like the SUPER key.
+
+## Requirement
+
+- OS Ubuntu 16.04
+
+  I never used Emacs in Windows. But I did use in Mac OS and found that some features were not consistent with Ubuntu.
+
+- emacs 26.3
+
+  Download any version of emacs that you would like to. But the latest one is recommended since some features are embedded by default. Check their official website[ GNU Emacs](https://www.gnu.org/software/emacs/).
+
+- global 6.6.4
+
+  Global tags for reference/definition. The apt package for global is obsolete. Download the latest version from their official website [GNU Global](https://www.gnu.org/software/global/).
+
+  Beside, I'm interested in RTags but haven't yet played with it.
+
+- xclip
+
+  Bridge between internal clipboard and external clipboard.
+
+- libncurses-dev
+
+  I forget why to use it. It's either for xclip or ggtags.
+
+- clang-related
+
+- jsonlint, syntax checker for json.
 
 ```bash
-touch ~/.emacs
-echo "(load \"~/.emacs.d/init.el\")" >> ~/.emacs
-echo "(load \"~/.emacs.d/org.el\")" >> ~/.emacs
-sudo apt install global # for ggtags
+sudo apt install global # Not recommended
 sudo apt install xclip
-sudo apt install libncurses-dev # I forget, it's either for xclip or ggtags (install from source)
+sudo apt install libncurses-dev
 sudo apt install libclang-VERSION clang-VERSION llvm-VERSION
-```
-Note: Installing global like this way is just ok because its version is too old. It's better to manually install the lastest version of global.
-
-```bash
 sudo apt install npm # npm is a package manager writen by javascript
 sudo npm install jsonlint -g # using apt to install jsonlint doesn't take effect
 sudo ln -s /usr/bin/nodejs /usr/bin/node # if omit such step, emacs can't execute flycheck using jsonlint
 ```
 
-## Install some package
+## Setup
+
+If no Emacs is installed before, do
 
 ```bash
-emacs -nw
-M-x package-refresh-contents
-# After a while
-M-x list-packages
+git clone git@github.com:wanghaiqiangk/Emacs-your-life.git $HOME/.emacs.d
+echo "(load \"~/.emacs.d/init.el\")" >> $HOME/.emacs
+emacs -nw -q -f package-refresh-contents # quit after finished, via C-x C-c
+emacs -nw # load auto-package-install config file, you need wait for a while
 ```
+If you've installed Emacs, I think you know to use and setup it. :-)
+
+If you've byte-compiled elisp files, remember to first remove those elc files. Otherwise, it won't load auto-package-install config file.
+
+To speed up the startup of emacs, byte-compile is recommended. To byte-compile all el files in root directory, do `C-u 0 byte-recompile-directory`.
+
+## (Deprecated)Install some package
 
 Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode`, `projectile`, `yasnippets`, `yasnippets-snippets` with keystroke `i` followed by `x` to install.
 
-# Features
+## (Deprecated)Features
 
 1. Add melpa as well as melpa-stable for package managing
 
@@ -102,7 +152,7 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 
 35. Install yasnippets for template collections. It's convenient.
 
-# Other Features
+## (Deprecated)Other Features
 
 - Add markdown language support and realtime preview mode
 
