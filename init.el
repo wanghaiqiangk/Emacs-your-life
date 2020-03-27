@@ -9,7 +9,8 @@
                     :foreground "black")
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Display line number
 
-(load "highlight-indent-guides")
+;; Highlight indentation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(require 'highlight-indent-guides)
 (add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
 (setq highlight-indent-guides-method 'column)
 (setq highlight-indent-guides-auto-enabled nil)
@@ -19,6 +20,7 @@
 (setq highlight-indent-guides-delay 0)
 (set-face-background 'highlight-indent-guides-top-odd-face "#00cdcd")
 (set-face-background 'highlight-indent-guides-top-even-face "#00cdcd")
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Highlight indentation
 
 (setq c-default-style
       '((java-mode . "java")
@@ -166,8 +168,10 @@
 
 (global-undo-tree-mode)
 
-(load "doremi")
-(load "doremi-cmd")
+;; Doremi change window size >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(require 'doremi)
+(require 'doremi-cmd)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Doremi change window size
 
 ;; In vim there's easyalign
 ;; (global-unset-key (kbd "M-'"))
