@@ -374,9 +374,10 @@
               (local-set-key (kbd "C-c o") #'ff-find-other-file))))
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Keybindings
 
-;; eno >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-(global-set-key (kbd "C-c e w") #'eno-word-goto-inline)
-;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< eno
+;; avy >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+(global-set-key (kbd "C-c a w") #'avy-goto-char)
+(global-set-key (kbd "C-c a l") #'avy-goto-line)
+;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< avy
 
 ;; Rainbow-delimiters >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
