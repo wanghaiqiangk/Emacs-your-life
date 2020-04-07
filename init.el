@@ -88,7 +88,6 @@
                            '(company-clang
                              company-semantic)))))
 ;; For python
-(require 'python)
 (add-hook 'python-mode-hook
           (lambda ()
             (add-to-list (make-local-variable 'company-backends)
