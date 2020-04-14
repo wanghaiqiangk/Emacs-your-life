@@ -32,11 +32,17 @@ Why to use graphical Emacs:
 
   Download any version of emacs that you would like to. But the latest one is recommended since some features are embedded by default. Check their official website[ GNU Emacs](https://www.gnu.org/software/emacs/).
 
-- global 6.6.4
+- global 6.6.4 (**abandoned**)
 
   Global tags for reference/definition. The apt package for global is obsolete. Download the latest version from their official website [GNU Global](https://www.gnu.org/software/global/).
 
-  Beside, I'm interested in RTags but haven't yet played with it.
+  Tags do a decent job for C programming language. However, they're usually weak on process C++. Rtags is said that it has a better experience on C++ and then I move to it.
+
+- rtags (latest)
+
+  RTags is a client/server application that indexes C/C++ code and keeps a persistent file-based database of references, declarations, definitions, symbolnames etc. It uses llvm-clang.
+
+  Refer to the official [rtags-github](https://github.com/Andersbakken/rtags) and wiki for more information and installation.
 
 - xclip
 
@@ -46,19 +52,73 @@ Why to use graphical Emacs:
 
   I forget why to use it. It's either for xclip or ggtags.
 
-- clang-related
+- clang-related 3.9
+
+  Rtags, company, flycheck and many other packages rely on clang. After installing clang, emacs may still cannot find clang executable. This is because the default searching name is "clang". Therefore, creating a symbolic link or explicitly specifying searching name as "clang-VERSION" is your choice.
 
 - jsonlint, syntax checker for json.
 
 ```bash
-sudo apt install global # Not recommended
+# sudo apt install global
 sudo apt install xclip
 sudo apt install libncurses-dev
 sudo apt install libclang-VERSION clang-VERSION llvm-VERSION
+sudo ln -s /prefix_path/bin/clang-VERSION /prefix_path/bin/clang
 sudo apt install npm # npm is a package manager writen by javascript
 sudo npm install jsonlint -g # using apt to install jsonlint doesn't take effect
 sudo ln -s /usr/bin/nodejs /usr/bin/node # if omit such step, emacs can't execute flycheck using jsonlint
+# rtags begins here
+git clone --recursive https://github.com/Andersbakken/rtags.git
+cd rtags
+mkdir build
+cmake ..
+make -j8
+make install # optional
+# make sure that PATH environment variables contains the path to rtags's bin, which is created under build folder after invoking make, or in PREFIX/bin if installed.
+# rtags ends here, but not over yet
 ```
+
+To use rtags, manually starting server is clumsy. Use `systemd` on GNU/Linux.
+
+1. Add the following to `~/.config/systemd/user/rdm.socket`
+
+   ```
+   [Unit]
+   Description=RTags daemon socket
+   
+   [Socket]
+   ListenStream=%t/rdm.socket
+   
+   [Install]
+   WantedBy=default.target
+   ```
+
+2. Add the following to `~/.config/systemd/user/rdm.service`
+
+   ```
+   [Unit]
+   Description=RTags daemon
+   
+   Requires=rdm.socket
+   
+   [Service]
+   Type=simple
+   ExecStart=$RDM -v --inactivity-timeout 300 --log-flush
+   ExecStartPost=/bin/sh -c "echo +19 > /proc/$MAINPID/autogroup"
+   Nice=19
+   CPUSchedulingPolicy=idle
+   ```
+
+3. Replace `$RDM` with absolute path to `rdm` binary. `%h` is expanded to home directory and other usual environment variables aren't expanded.
+
+4. Run these in terminal
+
+   ```sh
+   systemctl --user enable rdm.socket
+   systemctl --user start rdm.socket
+   ```
+
+   
 
 ## Setup
 
@@ -75,10 +135,6 @@ If you've installed Emacs, I think you know to use and setup it. :-)
 If you've byte-compiled elisp files, remember to first remove those elc files. Otherwise, it won't load auto-package-install config file.
 
 To speed up the startup of emacs, byte-compile is recommended. To byte-compile all el files in root directory, do `C-u 0 byte-recompile-directory`.
-
-## (Deprecated)Install some package
-
-Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-preview-mode`, `undo-tree`, `smart-tabs-mode`, `magit`, `company-irony`, `irony`, `flycheck`, `json-mode`, `projectile`, `yasnippets`, `yasnippets-snippets` with keystroke `i` followed by `x` to install.
 
 ## (Deprecated)Features
 
@@ -151,15 +207,3 @@ Mark `company`, `ggtags`, `xclip`, `switch-window`, `markdown-mode`, `markdown-p
 34. Install projectile and enable it. Using `C-c p` as command prefix.
 
 35. Install yasnippets for template collections. It's convenient.
-
-## (Deprecated)Other Features
-
-- Add markdown language support and realtime preview mode
-
-- Add my custom init file, myinit.el (UPDATE: not used)
-
-- Disable truncating lines (which is default, toggle with `toggle-truncate-lines`)
-
-- Install magit package
-
-- Add org configuration, see org.el
