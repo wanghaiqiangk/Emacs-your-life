@@ -60,8 +60,20 @@
 (global-set-key (kbd "C-x p") 'company-try-hard)
 
 (require 'company-c-headers)
+(defvar default-searching-path
+  "Specify default include searching paths.")
+(setq default-searching-path
+      '("/usr/include/c++/5/"
+        "/usr/include/x86_64-linux-gnu/c++/5/"
+        "/usr/include/c++/5/backward/"
+        "/usr/lib/gcc/x86_64-linux-gnu/5/include/"
+        "/usr/local/include/"
+        "/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed/"
+        "/usr/include/x86_64-linux-gnu/"
+        "/usr/include/"))
 (eval-after-load 'company
-  '(add-to-list 'company-c-headers-path-system "/usr/include/c++/5.4.0/"))
+  '(dolist (includepath default-searching-path)
+     (add-to-list 'company-c-headers-path-system includepath)))
 
 (require 'company-rtags)
 
@@ -147,7 +159,26 @@
 (add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
 ;; <<<<<<<<<<<<<<<<<<<< flycheck
 
-;; (cmake-ide-setup)
+;; cmake-ide, should be called after rtags required
+(cmake-ide-setup)
+(setq cmake-ide-flags-c '("-I/usr/include/c++/5"
+                          "-I/usr/include/x86_64-linux-gnu/c++/5"
+                          "-I/usr/include/c++/5/backward"
+                          "-I/usr/lib/gcc/x86_64-linux-gnu/5/include"
+                          "-I/usr/local/include"
+                          "-I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"
+                          "-I/usr/include/x86_64-linux-gnu"
+                          "-I/usr/include"))
+(setq cmake-ide-flags-c++ '("-I/usr/include/c++/5"
+                            "-I/usr/include/x86_64-linux-gnu/c++/5"
+                            "-I/usr/include/c++/5/backward"
+                            "-I/usr/lib/gcc/x86_64-linux-gnu/5/include"
+                            "-I/usr/local/include"
+                            "-I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"
+                            "-I/usr/include/x86_64-linux-gnu"
+                            "-I/usr/include"))
+
+(setq gdb-show-main t)
 
 (provide 'superior-prog)
 
