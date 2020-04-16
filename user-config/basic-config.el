@@ -107,6 +107,7 @@
 ;; Fuzzy isearch
 (global-set-key (kbd "C-c f s") 'flx-isearch-forward)
 (global-set-key (kbd "C-c f r") 'flx-isearch-backward)
+(global-set-key (kbd "C-c h m") 'helm-man-woman)
 
 (provide 'basic-config)
 ;;; basic-config.el ends here
