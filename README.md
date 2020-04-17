@@ -136,6 +136,8 @@ If you've byte-compiled elisp files, remember to first remove those elc files. O
 
 To speed up the startup of emacs, byte-compile is recommended. To byte-compile all el files in root directory, do `C-u 0 byte-recompile-directory`.
 
+**Note**: The package archives for gun and melpa may not what you need. Replace them either with official URL or mirrors for your region.
+
 ## (Deprecated)Features
 
 1. Add melpa as well as melpa-stable for package managing
