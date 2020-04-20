@@ -17,7 +17,8 @@
   (c-set-offset 'inlambda 0)
   (c-set-offset 'inline-open 0)
   (c-set-offset 'case-label '+)
-  (c-set-offset 'template-args-cont 0))
+  (c-set-offset 'template-args-cont 0)
+  (c-set-offset 'inextern-lang 0))
 (add-hook 'c-mode-hook 'set-auto-indentation-offset)
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
