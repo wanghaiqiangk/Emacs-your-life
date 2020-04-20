@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: externcend
+# key: externcend
+# group: WHQ-customization
+# --
+#ifdef __cplusplus
+}
+#endif
+$0

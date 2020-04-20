@@ -1,0 +1,6 @@
+# -*- mode: snippet -*-
+# name: wangcommentprocedure
+# key: wcp
+# group: WHQ-customization
+# --
+/* !> ${1:Annotation} */$0
