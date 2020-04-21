@@ -19,10 +19,15 @@ There are two things you can do about this warning:
 1. Install an Emacs version that does support SSL and be safe.
 2. Remove this warning from your init file so you won't see it again."))
   (setq package-archives nil)
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")) t)
-  (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")) t)
+  ;; Tsinghua mirrors
+  ;; (add-to-list 'package-archives (cons "melpa" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/melpa/")) t)
+  ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")) t)
+  ;; Emacs China mirrors
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://elpa.emacs-china.org/melpa/")) t)
+  (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/")) t)
   (when (< emacs-major-version 24)
-    (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+    ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
+    (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/")))
     ))
 
 ;; Packages list in need
