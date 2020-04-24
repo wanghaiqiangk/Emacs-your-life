@@ -32,7 +32,7 @@ There are two things you can do about this warning:
 
 ;; Packages list in need
 (setq my-package-list
-      '(rtags rtags-xref company-rtags flycheck-rtags ivy-rtags pinyin-search ace-pinyin beacon eno ace-window anaconda-mode company helm helm-core irony ivy undo-tree rainbow-delimiters python company-anaconda cmake-ide company-try-hard company-c-headers counsel-gtags helm-gtags function-args zeal-at-point neotree diff-hl hl-todo idle-highlight-mode flx-ido flx-isearch smex flx company-lsp helm-lsp lsp-ivy lsp-mode lsp-treemacs lsp-ui yasnippet-snippets yasnippet cmake-font-lock cmake-mode flycheck-irony projectile flycheck-clang-analyzer flycheck json-mode xclip vlf switch-window markdown-mode magit highlight-indent-guides gnu-elpa-keyring-update ggtags evil ecb counsel company-irony))
+      '(iedit multiple-cursors tramp rtags rtags-xref company-rtags flycheck-rtags ivy-rtags pinyin-search ace-pinyin beacon eno ace-window anaconda-mode company helm helm-core irony ivy undo-tree rainbow-delimiters python company-anaconda cmake-ide company-try-hard company-c-headers counsel-gtags helm-gtags function-args zeal-at-point neotree diff-hl hl-todo idle-highlight-mode flx-ido flx-isearch smex flx company-lsp helm-lsp lsp-ivy lsp-mode lsp-treemacs lsp-ui yasnippet-snippets yasnippet cmake-font-lock cmake-mode flycheck-irony projectile flycheck-clang-analyzer flycheck json-mode xclip vlf switch-window markdown-mode magit highlight-indent-guides gnu-elpa-keyring-update ggtags evil ecb counsel company-irony))
 
 (package-initialize)
 ;; (setq package-enable-at-startup nil)
