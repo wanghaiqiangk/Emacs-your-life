@@ -12,6 +12,16 @@
 ;;
 ;;; Code:
 
+;; GUI basic settings
+;;
+(if (display-graphic-p)
+    (progn
+      (setq inhibit-startup-screen t)
+      (set-face-attribute 'default nil :height 140)
+      (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+      ))
+
+
 ;; Encoding
 ;;
 (define-coding-system-alias 'UTF-8 'utf-8)

@@ -31,10 +31,17 @@
 (setq highlight-indent-guides-responsive 'top)
 (setq highlight-indent-guides-delay 0)
 
-(set-face-background 'highlight-indent-guides-odd-face "#cd00cd")
-(set-face-background 'highlight-indent-guides-even-face "#cd00cd")
-(set-face-background 'highlight-indent-guides-top-odd-face "#00cdcd")
-(set-face-background 'highlight-indent-guides-top-even-face "#00cdcd")
+(if (display-graphic-p)
+    (progn
+      (set-face-background 'highlight-indent-guides-odd-face "#e5e5e5")
+      (set-face-background 'highlight-indent-guides-even-face "#e5e5e5")
+      (set-face-background 'highlight-indent-guides-top-odd-face "#7cfc00")
+      (set-face-background 'highlight-indent-guides-top-even-face "#7cfc00"))
+  (progn
+    (set-face-background 'highlight-indent-guides-odd-face "#cd00cd")
+    (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
+    (set-face-background 'highlight-indent-guides-top-odd-face "#00cdcd")
+    (set-face-background 'highlight-indent-guides-top-even-face "#00cdcd")))
 
 ;; magit
 (global-set-key (kbd "C-x g") 'magit-status)
@@ -42,8 +49,9 @@
 ;; diff-hl
 (add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
 (add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
-(eval-after-load 'diff-hl
-  '(diff-hl-margin-mode t))
+(if (not (display-graphic-p))
+    (eval-after-load 'diff-hl
+      '(diff-hl-margin-mode t)))
 
 ;; yasnippet configuration
 (require 'yasnippet)
