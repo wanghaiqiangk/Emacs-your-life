@@ -33,10 +33,10 @@
 
 (if (display-graphic-p)
     (progn
-      (set-face-background 'highlight-indent-guides-odd-face "#e5e5e5")
-      (set-face-background 'highlight-indent-guides-even-face "#e5e5e5")
-      (set-face-background 'highlight-indent-guides-top-odd-face "#7cfc00")
-      (set-face-background 'highlight-indent-guides-top-even-face "#7cfc00"))
+      (set-face-background 'highlight-indent-guides-odd-face "#d1d1d1")
+      (set-face-background 'highlight-indent-guides-even-face "#d1d1d1")
+      (set-face-background 'highlight-indent-guides-top-odd-face "#00ff7f")
+      (set-face-background 'highlight-indent-guides-top-even-face "#00ff7f"))
   (progn
     (set-face-background 'highlight-indent-guides-odd-face "#cd00cd")
     (set-face-background 'highlight-indent-guides-even-face "#cd00cd")

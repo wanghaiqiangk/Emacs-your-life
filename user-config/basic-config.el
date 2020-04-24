@@ -49,8 +49,8 @@
 ;; Display line number
 ;;
 (add-hook 'find-file-hook (lambda () (display-line-numbers-mode 1))) ; Emacs version is required as 26.x
-(set-face-attribute 'line-number-current-line t :background "yellow"
-                    :foreground "black")
+(set-face-background 'line-number-current-line "yellow")
+(set-face-foreground 'line-number-current-line "black")
 
 ;; Enable clipboard
 ;;
@@ -96,9 +96,16 @@
           (newline-mark 10 [182 10])
           (tab-mark 9 [8614 9] [92 9])
           )))
-(set-face-attribute 'whitespace-newline t :foreground "#cd00cd")
-(set-face-attribute 'whitespace-tab t :foreground "#cd00cd")
-(set-face-attribute 'whitespace-tab t :background 'unspecified)
+
+(if (display-graphic-p)
+    (progn
+      (set-face-foreground 'whitespace-newline "#cccccc")
+      (set-face-foreground 'whitespace-tab "#cccccc")
+      (set-face-background 'whitespace-tab 'unspecified))
+  (progn
+    (set-face-foreground 'whitespace-newline "#cd00cd")
+    (set-face-foreground 'whitespace-tab "#cd00cd")
+    (set-face-background 'whitespace-tab 'unspecified)))
 
 ;; neotree is a file navigator
 ;;
