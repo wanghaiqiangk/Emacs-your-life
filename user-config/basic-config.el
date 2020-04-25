@@ -12,7 +12,7 @@
 ;;
 ;;; Code:
 
-;; GUI basic settings
+;;; GUI basic settings
 ;;
 (if (display-graphic-p)
     (progn
@@ -22,16 +22,16 @@
       ))
 
 
-;; Encoding
+;;; Encoding
 ;;
 (define-coding-system-alias 'UTF-8 'utf-8)
 
-;; smex
+;;; smex
 ;;
 (smex-initialize)
 (global-set-key (kbd "M-x") 'smex)
 
-;; ido
+;;; ido
 ;;
 (require 'flx-ido)
 (ido-mode 1)
@@ -41,50 +41,50 @@
 (setq ido-enable-flex-matching t)
 (setq ido-use-faces nil)
 
-;; Disable backup
+;;; Disable backup
 ;;
 (setq make-backup-files nil)
 (setq backup-directory-alist '(("." . "./.emacs.bak")))
 
-;; Display line number
+;;; Display line number
 ;;
 (add-hook 'find-file-hook (lambda () (display-line-numbers-mode 1))) ; Emacs version is required as 26.x
 (set-face-background 'line-number-current-line "yellow")
 (set-face-foreground 'line-number-current-line "black")
 
-;; Enable clipboard
+;;; Enable clipboard
 ;;
 (setq select-enable-clipboard t)
 (xclip-mode 1)
 
-;; For paren
+;;; For paren
 ;;
 (electric-pair-mode 1)
 (show-paren-mode 1)
 
-;; Show current line after scrolling
+;;; Show current line after scrolling
 ;;
 (beacon-mode 1)
 
-;; Undo
+;;; Undo
 ;;
 (global-undo-tree-mode)
 
-;; change window
+;;; change window
 ;;
 (global-set-key (kbd "C-x o") 'ace-window)
 
-;; trailing whitespace
+;;; trailing whitespace
 ;;
 (setq-default show-trailing-whitespace t)
 
-;; shell in emacs
+;;; shell in emacs
 ;;
 (setq shell-file-name "/bin/bash")
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
 
-;; Whitespace newline character
+;;; Whitespace newline character
 ;;
 (global-whitespace-newline-mode 1)
 (progn
@@ -107,14 +107,14 @@
     (set-face-foreground 'whitespace-tab "#cd00cd")
     (set-face-background 'whitespace-tab 'unspecified)))
 
-;; neotree is a file navigator
+;;; neotree is a file navigator
 ;;
 (require 'neotree)
 (global-set-key (kbd "<f8>") 'neotree-toggle)
 (set-face-attribute 'neo-file-link-face t :foreground "white")
 (setq neo-smart-open t)
 
-;; Search and highlight
+;;; Search and highlight
 ;;
 (eval-after-load "isearch" '(require 'isearch+))
 (setq isearch-lazy-highlight 'all-windows)
@@ -123,12 +123,13 @@
 (setq lazy-highlight-max-at-a-time nil)
 (setq lazy-highlight-initial-delay 0)
 
-;; avy quick locater
+;;; avy quick locater
+;; A alternative is ace-jump-mode
 ;;
 (global-set-key (kbd "C-c a w") #'avy-goto-char)
 (global-set-key (kbd "C-c a l") #'avy-goto-line)
 
-;; Ivy, counsel, and swiper
+;;; Ivy, counsel, and swiper
 ;;
 (global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
 (global-set-key (kbd "C-c m") 'counsel-semantic-or-imenu)
