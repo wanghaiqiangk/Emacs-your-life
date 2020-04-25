@@ -179,6 +179,13 @@ which can be very annoying."
 The default behavior is to query beginning char for word. With prefix C-u, the query is changed for any char. With prefix C-u C-u, the query is changed for line.")
 (global-set-key (kbd "C-c a m") 'ace-mc-add-multiple-cursors)
 
+;;; Iedit mode
+;;
+(autoload 'iedit-mode "iedit"
+  "Auto load iedit-mode function from iedit package.
+However, it seems to be a little complicated. Learn it by using.")
+(global-set-key (kbd "C-c i") 'iedit-mode)
+
 (provide 'basic-config)
 
 ;;; basic-config.el ends here
