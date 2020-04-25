@@ -172,6 +172,13 @@ which can be very annoying."
   (ido-remove-tramp-from-cache)
   (ido-save-history))
 
+;;; Multiple cursors
+;;
+(autoload 'ace-mc-add-multiple-cursors "ace-mc"
+  "Auto load ace-mc-add-multiple-cursors function from ace-mc package, which works similarily as ace-jump.
+The default behavior is to query beginning char for word. With prefix C-u, the query is changed for any char. With prefix C-u C-u, the query is changed for line.")
+(global-set-key (kbd "C-c a m") 'ace-mc-add-multiple-cursors)
+
 (provide 'basic-config)
 
 ;;; basic-config.el ends here
