@@ -32,6 +32,11 @@ Why to use graphical Emacs:
 
   Download any version of emacs that you would like to. But the latest one is recommended since some features are embedded by default. Check their official website[ GNU Emacs](https://www.gnu.org/software/emacs/).
 
+  > Warning: due to a long standing Gtk+ bug
+  > https://gitlab.gnome.org/GNOME/gtk/issues/221
+  > Emacs might crash when run in daemon mode and the X11 connection is unexpectedly lost.
+  > Using an Emacs configured with --with-x-toolkit=lucid does not have this problem.
+
 - global 6.6.4 (**abandoned**)
 
   Global tags for reference/definition. The apt package for global is obsolete. Download the latest version from their official website [GNU Global](https://www.gnu.org/software/global/).
