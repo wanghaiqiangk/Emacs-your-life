@@ -63,7 +63,7 @@
 (add-hook 'prog-mode-hook 'hl-todo-mode)
 
 ;; Idel highlight symbols
-(add-hook 'prog-mode-hook 'idle-highlight-mode)
+;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
 ;; Rainbow-delimiters
 (add-hook 'prog-mode-hook 'rainbow-delimiters-mode)

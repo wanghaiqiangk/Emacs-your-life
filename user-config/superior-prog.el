@@ -56,7 +56,7 @@
 ;; Company and Irony  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (require 'company-try-hard)
 (add-hook 'after-init-hook 'global-company-mode)
-(setq company-idle-delay 0)
+(setq company-idle-delay 0.5)
 (global-set-key (kbd "C-x p") 'company-try-hard)
 
 (require 'company-c-headers)
