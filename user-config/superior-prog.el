@@ -3,19 +3,16 @@
 ;;;   None
 ;;; Code:
 
-;; Keybinding for c-function-movement
-(add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "C-x [") #'c-beginning-of-defun)))
-(add-hook 'c++-mode-hook (lambda () (local-set-key (kbd "C-x ]") #'c-end-of-defun)))
-
-;; Keybindings >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+;;; Keybinding for c/c++
 (add-hook 'c-mode-common-hook
           (lambda ()
-            (when (derived-mode-p 'c-mode 'c++-mode)
-              (local-set-key (kbd "C-c o") #'ff-find-other-file))))
-;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< Keybindings
+            (when (derived-mode-p 'c-mode 'c++mode)
+              (local-set-key (kbd "C-M-a") #'c-beginning-of-defun)
+              (local-set-key (kbd "C-M-e") #'c-end-of-defun)
+              (local-set-key (kbd "C-c o") #'ff-find-other-file)
+              )))
 
-;; Extra syntax highlight
-;; cmake
+;;; Better cmake syntax highlight
 (autoload 'cmake-font-lock-activate "cmake-font-lock" nil t)
 (add-hook 'prog-mode-hook
           (lambda ()
@@ -25,13 +22,16 @@
 ;; Code navigator
 ;; RTags >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 (require 'rtags)
-(add-hook 'c-mode-hook 'rtags-start-process-unless-running)
-(add-hook 'c++-mode-hook 'rtags-start-process-unless-running)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (rtags-start-process-unless-running))))
 
 (setq rtags-completions-enabled t)
 (setq rtags-autostart-diagnostics t)
 (rtags-enable-standard-keybindings)
 (setq rtags-display-result-backend 'ivy)
+;; (setq rtags-symbolnames-case-insensitive t)
 ;; <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< RTags
 
 ;; ggtags >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -54,7 +54,7 @@
 
 ;; Auto Completion
 ;; Company and Irony  >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-(require 'company-try-hard)
+(autoload 'company-try-hard "company-try-hard" nil t)
 (add-hook 'after-init-hook 'global-company-mode)
 (setq company-idle-delay 0.5)
 (global-set-key (kbd "C-x p") 'company-try-hard)
@@ -141,22 +141,20 @@
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-gcc-language-standard "c++11")))
 (add-hook 'c++-mode-hook (lambda () (setq flycheck-clang-language-standard "c++11")))
 
-;; Setup clang executable for flycheck, it's usually the first checker to use
-(setq flycheck-c/c++-clang-executable "/usr/bin/clang-3.9")
-
 ;; flycheck for python
 (setq flycheck-python-pycompile-executable "python3")
 (setq flycheck-python-pylint-executable "python3")
 (setq flycheck-python-flake8-executable "python3")
 
 ;; flycheck for rtags
-(setq rtags-autostart-diagnostics t)
 (defun my-flycheck-rtags-setup ()
   (flycheck-select-checker 'rtags)
   (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
   (setq-local flycheck-check-syntax-automatically nil))
-(add-hook 'c-mode-hook #'my-flycheck-rtags-setup)
-(add-hook 'c++-mode-hook #'my-flycheck-rtags-setup)
+(add-hook 'c-mode-common-hook
+          (lambda ()
+            (when (derived-mode-p 'c-mode 'c++-mode)
+              (my-flycheck-rtags-setup))))
 ;; <<<<<<<<<<<<<<<<<<<< flycheck
 
 ;; cmake-ide, should be called after rtags required
