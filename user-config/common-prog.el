@@ -77,6 +77,20 @@
 (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 (projectile-mode +1)
 
+(defun custom/delete-word (arg)
+  "Delete characters forward until encountering the end of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (delete-region (point) (progn (forward-word arg) (point))))
+
+(defun custom/backward-delete-word (arg)
+  "Delete characters backward until encountering the begnning of a word.
+With argument ARG, do this that many times."
+  (interactive "p")
+  (custom/delete-word (- arg)))
+
+(global-set-key (kbd "M-DEL") 'custom/backward-delete-word)
+
 (provide 'common-prog)
 
 ;;; common-prog.el ends here
