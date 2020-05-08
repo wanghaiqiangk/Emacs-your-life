@@ -3,6 +3,8 @@
 ;;;   Config Manager
 ;;; Code:
 
+;; (setq debug-on-error t)
+
 (add-to-list 'load-path "~/.emacs.d/configure")
 (add-to-list 'load-path "~/.emacs.d/user-config")
 

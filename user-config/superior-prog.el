@@ -60,17 +60,14 @@
 (global-set-key (kbd "C-x p") 'company-try-hard)
 
 (require 'company-c-headers)
-(defvar default-searching-path
-  "Specify default include searching paths.")
-(setq default-searching-path
-      '("/usr/include/c++/5/"
-        "/usr/include/x86_64-linux-gnu/c++/5/"
-        "/usr/include/c++/5/backward/"
-        "/usr/lib/gcc/x86_64-linux-gnu/5/include/"
-        "/usr/local/include/"
-        "/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed/"
-        "/usr/include/x86_64-linux-gnu/"
-        "/usr/include/"))
+(let* ((local-def-file "~/.emacs.d/user-config/local-def.el"))
+  (if (file-exists-p local-def-file)
+      (load local-def-file)
+    (defvar default-searching-path nil
+      "Specify default include searching paths.
+Create a new elisp file named as \"local-def.el\" in user-config directory.
+Then based on the return values from shell command \"`gcc -print-prog-name=cc1plus` -v\",
+properly define this variable.")))
 (eval-after-load 'company
   '(dolist (includepath default-searching-path)
      (add-to-list 'company-c-headers-path-system includepath)))
@@ -159,22 +156,10 @@
 
 ;; cmake-ide, should be called after rtags required
 (cmake-ide-setup)
-(setq cmake-ide-flags-c '("-I/usr/include/c++/5"
-                          "-I/usr/include/x86_64-linux-gnu/c++/5"
-                          "-I/usr/include/c++/5/backward"
-                          "-I/usr/lib/gcc/x86_64-linux-gnu/5/include"
-                          "-I/usr/local/include"
-                          "-I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"
-                          "-I/usr/include/x86_64-linux-gnu"
-                          "-I/usr/include"))
-(setq cmake-ide-flags-c++ '("-I/usr/include/c++/5"
-                            "-I/usr/include/x86_64-linux-gnu/c++/5"
-                            "-I/usr/include/c++/5/backward"
-                            "-I/usr/lib/gcc/x86_64-linux-gnu/5/include"
-                            "-I/usr/local/include"
-                            "-I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"
-                            "-I/usr/include/x86_64-linux-gnu"
-                            "-I/usr/include"))
+(dolist (sys-include-flag default-searching-path)
+  (let* ((flag-prefix "-I"))
+    (add-to-list 'cmake-ide-flags-c (concat flag-prefix sys-include-flag))
+    (add-to-list 'cmake-ide-flags-c++ (concat flag-prefix sys-include-flag))))
 
 (setq gdb-show-main t)
 

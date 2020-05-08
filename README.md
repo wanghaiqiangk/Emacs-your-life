@@ -131,7 +131,7 @@ If no Emacs is installed before, do
 
 ```bash
 git clone git@github.com:wanghaiqiangk/Emacs-your-life.git $HOME/.emacs.d
-echo "(load \"~/.emacs.d/init.el\")" >> $HOME/.emacs
+echo "(load \"~/.emacs.d/init\")" >> $HOME/.emacs
 emacs -nw -q -f package-refresh-contents # quit after finished, via C-x C-c
 emacs -nw # load auto-package-install config file, you need wait for a while
 ```
@@ -142,6 +142,48 @@ If you've byte-compiled elisp files, remember to first remove those elc files. O
 To speed up the startup of emacs, byte-compile is recommended. To byte-compile all el files in root directory, do `C-u 0 byte-recompile-directory`.
 
 **Note**: The package archives for gun and melpa may not what you need. Replace them either with official URL or mirrors for your region.
+
+### Local configure setup
+
+Some variables such as executable-paths are different from system to system. Therefore, those variables should be supplied separately by user. Create a template elisp file and then define whatever you need.
+
+```bash
+touch user-config/local-def.el
+```
+
+A sample file is like this,
+
+```lisp
+;;; local-def.el --- Specified local definitions
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Commentary:
+;;;   This file will not be indexed into git.
+;;;   Local variables or definitions specified to your computer system
+;;;     are not proper as a global, common configuration.
+;;;   Put whatever you need here and the main initialization files will
+;;;     load this file and includes all your definitions supplied below.
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;; Code:
+
+(defvar default-searching-path nil
+  "Specify default include searching paths.
+Run shell command \"`gcc -print-prog-name=cc1plus` -v\" to find values")
+(setq default-searching-path
+      '("/usr/include/c++/7/"
+        "/usr/include/x86_64-linux-gnu/c++/7/"
+        "/usr/include/c++/7/backward/"
+        "/usr/lib/gcc/x86_64-linux-gnu/7/include/"
+        "/usr/local/include/"
+        "/usr/lib/gcc/x86_64-linux-gnu/7/include-fixed/"
+        "/usr/include/x86_64-linux-gnu/"
+        "/usr/include/"))
+
+(provide 'local-def)
+
+;;; local-def.el ends here
+```
+
+
 
 ## (Deprecated)Features
 
