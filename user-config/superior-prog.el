@@ -62,7 +62,7 @@
 (require 'company-c-headers)
 (let* ((local-def-file "~/.emacs.d/user-config/local-def.el"))
   (if (file-exists-p local-def-file)
-      (load local-def-file)
+      (load (string-remove-suffix ".el" local-def-file))
     (defvar default-searching-path nil
       "Specify default include searching paths.
 Create a new elisp file named as \"local-def.el\" in user-config directory.
