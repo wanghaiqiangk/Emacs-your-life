@@ -55,7 +55,8 @@
       '(diff-hl-margin-mode t)))
 
 ;; yasnippet configuration
-(require 'yasnippet)
+;; (require 'yasnippet)
+(autoload 'yas-expand "yasnippet" nil t)
 (add-hook 'prog-mode-hook #'yas-minor-mode)
 (eval-after-load 'yasnippet
   '(yas-reload-all))
