@@ -1,9 +1,9 @@
 # -*- mode: snippet -*-
-# name: externcbeg
-# key: externcbeg
+# name: nocxxend
+# key: nocxxend
 # group: WHQ-customization
 # --
 #ifdef __cplusplus
-extern "C" {
+}
 #endif
 $0

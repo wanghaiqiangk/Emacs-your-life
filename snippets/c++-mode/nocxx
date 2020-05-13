@@ -1,9 +1,14 @@
 # -*- mode: snippet -*-
-# name: externcend
-# key: externcend
+# name: nocxx
+# key: nocxx
 # group: WHQ-customization
 # --
 #ifdef __cplusplus
+extern "C" {
+#endif
+
+$0
+
+#ifdef __cplusplus
 }
 #endif
-$0
