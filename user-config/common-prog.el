@@ -12,6 +12,28 @@
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
+;; Indent rigidly like vim << or >>
+(defun shift-text (distance)
+  (if (use-region-p)
+      (let ((mark (mark)))
+        (save-excursion
+          (indent-rigidly (region-beginning)
+                          (region-end)
+                          distance)
+          (push-mark mark t t)
+          (setq deactivate-mark nil)))
+    (indent-rigidly (line-beginning-position)
+                    (line-end-position)
+                    distance)))
+
+(defun shift-right (count)
+  (interactive "p")
+  (shift-text count))
+
+(defun shift-left (count)
+  (interactive "p")
+  (shift-text (- count)))
+
 (defun set-auto-indentation-offset ()
   (setq c-basic-offset 4)
   (c-set-offset 'inlambda 0)
