@@ -126,6 +126,9 @@
 ;;; avy quick locater
 ;; A alternative is ace-jump-mode
 ;;
+(setq ace-jump-mode-submode-list '(ace-jump-char-mode
+                                   ace-jump-word-mode
+                                   ace-jump-line-mode))
 (global-set-key (kbd "C-c 9") #'ace-jump-mode)
 ;; (global-set-key (kbd "C-c a w") #'avy-goto-char)
 ;; (global-set-key (kbd "C-c a l") #'avy-goto-line)
