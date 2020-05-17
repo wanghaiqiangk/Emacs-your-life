@@ -126,8 +126,9 @@
 ;;; avy quick locater
 ;; A alternative is ace-jump-mode
 ;;
-(global-set-key (kbd "C-c a w") #'avy-goto-char)
-(global-set-key (kbd "C-c a l") #'avy-goto-line)
+(global-set-key (kbd "C-c 9") #'ace-jump-mode)
+;; (global-set-key (kbd "C-c a w") #'avy-goto-char)
+;; (global-set-key (kbd "C-c a l") #'avy-goto-line)
 
 ;;; Ivy, counsel, and swiper
 ;;
