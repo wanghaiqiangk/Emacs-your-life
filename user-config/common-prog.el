@@ -115,6 +115,14 @@ With argument ARG, do this that many times."
 
 (global-set-key (kbd "M-DEL") 'custom/backward-delete-word)
 
+;;; Semantics Setup
+(semantic-mode 1)
+;; see variable "semantic-new-buffer-setup-functions", parser to invoke for specific mode
+(global-semantic-idle-scheduler-mode t)
+(setq semantic-idle-scheduler-idle-time 1)
+(global-semantic-idle-summary-mode 1)
+
+
 (provide 'common-prog)
 
 ;;; common-prog.el ends here
