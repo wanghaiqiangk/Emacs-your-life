@@ -144,9 +144,6 @@
 ;; which makes semantic-or-imenu better,
 ;; or use moo-jump-local instead
 (fa-config-default)
-(fa-auto)
-(setq fa-delay 1)
-(setq fa-hint-position-below nil)
 (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
 (set-default 'semantic-case-fold t)
 ;; NOTE Add the backslash before M,

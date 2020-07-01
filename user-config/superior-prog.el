@@ -88,6 +88,7 @@ properly define this variable.")))
 ;;    to setup root directory and path to compile_commands.json,
 ;;    and always check irony-cdb-menu for validation.
 (add-hook 'irony-mode-hook 'irony-cdb-autosetup-compile-options)
+(add-hook 'irony-mode-hook 'irony-eldoc)
 
 ;; Company backends setup
 (setq-default company-backends
