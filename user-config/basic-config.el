@@ -127,6 +127,7 @@
 (setq lazy-highlight-cleanup nil)
 (setq lazy-highlight-max-at-a-time nil)
 (setq lazy-highlight-initial-delay 0)
+(global-set-key (kbd "C-.") 'isearch-forward-symbol-at-point)
 
 ;;; avy quick locater
 ;; A alternative is ace-jump-mode
