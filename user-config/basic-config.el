@@ -17,8 +17,12 @@
 (if (display-graphic-p)
     (progn
       (setq inhibit-startup-screen t)
-      (set-face-attribute 'default nil :height 140)
+      (set-face-attribute 'default nil :height 180)
       (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+      (setq darkokai-mode-line-padding 1)
+      (load-theme 'darkokai t)
+      (tool-bar-mode -1)
+      (scroll-bar-mode -1)
       ))
 
 
@@ -54,6 +58,7 @@
 
 ;;; Enable clipboard
 ;;
+(delete-selection-mode)
 (setq select-enable-clipboard t)
 (xclip-mode 1)
 
@@ -99,8 +104,8 @@
 
 (if (display-graphic-p)
     (progn
-      (set-face-foreground 'whitespace-newline "#cccccc")
-      (set-face-foreground 'whitespace-tab "#cccccc")
+      (set-face-foreground 'whitespace-newline "#636363")
+      (set-face-foreground 'whitespace-tab "#636363")
       (set-face-background 'whitespace-tab 'unspecified))
   (progn
     (set-face-foreground 'whitespace-newline "#cd00cd")
