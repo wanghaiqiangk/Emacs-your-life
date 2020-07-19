@@ -16,6 +16,7 @@
 ;;
 (if (display-graphic-p)
     (progn
+      (server-start)
       (setq inhibit-startup-screen t)
       (set-face-attribute 'default nil :height 180)
       (add-to-list 'initial-frame-alist '(fullscreen . maximized))
@@ -195,6 +196,18 @@ The default behavior is to query beginning char for word. With prefix C-u, the q
   "Auto load iedit-mode function from iedit package.
 However, it seems to be a little complicated. Learn it by using.")
 (global-set-key (kbd "C-c i") 'iedit-mode)
+
+;;; Recent file functionality
+;;
+(require 'recentf)
+(recentf-mode 1)
+(setq recentf-auto-cleanup 'never)
+(global-set-key (kbd "C-x C-r") 'recentf-open-files)
+
+;;; Save history after quiting emacs
+(savehist-mode 1)
+(setq savehist-save-minibuffer-history nil)
+(setq savehist-additional-variables '(isearch-string))
 
 (provide 'basic-config)
 
