@@ -89,6 +89,11 @@
 (setq shell-file-name "/bin/bash")
 (autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
 (add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
+(defun my/terminal-emulator ()
+  "Start zsh terminal emulator."
+  (interactive)
+  (ansi-term "/usr/bin/zsh"))
+(global-set-key (kbd "s-t") 'my/terminal-emulator)
 
 ;;; Whitespace newline character
 ;;
