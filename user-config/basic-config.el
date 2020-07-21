@@ -142,6 +142,7 @@
                                    ace-jump-word-mode
                                    ace-jump-line-mode))
 (global-set-key (kbd "C-c 9") #'ace-jump-mode)
+(global-set-key (kbd "s-f") #'ace-jump-mode)
 ;; (global-set-key (kbd "C-c a w") #'avy-goto-char)
 ;; (global-set-key (kbd "C-c a l") #'avy-goto-line)
 
@@ -213,6 +214,11 @@ However, it seems to be a little complicated. Learn it by using.")
 (savehist-mode 1)
 (setq savehist-save-minibuffer-history nil)
 (setq savehist-additional-variables '(isearch-string))
+
+;;; helm
+;;
+(global-set-key (kbd "s-l") 'helm-locate)
+(global-set-key (kbd "C-c h l") 'helm-locate)
 
 (provide 'basic-config)
 
