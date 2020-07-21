@@ -12,6 +12,10 @@
 ;;
 ;;; Code:
 
+;;; use-package
+(eval-when-compile
+  (require 'use-package))
+
 ;;; GUI basic settings
 ;;
 (if (display-graphic-p)
