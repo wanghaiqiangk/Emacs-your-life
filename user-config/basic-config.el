@@ -12,43 +12,132 @@
 ;;
 ;;; Code:
 
-;;; use-package
+
+;;; basic settings for use-package
+;;
 (eval-when-compile
   (require 'use-package))
+(require 'diminish)
+(require 'bind-key)
+
+;;; Enable key-chord
+;;
+;; (use-package use-package-chords
+;;   :config (key-chord-mode 1))
 
 ;;; GUI basic settings
 ;;
-(if (display-graphic-p)
-    (progn
-      (server-start)
-      (setq inhibit-startup-screen t)
-      (set-face-attribute 'default nil :height 180)
-      (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-      (setq darkokai-mode-line-padding 1)
-      (load-theme 'darkokai t)
-      (tool-bar-mode -1)
-      (scroll-bar-mode -1)
-      ))
+(use-package emacs
+  :if (display-graphic-p)
+  :custom
+  (inhibit-startup-screen t "No startup screen")
+  (tool-bar-mode nil "No tool bar at the top of window")
+  (scroll-bar-mode nil "No scroll bar")
+  :custom-face
+  (default ((t (:height 180))))
+  :config
+  (server-start)
+  (add-to-list 'initial-frame-alist '(fullscreen . maximized))
+  (load-theme 'monokai t)
+  )
 
 
 ;;; Encoding
 ;;
 (define-coding-system-alias 'UTF-8 'utf-8)
 
-;;; smex
-;;
-(smex-initialize)
-(global-set-key (kbd "M-x") 'smex)
 
-;;; ido
+;;; Ease your M-x, using smex or helm
 ;;
-(require 'flx-ido)
-(ido-mode 1)
-(ido-everywhere 1)
-(flx-ido-mode 1)
-;; disable ido faces to see flx highlights.
-(setq ido-enable-flex-matching t)
-(setq ido-use-faces nil)
+;; For Helm
+(when (display-graphic-p)
+  (require 'helm-config))
+
+(use-package helm-mode
+  :requires (helm-config)
+  :init
+  (add-hook 'helm-mode-hook
+            (lambda ()
+              (setq completion-styles
+                    (cond ((assq 'helm-flex completion-styles-alist)
+                           '(helm-flex)) ;; emacs-26.
+                          ((assq 'flex completion-styles-alist)
+                           '(flex))))) ;; emacs-27+.
+            )
+  :config
+  (helm-mode 1)
+  (bind-key "M-x" 'helm-M-x)
+  (bind-key "C-x C-f" 'helm-find-files)
+  (bind-key "C-x b" 'helm-buffers-list)
+  (bind-key "C-x C-b" 'helm-buffers-list)
+  (bind-key "C-h a" 'helm-apropos))
+
+(use-package helm
+  :requires (helm-config)
+  :config
+  (setq helm-input-idle-delay                     0.01
+        helm-reuse-last-window-split-state        t
+        helm-always-two-windows                   t
+        helm-split-window-inside-p                nil
+        helm-actions-inherit-frame-settings       t
+        helm-use-frame-when-more-than-two-windows t
+        helm-use-frame-when-dedicated-window      t
+        helm-frame-background-color               "DarkSlateGray"
+        helm-show-action-window-other-window      'left
+        helm-move-to-line-cycle-in-source         t
+        helm-autoresize-max-height                80 ; it is %.
+        helm-autoresize-min-height                20 ; it is %.
+        helm-follow-mode-persistent               t
+        helm-candidate-number-limit               100))
+
+(use-package helm-lib
+  :requires (helm-config)
+  :config
+  (setq helm-scroll-amount 1))
+
+(use-package helm-descbinds
+  :requires (helm-config)
+  :config
+  (helm-descbinds-mode 1)
+  (setq helm-descbinds-window-style 'split-window))
+
+(use-package helm-describe-modes
+  :requires (helm-config)
+  :bind ([remap describe-mode] . helm-describe-modes))
+
+(use-package helm-adaptive
+  :config
+  (setq helm-adaptive-history-file nil)
+  (helm-adaptive-mode 1))
+
+(global-set-key (kbd "s-l") 'helm-locate)
+(global-set-key (kbd "C-c h l") 'helm-locate)
+(global-set-key (kbd "C-c h m") 'helm-man-woman)
+(global-set-key (kbd "C-c h i") 'helm-semantic-or-imenu)
+
+;; For smex
+(use-package smex
+  :if (not (display-graphic-p))
+  :config
+  (smex-initialize)
+  (bind-key "M-x" 'smex))
+
+;; Ido or helm, incrementing search and narrowing selection
+(use-package ido
+  :if (not (display-graphic-p))
+  :functions ido-everywhere
+  :custom
+  (ido-use-faces nil "To see flex highlights")
+  (ido-enable-flex-matching t "For further fuzzy matching")
+  :config
+  (ido-mode 1)
+  (ido-everywhere 1))
+
+(use-package flx-ido
+  :if (not (display-graphic-p))
+  :config
+  (flx-ido-mode 1))
+
 
 ;;; Disable backup
 ;;
@@ -57,15 +146,25 @@
 
 ;;; Display line number
 ;;
-(add-hook 'find-file-hook (lambda () (display-line-numbers-mode 1))) ; Emacs version is required as 26.x
-(set-face-background 'line-number-current-line "yellow")
-(set-face-foreground 'line-number-current-line "black")
+(use-package display-line-numbers
+  :if (>= emacs-major-version 26)
+  :hook (find-file . (lambda () (display-line-numbers-mode 1)))
+  :config
+  (set-face-background 'line-number-current-line "yellow")
+  (set-face-foreground 'line-number-current-line "black"))
+
+(use-package linum
+  :if (<= emacs-major-version 25)
+  :hook (find-file . (lambda () (global-linum-mode 1))))
 
 ;;; Enable clipboard
 ;;
-(delete-selection-mode)
-(setq select-enable-clipboard t)
-(xclip-mode 1)
+(use-package xclip
+  :init
+  (delete-selection-mode)
+  (setq select-enable-clipboard t)
+  :config
+  (xclip-mode 1))
 
 ;;; For paren
 ;;
@@ -74,15 +173,22 @@
 
 ;;; Show current line after scrolling
 ;;
-(beacon-mode 1)
+(use-package beacon
+  :diminish
+  :config
+  (beacon-mode 1))
 
 ;;; Undo
 ;;
-(global-undo-tree-mode)
+(use-package undo-tree
+  :diminish
+  :config
+  (global-undo-tree-mode))
 
 ;;; change window
 ;;
-(global-set-key (kbd "C-x o") 'ace-window)
+(use-package ace-window
+  :bind ("C-x o" . ace-window))
 
 ;;; trailing whitespace
 ;;
@@ -90,139 +196,157 @@
 
 ;;; shell in emacs
 ;;
-(setq shell-file-name "/bin/bash")
-(autoload 'ansi-color-for-comint-mode-on "ansi-color" nil t)
-(add-hook 'shell-mode-hook 'ansi-color-for-comint-mode-on t)
-(defun my/terminal-emulator ()
-  "Start zsh terminal emulator."
+(use-package ansi-color
+  :hook (shell-mode . ansi-color-for-comint-mode-on))
+(defun my/set-system-terminal-emulator ()
+  "Start terminal emulator based on environment variable SHELL."
   (interactive)
-  (ansi-term "/usr/bin/zsh"))
-(global-set-key (kbd "s-t") 'my/terminal-emulator)
+  (ansi-term (replace-regexp-in-string "[ \t\n]*\\'" "" (shell-command-to-string "echo $SHELL"))))
+(use-package term
+  :bind ("s-t" . my/set-system-terminal-emulator))
 
 ;;; Whitespace newline character
 ;;
-(global-whitespace-newline-mode 1)
-(progn
-  (setq whitespace-style (quote (tabs tab-mark newline newline-mark)))
-  ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “↦” for tab.
-  (setq whitespace-display-mappings
-        ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
-        '(
-          (newline-mark 10 [182 10])
-          (tab-mark 9 [8614 9] [92 9])
-          )))
-
-(if (display-graphic-p)
-    (progn
-      (set-face-foreground 'whitespace-newline "#636363")
-      (set-face-foreground 'whitespace-tab "#636363")
-      (set-face-background 'whitespace-tab 'unspecified))
+(use-package whitespace
+  :config
+  (global-whitespace-newline-mode 1)
   (progn
-    (set-face-foreground 'whitespace-newline "#cd00cd")
-    (set-face-foreground 'whitespace-tab "#cd00cd")
-    (set-face-background 'whitespace-tab 'unspecified)))
+    (setq whitespace-style (quote (tabs tab-mark newline newline-mark)))
+    ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “↦” for tab.
+    (setq whitespace-display-mappings
+          ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
+          '(
+            (newline-mark 10 [182 10])
+            (tab-mark 9 [8614 9] [92 9])
+            )))
+  (if (display-graphic-p)
+      (progn
+        (set-face-foreground 'whitespace-newline "#636363")
+        (set-face-foreground 'whitespace-tab "#636363")
+        (set-face-background 'whitespace-tab 'unspecified))
+    (progn
+      (set-face-foreground 'whitespace-newline "#cd00cd")
+      (set-face-foreground 'whitespace-tab "#cd00cd")
+      (set-face-background 'whitespace-tab 'unspecified))))
 
 ;;; neotree is a file navigator
 ;;
-(require 'neotree)
-(global-set-key (kbd "<f8>") 'neotree-toggle)
-(set-face-attribute 'neo-file-link-face t :foreground "white")
-(setq neo-smart-open t)
+(use-package neotree
+  :bind ([f8] . neotree-toggle)
+  :custom
+  (neo-smart-open t)
+  :custom-face
+  (neo-file-link-face ((t (:foreground "white")))))
 
 ;;; Search and highlight
 ;;
-(eval-after-load "isearch" '(require 'isearch+))
-(setq isearch-lazy-highlight 'all-windows)
-(setq lazy-highlight-buffer t)
-(setq lazy-highlight-cleanup nil)
-(setq lazy-highlight-max-at-a-time nil)
-(setq lazy-highlight-initial-delay 0)
-(global-set-key (kbd "C-.") 'isearch-forward-symbol-at-point)
+(use-package isearch+
+  :after (isearch)
+  :custom
+  (isearch-lazy-highlight 'all-windows)
+  (lazy-highlight-buffer t)
+  (lazy-highlight-cleanup nil)
+  (lazy-highlight-max-at-a-time nil)
+  (lazy-highlight-initial-delay 0)
+  :config
+  (bind-key "C-." 'isearch-forward-symbol-at-point))
 
-;;; avy quick locater
-;; A alternative is ace-jump-mode
+;;; avy quick locater, oralternatively use ace-jump-mode
 ;;
-(setq ace-jump-mode-submode-list '(ace-jump-char-mode
-                                   ace-jump-word-mode
-                                   ace-jump-line-mode))
-(global-set-key (kbd "C-c 9") #'ace-jump-mode)
-(global-set-key (kbd "s-f") #'ace-jump-mode)
+(use-package ace-jump-mode
+  :custom
+  (ace-jump-mode-submode-list '(ace-jump-char-mode
+                                ace-jump-word-mode
+                                ace-jump-line-mode))
+  :bind
+  ("C-c 9" . ace-jump-mode)
+  ("s-f" . ace-jump-mode))
 ;; (global-set-key (kbd "C-c a w") #'avy-goto-char)
 ;; (global-set-key (kbd "C-c a l") #'avy-goto-line)
 
-;;; Ivy, counsel, and swiper
+
+;;; Ivy, counsel, and swiper for emacs completion, function, and search
 ;;
-(global-set-key (kbd "C-x C-b") 'counsel-ibuffer)
-(global-set-key (kbd "C-c m") 'counsel-semantic-or-imenu)
-(global-set-key (kbd "C-h f") 'counsel-describe-function)
-(global-set-key (kbd "C-h v") 'counsel-describe-variable)
-(global-set-key (kbd "C-h b") 'counsel-descbinds)
+(use-package counsel
+  :if (not (display-graphic-p))
+  :bind
+  (("C-x C-b" . counsel-ibuffer)
+   ("C-c m" . counsel-semantic-or-imenu)
+   ("C-h f" . counsel-describe-function)
+   ("C-h v" . counsel-describe-variable)
+   ("C-h b" . counsel-descbinds)))
 ;; Install function-args and activate it,
 ;; which makes semantic-or-imenu better,
 ;; or use moo-jump-local instead
-(fa-config-default)
-(add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-(set-default 'semantic-case-fold t)
-;; NOTE Add the backslash before M,
-;; or don't take effect
-(define-key function-args-mode-map "\M-u" nil)
+(use-package function-args
+  :config
+  (fa-config-default)
+  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
+  (set-default 'semantic-case-fold t)
+  ;; NOTE Add the backslash before M,
+  ;; or don't take effect
+  (define-key function-args-mode-map "\M-u" nil))
+
 
 ;;; Keybindings --------------------
 ;;
-(global-set-key (kbd "C-c C-r") 'replace-regexp)
-(global-set-key (kbd "C-c r") 'replace-string)
+(use-package smart-replace
+  :bind ("C-c C-r" . smart-replace-mode))
 ;; Fuzzy isearch
-(global-set-key (kbd "C-c f s") 'flx-isearch-forward)
-(global-set-key (kbd "C-c f r") 'flx-isearch-backward)
-(global-set-key (kbd "C-c h m") 'helm-man-woman)
+(use-package flx-isearch
+  :bind (([remap isearch-forward-regexp] . flx-isearch-forward)
+         ([remap isearch-backward-regexp] . flx-isearch-backward)))
+;; key-chord
+;; (key-chord-define-global "gg" 'goto-line)
 
 ;;; Tramp bug maybe
 ;;
-(defun ido-remove-tramp-from-cache nil
-  "Remove any TRAMP entries from `ido-dir-file-cache'.
+(with-eval-after-load "ido"
+  (defun ido-remove-tramp-from-cache nil
+    "Remove any TRAMP entries from `ido-dir-file-cache'.
 This stops tramp from trying to connect to remote hosts on Emacs startup,
 which can be very annoying."
-  (interactive)
-  (setq ido-dir-file-cache
-        (cl-remove-if
-         (lambda (x)
-           (string-match "/\\(rsh\\|ssh\\|telnet\\|su\\|sudo\\|sshx\\|krlogin\\|ksu\\|rcp\\|scp\\|rsync\\|scpx\\|fcp\\|nc\\|ftp\\|smb\\|adb\\):" (car x)))
-         ido-dir-file-cache)))
-;; redefine `ido-kill-emacs-hook' so that cache is cleaned before being saved
-(defun ido-kill-emacs-hook ()
-  (ido-remove-tramp-from-cache)
-  (ido-save-history))
+    (interactive)
+    (setq ido-dir-file-cache
+          (cl-remove-if
+           (lambda (x)
+             (string-match "/\\(rsh\\|ssh\\|telnet\\|su\\|sudo\\|sshx\\|krlogin\\|ksu\\|rcp\\|scp\\|rsync\\|scpx\\|fcp\\|nc\\|ftp\\|smb\\|adb\\):" (car x)))
+           ido-dir-file-cache)))
+
+  (defun ido-kill-emacs-hook ()
+    "Redefine `ido-kill-emacs-hook' so that cache is cleaned before being saved."
+    (ido-remove-tramp-from-cache)
+    (ido-save-history)))
+
 
 ;;; Multiple cursors
 ;;
-(autoload 'ace-mc-add-multiple-cursors "ace-mc"
-  "Auto load ace-mc-add-multiple-cursors function from ace-mc package, which works similarily as ace-jump.
-The default behavior is to query beginning char for word. With prefix C-u, the query is changed for any char. With prefix C-u C-u, the query is changed for line.")
-(global-set-key (kbd "C-c a m") 'ace-mc-add-multiple-cursors)
+(use-package ace-mc
+  :bind (("C-c a m" . ace-mc-add-multiple-cursors)
+         ("s-c" . ace-mc-add-multiple-cursors)))
 
 ;;; Iedit mode
 ;;
-(autoload 'iedit-mode "iedit"
-  "Auto load iedit-mode function from iedit package.
-However, it seems to be a little complicated. Learn it by using.")
-(global-set-key (kbd "C-c i") 'iedit-mode)
+(use-package iedit
+  :bind ("C-c i" . iedit-mode))
 
 ;;; Recent file functionality
 ;;
-(require 'recentf)
-(recentf-mode 1)
-(setq recentf-auto-cleanup 'never)
-(global-set-key (kbd "C-x C-r") 'recentf-open-files)
+(use-package recentf
+  :init (recentf-mode 1)
+  :config
+  (setq recentf-auto-cleanup 'never)
+  :bind ("C-x C-r" . recentf-open-files))
+
 
 ;;; Save history after quiting emacs
-(savehist-mode 1)
-(setq savehist-save-minibuffer-history nil)
-(setq savehist-additional-variables '(isearch-string))
-
-;;; helm
 ;;
-(global-set-key (kbd "s-l") 'helm-locate)
-(global-set-key (kbd "C-c h l") 'helm-locate)
+(use-package savehist
+  :init (savehist-mode 1)
+  :config
+  (setq savehist-save-minibuffer-history nil)
+  (setq savehist-additional-variables '(isearch-string)))
+
 
 (provide 'basic-config)
 
