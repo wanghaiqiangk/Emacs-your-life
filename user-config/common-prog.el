@@ -2,17 +2,20 @@
 ;;; Commentary:
 ;;; Code:
 
-;; Code style
+;;; Code style
+;;
 (setq c-default-style
       '((java-mode . "java")
         (awk-mode . "awk")
         (other . "linux")))
 
-;; Default bsd style use 8 offset, I use 4 offset
+;;; Default bsd style use 8 offset, I use 4 offset
+;;
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
 
-;; Indent rigidly like vim << or >>
+;;; Indent rigidly like vim << or >>
+;;
 (defun shift-text (distance)
   (if (use-region-p)
       (let ((mark (mark)))
@@ -35,6 +38,7 @@
   (shift-text (- count)))
 
 (defun set-auto-indentation-offset ()
+  "My prefer indentation style."
   (setq c-basic-offset 4)
   (c-set-offset 'inlambda 0)
   (c-set-offset 'inline-open 0)
@@ -46,61 +50,86 @@
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
 ;; Highlight indentation
-(require 'highlight-indent-guides)
-(add-hook 'prog-mode-hook 'highlight-indent-guides-mode)
-
-(setq highlight-indent-guides-method 'column)
-(setq highlight-indent-guides-auto-enabled nil)
-(setq highlight-indent-guides-responsive 'top)
-(setq highlight-indent-guides-delay 0)
-
-(if (display-graphic-p)
+(use-package highlight-indent-guides
+  :hook (prog-mode . highlight-indent-guides-mode)
+  :diminish
+  :custom
+  (highlight-indent-guides-method 'column)
+  (highlight-indent-guides-auto-enabled nil)
+  (highlight-indent-guides-responsive 'top)
+  (highlight-indent-guides-delay 0)
+  :config
+  (if (display-graphic-p)
+      (progn
+        (set-face-background 'highlight-indent-guides-odd-face "#636363")
+        (set-face-background 'highlight-indent-guides-even-face "#636363")
+        (set-face-background 'highlight-indent-guides-top-odd-face "#00ff7f")
+        (set-face-background 'highlight-indent-guides-top-even-face "#00ff7f"))
     (progn
-      (set-face-background 'highlight-indent-guides-odd-face "#636363")
-      (set-face-background 'highlight-indent-guides-even-face "#636363")
-      (set-face-background 'highlight-indent-guides-top-odd-face "#00ff7f")
-      (set-face-background 'highlight-indent-guides-top-even-face "#00ff7f"))
-  (progn
-    (set-face-background 'highlight-indent-guides-odd-face "#cd00cd")
-    (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
-    (set-face-background 'highlight-indent-guides-top-odd-face "#00cdcd")
-    (set-face-background 'highlight-indent-guides-top-even-face "#00cdcd")))
+      (set-face-background 'highlight-indent-guides-odd-face "#cd00cd")
+      (set-face-background 'highlight-indent-guides-even-face "#cd00cd")
+      (set-face-background 'highlight-indent-guides-top-odd-face "#00cdcd")
+      (set-face-background 'highlight-indent-guides-top-even-face "#00cdcd"))))
 
-;; magit
-(global-set-key (kbd "C-x g") 'magit-status)
 
-;; diff-hl
-(add-hook 'prog-mode-hook 'turn-on-diff-hl-mode)
-(add-hook 'vc-dir-mode-hook 'turn-on-diff-hl-mode)
-(if (not (display-graphic-p))
-    (eval-after-load 'diff-hl
-      '(diff-hl-margin-mode t)))
+;;; git client
+;;
+(use-package magit
+  :bind ("C-x g" . magit-status))
 
-;; yasnippet configuration
-;; (require 'yasnippet)
-(autoload 'yas-expand "yasnippet" nil t)
-(add-hook 'prog-mode-hook #'yas-minor-mode)
-(eval-after-load 'yasnippet
-  '(yas-reload-all))
+;;; diff-hl
+;;
+(use-package diff-hl
+  :config
+  (global-diff-hl-mode)
+  (diff-hl-flydiff-mode)
+  (if (not (display-graphic-p))
+      (diff-hl-margin-mode t)))
 
-;; Highlight todo keywords in comment
-(add-hook 'prog-mode-hook 'hl-todo-mode)
 
-;; Idel highlight symbols
+;;; yasnippet configuration
+;;
+(use-package yasnippet
+  :commands (yas-expand)
+  :hook (prog-mode . yas-minor-mode)
+  :config
+  (yas-reload-all nil))
+
+
+;;; Highlight todo keywords in comment
+;;
+(use-package hl-todo
+  :defer t
+  :hook (prog-mode . hl-todo-mode))
+
+
+;;; Idel highlight symbols
+;;
 ;; (add-hook 'prog-mode-hook 'idle-highlight-mode)
 
-;; Rainbow-delimiters
-(add-hook 'prog-mode-hook 'rainbow-delimiters-mode)
 
-;; Zeal Plugin
-(global-set-key (kbd "C-c z .") 'zeal-at-point)
+;;; Rainbow-delimiters
+;;
+(use-package rainbow-delimiters
+  :hook (prog-mode . rainbow-delimiters-mode))
 
-;; projectile is a project manager, like any IDE does
-(require 'projectile)
-(define-key projectile-mode-map (kbd "s-p") 'projectile-command-map)
-(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
-(projectile-mode +1)
 
+;;; Zeal Plugin
+;;
+;; (global-set-key (kbd "C-c z .") 'zeal-at-point)
+
+
+;;; projectile is a project manager, like any IDE does
+;;
+(use-package projectile
+  :bind-keymap
+  ("C-c p" . projectile-command-map)
+  :config
+  (projectile-mode +1))
+
+
+;;; Backward delete word
+;;
 (defun custom/delete-word (arg)
   "Delete characters forward until encountering the end of a word.
 With argument ARG, do this that many times."
@@ -115,12 +144,16 @@ With argument ARG, do this that many times."
 
 (global-set-key (kbd "M-DEL") 'custom/backward-delete-word)
 
+
 ;;; Semantics Setup
-(semantic-mode 1)
-;; see variable "semantic-new-buffer-setup-functions", parser to invoke for specific mode
-(global-semantic-idle-scheduler-mode t)
-(setq semantic-idle-scheduler-idle-time 1)
-(global-semantic-idle-summary-mode 0)
+;;
+(use-package semantic
+  :defines semantic-idle-scheduler-idle-time
+  :config
+  (semantic-mode 1)
+  (global-semantic-idle-scheduler-mode t)
+  (setq semantic-idle-scheduler-idle-time 1)
+  (global-semantic-idle-summary-mode 0))
 
 
 (provide 'common-prog)
