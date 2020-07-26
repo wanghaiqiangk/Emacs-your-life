@@ -16,9 +16,4 @@
 (load "common-prog")
 (load "superior-prog")
 
-(require 'window-split)
-(require 'vlf-setup)
-(require 'doremi)
-(require 'doremi-cmd)
-
 ;;; init.el ends here

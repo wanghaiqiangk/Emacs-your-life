@@ -19,6 +19,7 @@
   (require 'use-package))
 (require 'diminish)
 (require 'bind-key)
+(require 'vlf-setup)
 
 ;;; Enable key-chord
 ;;
@@ -58,12 +59,7 @@
   :init
   (add-hook 'helm-mode-hook
             (lambda ()
-              (setq completion-styles
-                    (cond ((assq 'helm-flex completion-styles-alist)
-                           '(helm-flex)) ;; emacs-26.
-                          ((assq 'flex completion-styles-alist)
-                           '(flex))))) ;; emacs-27+.
-            )
+              (add-to-list 'completion-styles 'helm-flex)))
   :config
   (helm-mode 1)
   (bind-key "M-x" 'helm-M-x)
@@ -346,6 +342,13 @@ which can be very annoying."
   :config
   (setq savehist-save-minibuffer-history nil)
   (setq savehist-additional-variables '(isearch-string)))
+
+(use-package window-split
+  :bind ("C-x |" . toggle-window-split))
+
+
+;; (require 'doremi)
+;; (require 'doremi-cmd)
 
 
 (provide 'basic-config)
