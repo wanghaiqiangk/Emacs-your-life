@@ -335,9 +335,12 @@ which can be very annoying."
 ;;
 (use-package savehist
   :init (savehist-mode 1)
-  :config
-  (setq savehist-save-minibuffer-history nil)
-  (setq savehist-additional-variables '(isearch-string)))
+  :custom
+  (history-delete-duplicates t)
+  (savehist-save-minibuffer-history t)
+  (savehist-additional-variables '(kill-ring
+                                   search-ring
+                                   regexp-search-ring)))
 
 (use-package window-split
   :bind ("C-x |" . toggle-window-split))
