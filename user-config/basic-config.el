@@ -56,10 +56,6 @@
 
 (use-package helm-mode
   :requires (helm-config)
-  :init
-  (add-hook 'helm-mode-hook
-            (lambda ()
-              (add-to-list 'completion-styles 'helm-flex)))
   :config
   (helm-mode 1)
   (bind-key "M-x" 'helm-M-x)
@@ -70,21 +66,21 @@
 
 (use-package helm
   :requires (helm-config)
-  :config
-  (setq helm-input-idle-delay                     0.01
-        helm-reuse-last-window-split-state        t
-        helm-always-two-windows                   t
-        helm-split-window-inside-p                nil
-        helm-actions-inherit-frame-settings       t
-        helm-use-frame-when-more-than-two-windows t
-        helm-use-frame-when-dedicated-window      t
-        helm-frame-background-color               "DarkSlateGray"
-        helm-show-action-window-other-window      'left
-        helm-move-to-line-cycle-in-source         t
-        helm-autoresize-max-height                80 ; it is %.
-        helm-autoresize-min-height                20 ; it is %.
-        helm-follow-mode-persistent               t
-        helm-candidate-number-limit               100))
+  :custom
+  (helm-input-idle-delay                     0.01)
+  (helm-reuse-last-window-split-state        t)
+  (helm-always-two-windows                   t)
+  (helm-split-window-inside-p                nil)
+  (helm-actions-inherit-frame-settings       t)
+  (helm-use-frame-when-more-than-two-windows t)
+  (helm-use-frame-when-dedicated-window      t)
+  (helm-frame-background-color               "DarkSlateGray")
+  (helm-show-action-window-other-window      'left)
+  (helm-move-to-line-cycle-in-source         t)
+  (helm-autoresize-max-height                80)
+  (helm-autoresize-min-height                20)
+  (helm-follow-mode-persistent               t)
+  (helm-candidate-number-limit               100))
 
 (use-package helm-lib
   :requires (helm-config)
