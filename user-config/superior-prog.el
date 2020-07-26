@@ -66,22 +66,23 @@
   :hook (after-init . global-company-mode)
   :custom
   (company-idel-delay 0.5)
-  (company-backends '((company-files
-                       company-keywords
-                       company-capf)
-                      (company-dabbrev
-                       company-dabbrev-code)))
+  (company-backends '(company-files
+                      company-keywords
+                      company-capf
+                      company-dabbrev
+                      company-dabbrev-code))
+  (company-irony-ignore-case t)
   :hook
   (cmake-mode . (lambda ()
                   (add-to-list (make-local-variable 'company-backends)
                                'company-cmake)))
   ((c-mode c++-mode) . (lambda ()
-                        (add-to-list (make-local-variable 'company-backends)
-                                     '((company-rtags
+                         (add-to-list (make-local-variable 'company-backends)
+                                      '(company-rtags
                                         company-c-headers
-                                        company-irony)
-                                       (company-clang
-                                        company-semantic)))))
+                                        company-irony
+                                        company-clang
+                                        company-semantic))))
   (python-mode . (lambda ()
                    (add-to-list (make-local-variable 'company-backends)
                                 '(company-anaconda)))))
