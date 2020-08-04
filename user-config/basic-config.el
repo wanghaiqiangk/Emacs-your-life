@@ -39,7 +39,7 @@
   :config
   (server-start)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
-  (load-theme 'monokai t)
+  (load-theme 'solarized-light t)
   )
 
 
@@ -209,12 +209,12 @@
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
           '(
             (newline-mark 10 [182 10])
-            (tab-mark 9 [8614 9] [92 9])
+            (tab-mark 9 [11134 9] [92 9])
             )))
   (if (display-graphic-p)
       (progn
-        (set-face-foreground 'whitespace-newline "#636363")
-        (set-face-foreground 'whitespace-tab "#636363")
+        (set-face-foreground 'whitespace-newline "#eddfba")
+        (set-face-foreground 'whitespace-tab "#eddfba")
         (set-face-background 'whitespace-tab 'unspecified))
     (progn
       (set-face-foreground 'whitespace-newline "#cd00cd")
@@ -227,8 +227,12 @@
   :bind ([f8] . neotree-toggle)
   :custom
   (neo-smart-open t)
-  :custom-face
-  (neo-file-link-face ((t (:foreground "white")))))
+  ;; :custom-face
+  ;; (neo-file-link-face ((t (:foreground "black"))))
+  :config
+  (if (display-graphic-p)
+      (set-face-foreground 'neo-file-link-face "black" t)
+    (set-face-foreground 'neo-file-link-face "white" t)))
 
 ;;; Search and highlight
 ;;

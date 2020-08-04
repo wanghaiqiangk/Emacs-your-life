@@ -61,8 +61,8 @@
   :config
   (if (display-graphic-p)
       (progn
-        (set-face-background 'highlight-indent-guides-odd-face "#636363")
-        (set-face-background 'highlight-indent-guides-even-face "#636363")
+        (set-face-background 'highlight-indent-guides-odd-face "#eddfba")
+        (set-face-background 'highlight-indent-guides-even-face "#eddfba")
         (set-face-background 'highlight-indent-guides-top-odd-face "#00ff7f")
         (set-face-background 'highlight-indent-guides-top-even-face "#00ff7f"))
     (progn
