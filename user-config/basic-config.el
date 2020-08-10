@@ -25,7 +25,6 @@
 ;;
 ;; (use-package use-package-chords
 ;;   :config (key-chord-mode 1))
-(server-start)
 
 ;;; GUI basic settings
 ;;
@@ -38,6 +37,7 @@
   :custom-face
   (default ((t (:height 180))))
   :config
+  (server-start)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
   (load-theme 'solarized-light t)
   )
