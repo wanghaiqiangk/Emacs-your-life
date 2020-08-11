@@ -270,7 +270,8 @@
    ("C-c m" . counsel-semantic-or-imenu)
    ("C-h f" . counsel-describe-function)
    ("C-h v" . counsel-describe-variable)
-   ("C-h b" . counsel-descbinds)))
+   ("C-h b" . counsel-descbinds)
+   ("C-h a" . counsel-apropos)))
 ;; Install function-args and activate it,
 ;; which makes semantic-or-imenu better,
 ;; or use moo-jump-local instead
@@ -348,6 +349,9 @@ which can be very annoying."
 
 (use-package window-split
   :bind ("C-x |" . toggle-window-split))
+
+(use-package find-file
+  :bind ("C-c o" . ff-find-other-file))
 
 
 ;; (require 'doremi)
