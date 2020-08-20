@@ -353,6 +353,9 @@ which can be very annoying."
 (use-package find-file
   :bind ("C-c o" . ff-find-other-file))
 
+(use-package syslog-mode
+  :mode ("syslog\\(?:\\.[[:digit:]]\\)?\\'" . syslog-mode))
+
 
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)
