@@ -25,6 +25,7 @@
 ;;
 ;; (use-package use-package-chords
 ;;   :config (key-chord-mode 1))
+(menu-bar-mode -1)
 
 ;;; GUI basic settings
 ;;
