@@ -26,6 +26,8 @@
 ;; (use-package use-package-chords
 ;;   :config (key-chord-mode 1))
 (menu-bar-mode -1)
+(column-number-mode 1)
+(global-display-fill-column-indicator-mode 1)
 
 ;;; GUI basic settings
 ;;
