@@ -217,7 +217,7 @@
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
           '(
             (newline-mark 10 [182 10])
-            (tab-mark 9 [11134 9] [92 9])
+            (tab-mark 9 [10155 9] [92 9])
             )))
   (if (display-graphic-p)
       (progn
