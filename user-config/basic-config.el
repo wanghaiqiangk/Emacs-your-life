@@ -48,6 +48,11 @@
 
 ;;; Encoding
 ;;
+(prefer-coding-system       'utf-8)
+(set-default-coding-systems 'utf-8)
+(set-terminal-coding-system 'utf-8)
+(set-keyboard-coding-system 'utf-8)
+(setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 (define-coding-system-alias 'UTF-8 'utf-8)
 
 
