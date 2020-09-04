@@ -35,6 +35,10 @@
   :config
   (rtags-enable-standard-keybindings))
 
+;; New functionality, indicating whether current buffer is indexed
+;; idea: use `rtags-is-indexed' to change mode-line
+;;       encapsulate as function and load after cmake-ide
+
 
 ;;; ggtags
 ;;
