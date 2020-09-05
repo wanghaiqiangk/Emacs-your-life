@@ -364,6 +364,9 @@ which can be very annoying."
 (use-package syslog-mode
   :mode ("syslog\\(?:\\.[[:digit:]]\\)?\\'" . syslog-mode))
 
+(use-package which-key
+  :hook (after-init . which-key-mode))
+
 
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)
