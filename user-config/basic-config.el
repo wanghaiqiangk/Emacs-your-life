@@ -367,6 +367,8 @@ which can be very annoying."
 (use-package which-key
   :hook (after-init . which-key-mode))
 
+;;; rgrep
+(add-to-list 'grep-files-aliases '("chp" . "*.[ch] *.[ch]pp"))
 
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)
