@@ -85,8 +85,9 @@
                                       '(company-rtags
                                         company-c-headers
                                         company-irony
-                                        company-clang
-                                        company-semantic))))
+                                        ;; company-clang
+                                        ;; company-semantic
+                                        ))))
   (python-mode . (lambda ()
                    (add-to-list (make-local-variable 'company-backends)
                                 '(company-anaconda)))))

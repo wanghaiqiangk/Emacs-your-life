@@ -150,7 +150,7 @@ With argument ARG, do this that many times."
 (use-package semantic
   :defines semantic-idle-scheduler-idle-time
   :config
-  (semantic-mode 1)
+  (semantic-mode -1)
   (global-semantic-idle-scheduler-mode t)
   (setq semantic-idle-scheduler-idle-time 1)
   (global-semantic-idle-summary-mode 0))
