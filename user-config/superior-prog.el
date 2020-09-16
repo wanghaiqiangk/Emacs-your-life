@@ -29,9 +29,10 @@
                                   (rtags-start-process-unless-running))))
   :custom
   (rtags-completions-enabled t)
-  (rtags-autostart-diagnostics t)
+  ;; (rtags-autostart-diagnostics t)
   (rtags-display-result-backend 'helm)
   (rtags-symbolnames-case-insensitive t)
+  ;; (rtags-display-current-error-as-tooltip nil)
   :config
   (rtags-enable-standard-keybindings))
 
@@ -138,28 +139,28 @@ properly define this variable.")))
 
 ;;; flycheck is syntax validator
 ;;
-(use-package flycheck
-  :config
-  (flycheck-add-mode 'json-jsonlint 'json-mode)
-  :hook
-  (prog-mode . flycheck-mode)
-  (c++-mode . (lambda ()
-                (progn
-                  (setq flycheck-gcc-language-standard "c++11")
-                  (setq flycheck-clang-language-standard "c++11"))))
-  (python-mode . (lambda ()
-                   (progn
-                     (setq flycheck-python-pycompile-executable "python3")
-                     (setq flycheck-python-pylint-executable "python3")
-                     (setq flycheck-python-flake8-executable "python3")))))
+;; (use-package flycheck
+;;   :config
+;;   (flycheck-add-mode 'json-jsonlint 'json-mode)
+;;   :hook
+;;   (prog-mode . (lambda ()
+;;                  (flycheck-mode 1)
+;;                  (when (derived-mode-p 'c++-mode)
+;;                    (setq flycheck-gcc-language-standard "c++11")
+;;                    (setq flycheck-clang-language-standard "c++11"))))
+;;   (python-mode . (lambda ()
+;;                    (progn
+;;                      (setq flycheck-python-pycompile-executable "python3")
+;;                      (setq flycheck-python-pylint-executable "python3")
+;;                      (setq flycheck-python-flake8-executable "python3")))))
 
-(use-package flycheck-rtags
-  :hook
-  ((c-mode c++-mode) . (lambda ()
-                        (progn
-                          (flycheck-select-checker 'rtags)
-                          (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
-                          (setq-local flycheck-check-syntax-automatically nil)))))
+;; (use-package flycheck-rtags
+;;   :hook
+;;   ((c-mode c++-mode) . (lambda ()
+;;                         (progn
+;;                           (flycheck-select-checker 'rtags)
+;;                           (setq-local flycheck-highlighting-mode nil) ;; RTags creates more accurate overlays.
+;;                           (setq-local flycheck-check-syntax-automatically nil)))))
 
 
 ;;; cmake-ide, should be called after rtags required
