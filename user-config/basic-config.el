@@ -372,6 +372,14 @@ which can be very annoying."
   :config
   (add-to-list 'grep-files-aliases '("chp" . "*.[ch] *.[ch]pp")))
 
+(use-package dumb-jump
+  :init
+  (add-hook 'xref-backend-functions #'dumb-jump-xref-activate)
+  :config
+  (setq dumb-jump-prefer-searcher 'rg)
+  ;; (setq dumb-jump-quiet t)
+  )
+
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)
 

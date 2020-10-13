@@ -37,11 +37,13 @@ Why to use graphical Emacs:
   > Emacs might crash when run in daemon mode and the X11 connection is unexpectedly lost.
   > Using an Emacs configured with --with-x-toolkit=lucid does not have this problem.
 
-- global 6.6.4 (**abandoned**)
+- global 6.6.4 (**Prohibited**)
 
   Global tags for reference/definition. The apt package for global is obsolete. Download the latest version from their official website [GNU Global](https://www.gnu.org/software/global/).
 
   Tags do a decent job for C programming language. However, they're usually weak on process C++. Rtags is said that it has a better experience on C++ and then I move to it.
+  
+  **Update** After a while of using rtags, I find that there's still reason to use tags. Ctags/Etags only provide definition indexing which can be replaced by dumb-jump which doesn't need auxiliary TAGS file. So, a more sophositicated choise is to continue using GNU Gtags. Cscope also supplies similiar functionalities. Neither is the best but the combinatioin is possible. Later I will check [xcscope](https://github.com/dkogan/xcscope.el).
 
 - rtags (latest)
 
