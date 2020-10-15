@@ -1,20 +1,26 @@
 ## Keep it simple
 
-I would not make emacs a clumsy IDE. Although keeping use emacs strengthens the willingness to add more and more features, packages and to make it smarter, more versatile, I have to stop and think twice that do I really need it. Keep it simple.
+I would not like to make Emacs an IDE. I insist to keep both configuration and packages compact. The rule of thumb is that enough is the best.
+
+## Keep it primitive
+
+I keep using Emacs key-bindings and not changing their default key sequences as much as possible. To avoid  traumatizing your little finger, swap the Caps and Ctrl key.
+
+It's crafted from scratch, from original Emacs distribution. There are Emacs forks like Spacemacs and Doom. They have their advantages, especially that they simplify customization a lot and ready to use. However, they are not what I want.
 
 ## C/C++ Oriented
 
-I mainly write C/C++ programs with Emacs. Most of features are therefore oriented to these programming languages as well as related facilities. 
+I mainly write C/C++ programs. Thereby most of features are oriented to those programming languages.
 
-But I also include some configuration for other programming languages or extensions, like python, json, shell, etc.
+I also include some configuration for other programming languages or extensions, like python, json, shell, etc.
 
 ## Term Emacs
 
-I use Emacs in terminal ("Terminator" if it's the concern). However, I recommend anyone who doesn't have persistent desire for terminal to experience graphical Emacs.
+I use Emacs in terminal. However, I recommend anyone who is not terminal enthusiast to experience graphical Emacs.
 
 Why I use terminal Emacs:
 
-- The first use of Emacs is via terminal. I get used to it.
+- I was told to start Emacs via `-nw` when I started to learn it. I'm accustomed to such way.
 - Convenient. Most works are done within terminal.
 
 Why to use graphical Emacs:
@@ -22,51 +28,72 @@ Why to use graphical Emacs:
 - Better graphical experience.
 - More key bindings to use, like the SUPER key.
 
+**Update** Because there is a short period when I kept using graphical Emacs. In this way, I have a small amount configuration only activated under graphical mode, like the Helm package.
+
 ## Requirement
 
-- OS Ubuntu 16.04
+- Ubuntu
 
-  I never used Emacs in Windows. But I did use in Mac OS and found that some features were not consistent with Ubuntu.
+  I have never used Emacs in Windows. But I did use in Mac OS and found that some features were not exact the same as Ubuntu.
 
-- emacs 26.3
+- Emacs
 
-  Download any version of emacs that you would like to. But the latest one is recommended since some features are embedded by default. Check their official website[ GNU Emacs](https://www.gnu.org/software/emacs/).
+  Download any version of Emacs that you would like to use. But the latest one is recommended since some features are shipped by default. Check their official website[ GNU Emacs](https://www.gnu.org/software/emacs/).
 
   > Warning: due to a long standing Gtk+ bug
   > https://gitlab.gnome.org/GNOME/gtk/issues/221
   > Emacs might crash when run in daemon mode and the X11 connection is unexpectedly lost.
   > Using an Emacs configured with --with-x-toolkit=lucid does not have this problem.
 
-- global 6.6.4 (**Prohibited**)
+- GNU Global
 
-  Global tags for reference/definition. The apt package for global is obsolete. Download the latest version from their official website [GNU Global](https://www.gnu.org/software/global/).
+  Global tags for reference/definition. The version in Ubuntu repository is obsolete. Download the latest version from their official website [GNU Global](https://www.gnu.org/software/global/).
 
-  Tags do a decent job for C programming language. However, they're usually weak on process C++. Rtags is said that it has a better experience on C++ and then I move to it.
+  Tags do a decent job for C programming language. However, they're usually weak on processing C++ code.
   
-  **Update** After a while of using rtags, I find that there's still reason to use tags. Ctags/Etags only provide definition indexing which can be replaced by dumb-jump which doesn't need auxiliary TAGS file. So, a more sophositicated choise is to continue using GNU Gtags. Cscope also supplies similiar functionalities. Neither is the best but the combinatioin is possible. Later I will check [xcscope](https://github.com/dkogan/xcscope.el).
+  **Update** Since I started to using RTags, I suspended all Gtags related customization.
+  
+  **Update** After a while of using RTags, I find that there's still reason to use tags. Ctags/Etags only provide definition indexing which can be replaced by dumb-jump which doesn't need auxiliary TAGS file. So, a more sophisticated choice is to continue using GNU Gtags. Cscope also supplies similar functionalities. Neither is the best but the combination is possible. Later I will check [xcscope](https://github.com/dkogan/xcscope.el).
 
-- rtags (latest)
+- RTags
 
-  RTags is a client/server application that indexes C/C++ code and keeps a persistent file-based database of references, declarations, definitions, symbolnames etc. It uses llvm-clang.
+  RTags is a client/server application that indexes C/C++ code and keeps a persistent file-based database of references, declarations, definitions, symbol-names etc. It uses llvm-clang.
 
   Refer to the official [rtags-github](https://github.com/Andersbakken/rtags) and wiki for more information and installation.
 
 - xclip
 
-  Bridge between internal clipboard and external clipboard.
+  Bridge between X clipboard and terminal clipboard.
 
 - libncurses-dev
 
   I forget why to use it. It's either for xclip or ggtags.
 
-- clang-related 3.9
+- Clang
 
-  Rtags, company, flycheck and many other packages rely on clang. After installing clang, emacs may still cannot find clang executable. This is because the default searching name is "clang". Therefore, creating a symbolic link or explicitly specifying searching name as "clang-VERSION" is your choice.
+  Rtags, company, flycheck and many other packages rely on Clang. After installing Clang, Emacs may still cannot find Clang executable. This is because the default searching name is "clang". Therefore, creating a symbolic link or explicitly specifying searching name as "clang-VERSION" is your choice.
 
-- jsonlint, syntax checker for json.
+- jsonlint
+
+  Syntax checker for json.
+
+- ripgrep
+
+  Currently, it's the best grep successor written in Rust. Check [ripgrep](https://github.com/BurntSushi/ripgrep) for more information.
+
+- The Silver Searcher (a.k.a ag)
+
+  Worse than ripgrep but still good enough. Together with ripgrep, they are installed to serve dumb-jump for better efficiency. But anyway, it's free to keep only one of them and remove the other.
+
+- cscope
+
+To install most of packages mentioned above, you can
 
 ```bash
-# sudo apt install global
+# Download Emacs 27.1 from Nearby GNU mirror
+curl -LO http://ftpmirror.gnu.org/emacs/emacs-27.1.tar.gz
+# Download GNU Global
+curl -LO http://tamacom.com/global/global-6.6.5.tar.gz
 sudo apt install xclip
 sudo apt install libncurses-dev
 sudo apt install libclang-VERSION clang-VERSION llvm-VERSION
@@ -74,18 +101,16 @@ sudo ln -s /prefix_path/bin/clang-VERSION /prefix_path/bin/clang
 sudo apt install npm # npm is a package manager writen by javascript
 sudo npm install jsonlint -g # using apt to install jsonlint doesn't take effect
 sudo ln -s /usr/bin/nodejs /usr/bin/node # if omit such step, emacs can't execute flycheck using jsonlint
-# rtags begins here
+# Download RTags
 git clone --recursive https://github.com/Andersbakken/rtags.git
-cd rtags
-mkdir build
-cmake ..
-make -j8
-make install # optional
 # make sure that PATH environment variables contains the path to rtags's bin, which is created under build folder after invoking make, or in PREFIX/bin if installed.
-# rtags ends here, but not over yet
+sudo apt install cscope
+sudo apt install silversearcher-ag
+curl -LO https://github.com/BurntSushi/ripgrep/releases/download/11.0.2/ripgrep_11.0.2_amd64.deb
+sudo dpkg -i ripgrep_11.0.2_amd64.deb
 ```
 
-To use rtags, manually starting server is clumsy. Use `systemd` on GNU/Linux.
+To use RTags, one has to manually start its server, which is clumsy. Use `systemd` on GNU/Linux.
 
 1. Add the following to `~/.config/systemd/user/rdm.socket`
 
@@ -125,7 +150,10 @@ To use rtags, manually starting server is clumsy. Use `systemd` on GNU/Linux.
    systemctl --user start rdm.socket
    ```
 
-   
+
+**TODO**
+
+- [ ] Install and compile automatically
 
 ## Setup
 
