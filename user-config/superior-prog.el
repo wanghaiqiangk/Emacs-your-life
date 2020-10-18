@@ -41,6 +41,29 @@
 ;;       encapsulate as function and load after cmake-ide
 
 
+(use-package call-graph
+  :config
+  (setq cg-path-to-global "/usr/local/bin/")
+  (setq cg-search-filters '("grep -E \"\\.(cpp|cc|c|h|hpp):\"")))
+
+
+(use-package xcscope
+  :config
+  (cscope-setup)
+  (setq cscope-program "gtags-cscope")
+  )
+
+
+(use-package counsel-gtags
+  :bind-keymap ("C-c g" . counsel-gtags-command-map)
+  :custom
+  (counsel-gtags-auto-update t)
+  (counsel-gtags-ignore-case t)
+  (counsel-gtags-use-suggested-key-map t)
+  (counsel-gtags-use-input-at-point t)
+  :hook (c-mode-common-hook . (lambda ()
+                                (when (derived-mode-p 'c-mode 'c++-mode)
+                                  (counsel-gtags-mode 1)))))
 ;;; ggtags
 ;;
 ;; (require 'counsel-gtags)
