@@ -41,16 +41,13 @@
 ;;       encapsulate as function and load after cmake-ide
 
 
-(use-package call-graph
-  :config
-  (setq cg-path-to-global "/usr/local/bin/")
-  (setq cg-search-filters '("grep -E \"\\.(cpp|cc|c|h|hpp):\"")))
-
-
+;; Check xcscope+.el if someday you need it.
+;; `https://www.emacswiki.org/emacs/xcscope+.el'
+;; It won't automatically update database for every searching
 (use-package xcscope
   :config
   (cscope-setup)
-  (setq cscope-program "gtags-cscope")
+  ;; (setq cscope-program "gtags-cscope")
   )
 
 
