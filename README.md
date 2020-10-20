@@ -14,6 +14,8 @@ I mainly write C/C++ programs. Thereby most of features are oriented to those pr
 
 I also include some configuration for other programming languages or extensions, like python, json, shell, etc.
 
+**Update** Golang-related configuration is added. Including the major-mode "go-mode" and gopls.
+
 ## Term Emacs
 
 I use Emacs in terminal. However, I recommend anyone who is not terminal enthusiast to experience graphical Emacs.
@@ -86,6 +88,10 @@ Why to use graphical Emacs:
   Worse than ripgrep but still good enough. Together with ripgrep, they are installed to serve dumb-jump for better efficiency. But anyway, it's free to keep only one of them and remove the other.
 
 - cscope
+
+- [golang](https://golang.org/)
+
+  I'm not familiar with golang yet. And Emacs may not a good tool for coding go right now, since I see some packages are maintained only or even archived.
 
 To install most of packages mentioned above, you can
 
