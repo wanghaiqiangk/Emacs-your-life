@@ -155,6 +155,10 @@ With argument ARG, do this that many times."
   (setq semantic-idle-scheduler-idle-time 1)
   (global-semantic-idle-summary-mode 0))
 
+(use-package yaml-mode
+  :init
+  (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
+
 
 (provide 'common-prog)
 
