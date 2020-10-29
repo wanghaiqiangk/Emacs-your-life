@@ -56,6 +56,11 @@
 (define-coding-system-alias 'UTF-8 'utf-8)
 
 
+;;;
+;;
+(setq require-final-newline t)
+
+
 ;;; Ease your M-x, using smex or helm
 ;;
 ;; For Helm
