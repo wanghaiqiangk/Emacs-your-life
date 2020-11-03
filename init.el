@@ -15,5 +15,6 @@
 (load "basic-config")
 (load "common-prog")
 (load "superior-prog")
+(load "org-config")
 
 ;;; init.el ends here
