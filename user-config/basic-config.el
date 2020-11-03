@@ -197,7 +197,7 @@
 
 ;;; trailing whitespace
 ;;
-(setq-default show-trailing-whitespace t)
+;; (setq show-trailing-whitespace t)
 
 ;;; shell in emacs
 ;;
@@ -216,12 +216,11 @@
   :config
   (global-whitespace-newline-mode 1)
   (progn
-    (setq whitespace-style (quote (tabs tab-mark newline newline-mark)))
-    ;; Make whitespace-mode and whitespace-newline-mode use “¶” for end of line char and “↦” for tab.
+    (setq whitespace-style (quote (face tabs trailing tab-mark newline newline-mark)))
     (setq whitespace-display-mappings
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
           '(
-            (newline-mark 10 [182 10])
+            ;; (newline-mark 10 [10])
             (tab-mark 9 [10155 9] [92 9])
             )))
   (if (display-graphic-p)
