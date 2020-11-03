@@ -69,7 +69,7 @@ Why to use graphical Emacs:
 
 - libncurses-dev
 
-  I forget why to use it. It's either for xclip or ggtags.
+  This is one of dependencies required by Emacs. It may be relied on by either xclip or ggtags as well.
 
 - Clang
 
@@ -98,10 +98,15 @@ To install most of packages mentioned above, you can
 ```bash
 # Download Emacs 27.1 from Nearby GNU mirror
 curl -LO http://ftpmirror.gnu.org/emacs/emacs-27.1.tar.gz
+tar xzvf emacs-27.1.tar.gz && cd emacs-27.1
+# Install dependencies to build emacs
+sudo apt install pkg-config
+sudo apt install gnutls-bin
+sudo apt install [ libtinfo-dev | libncurses-dev | ... ]
+./configure
 # Download GNU Global
 curl -LO http://tamacom.com/global/global-6.6.5.tar.gz
 sudo apt install xclip
-sudo apt install libncurses-dev
 sudo apt install libclang-VERSION clang-VERSION llvm-VERSION
 sudo ln -s /prefix_path/bin/clang-VERSION /prefix_path/bin/clang
 sudo apt install npm # npm is a package manager writen by javascript

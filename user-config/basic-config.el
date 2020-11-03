@@ -384,6 +384,12 @@ which can be very annoying."
   ;; (setq dumb-jump-quiet t)
   )
 
+(use-package anzu
+  :config
+  (global-anzu-mode +1)
+  (set-face-attribute 'anzu-mode-line nil
+                      :foreground "yellow" :weight 'bold))
+
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)
 
