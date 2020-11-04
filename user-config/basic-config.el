@@ -43,6 +43,8 @@
   (server-start)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
   (load-theme 'solarized-light t)
+  (mouse-avoidance-mode 'exile)
+  (setq mouse-yank-at-point t)
   )
 
 (defgroup wemacs nil
