@@ -423,6 +423,20 @@ which can be very annoying."
   (set-face-attribute 'anzu-mode-line nil
                       :foreground "yellow" :weight 'bold))
 
+(add-hook 'dired-load-hook
+          (lambda ()
+            (load "dired-x")
+            ;; Set dired-x global variables here.  For example:
+            ;; (setq dired-guess-shell-gnutar "gtar")
+            ;; (setq dired-x-hands-off-my-keys nil)
+            ))
+(add-hook 'dired-mode-hook
+          (lambda ()
+            ;; Set dired-x buffer-local variables here.  For example:
+            ;; (dired-omit-mode 1)
+            ))
+
+
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)
 
