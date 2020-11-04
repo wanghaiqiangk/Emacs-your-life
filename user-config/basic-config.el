@@ -251,8 +251,10 @@
   (if (display-graphic-p)
       (progn
         (set-face-foreground 'whitespace-newline "#eddfba")
-        (set-face-foreground 'whitespace-tab "#eddfba")
-        (set-face-background 'whitespace-tab 'unspecified))
+        ;; (set-face-foreground 'whitespace-tab "#eddfba")
+        ;; (set-face-background 'whitespace-tab 'unspecified)
+        (set-face-inverse-video 'whitespace-tab nil)
+        )
     (progn
       (set-face-foreground 'whitespace-newline "#cd00cd")
       (set-face-foreground 'whitespace-tab "#cd00cd")
