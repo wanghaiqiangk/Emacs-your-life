@@ -34,7 +34,7 @@
 (use-package emacs
   :if (display-graphic-p)
   :custom
-  (inhibit-startup-screen t "No startup screen")
+  ;; (inhibit-startup-screen t "No startup screen")
   (tool-bar-mode nil "No tool bar at the top of window")
   (scroll-bar-mode nil "No scroll bar")
   :custom-face
