@@ -39,6 +39,8 @@
   (scroll-bar-mode nil "No scroll bar")
   :custom-face
   (default ((t (:height 180))))
+  ;; Font is Monospace Regular
+  (default ((t (:family "DejaVu Sans Mono"))))
   :config
   (server-start)
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
