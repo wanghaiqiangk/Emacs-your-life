@@ -45,6 +45,25 @@
   (load-theme 'solarized-light t)
   )
 
+(defgroup wemacs nil
+  "My Emacs package."
+  :prefix "wemacs-"
+  :group 'tools)
+
+(defcustom prefer-graphical-helm nil
+  "Whether to use helm under graphcial Emacs. If not, use smex."
+  :type 'boolean
+  :group 'wemacs)
+
+(defun prefer-graphical-helm-toggle ()
+  "Toggle \"prefer-graphical-helm\"."
+  (interactive)
+  (setq prefer-graphical-helm (not prefer-graphical-helm))
+  (message "The prefer-graphical-helm variable is now %s."
+           (if prefer-graphical-helm "set" "unset")))
+
+(global-set-key (kbd "C-c w h") 'prefer-graphical-helm-toggle)
+
 
 ;;; Encoding
 ;;
@@ -64,7 +83,8 @@
 ;;; Ease your M-x, using smex or helm
 ;;
 ;; For Helm
-(when (display-graphic-p)
+(when (and (display-graphic-p)
+           prefer-graphical-helm)
   (require 'helm-config))
 
 (use-package helm-mode
@@ -122,14 +142,16 @@
 
 ;; For smex
 (use-package smex
-  :if (not (display-graphic-p))
+  :if (or (not (display-graphic-p))
+          (not prefer-graphical-helm))
   :config
   (smex-initialize)
   (bind-key "M-x" 'smex))
 
 ;; Ido or helm, incrementing search and narrowing selection
 (use-package ido
-  :if (not (display-graphic-p))
+  :if (or (not (display-graphic-p))
+          (not prefer-graphical-helm))
   :functions ido-everywhere
   :custom
   (ido-use-faces nil "To see flex highlights")
@@ -139,7 +161,8 @@
   (ido-everywhere 1))
 
 (use-package flx-ido
-  :if (not (display-graphic-p))
+  :if (or (not (display-graphic-p))
+          (not prefer-graphical-helm))
   :config
   (flx-ido-mode 1))
 
@@ -276,7 +299,8 @@
 ;;; Ivy, counsel, and swiper for emacs completion, function, and search
 ;;
 (use-package counsel
-  :if (not (display-graphic-p))
+  :if (or (not (display-graphic-p))
+          (not prefer-graphical-helm))
   :bind
   (("C-x C-b" . counsel-ibuffer)
    ("C-c m" . counsel-semantic-or-imenu)
