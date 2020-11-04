@@ -45,6 +45,11 @@
   (load-theme 'solarized-light t)
   (mouse-avoidance-mode 'exile)
   (setq mouse-yank-at-point t)
+
+  ;; A common bug is that the Emacs is likely be unable to wake up after suspending.
+  ;; Therefore, globally unset the pertinent keybindings to temporary obliterate this bug
+  (global-unset-key (kbd "C-z"))
+  (global-unset-key (kbd "C-x C-z"))
   )
 
 (defgroup wemacs nil
