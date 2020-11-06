@@ -363,6 +363,10 @@ which can be very annoying."
     (ido-remove-tramp-from-cache)
     (ido-save-history)))
 
+(use-package tramp
+  :config
+  (setq tramp-archive-enabled nil))
+
 
 ;;; Multiple cursors
 ;;
