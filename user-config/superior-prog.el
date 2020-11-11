@@ -221,13 +221,6 @@ properly define this variable.")))
 ;;   :commands yas-minor-mode
 ;;   :hook (go-mode . yas-minor-mode))
 
-(use-package nox
-  :hook ((c-mode-common c-mode c++-mode) . (lambda ()
-                                             (nox-ensure)))
-  :config
-  (setq nox-auto-display-help-buffer t)
-  (setq nox-put-doc-in-help-buffer t))
-
 
 (provide 'superior-prog)
 
