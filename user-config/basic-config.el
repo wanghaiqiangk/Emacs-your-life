@@ -241,7 +241,9 @@
   (ansi-term (replace-regexp-in-string "[ \t\n]*\\'" "" (shell-command-to-string "echo $SHELL"))))
 (use-package term
   :bind ("s-t" . my/set-system-terminal-emulator))
-(global-set-key (kbd "<f1>") 'shell)
+
+(use-package vterm
+  :bind ([f1] . vterm))
 
 ;;; Whitespace newline character
 ;;
