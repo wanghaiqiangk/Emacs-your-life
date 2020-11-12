@@ -13,7 +13,10 @@
   "Org pertinent settings."
   (interactive)
   (setq org-special-ctrl-a/e t)
-  (setq org-special-ctrl-k nil))
+  (setq org-special-ctrl-k nil)
+  (setq org-startup-indented t)
+  (add-hook 'visual-line-mode-hook #'visual-fill-column-mode)
+  (add-hook 'org-mode-hook #'visual-line-mode))
 
 (defun my/open-my-agenda-file ()
   "Open agenda file."
