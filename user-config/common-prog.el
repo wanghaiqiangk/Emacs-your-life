@@ -147,13 +147,13 @@ With argument ARG, do this that many times."
 
 ;;; Semantics Setup
 ;;
-(use-package semantic
-  :defines semantic-idle-scheduler-idle-time
-  :config
-  (semantic-mode -1)
-  (global-semantic-idle-scheduler-mode t)
-  (setq semantic-idle-scheduler-idle-time 1)
-  (global-semantic-idle-summary-mode 0))
+;; (use-package semantic
+;;   :defines semantic-idle-scheduler-idle-time
+;;   :config
+;;   (semantic-mode -1)
+;;   (global-semantic-idle-scheduler-mode t)
+;;   (setq semantic-idle-scheduler-idle-time 1)
+;;   (global-semantic-idle-summary-mode 0))
 
 (use-package yaml-mode
   :init

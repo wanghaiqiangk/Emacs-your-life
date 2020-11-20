@@ -322,17 +322,6 @@
    ("C-h v" . counsel-describe-variable)
    ("C-h b" . counsel-descbinds)
    ("C-h a" . counsel-apropos)))
-;; Install function-args and activate it,
-;; which makes semantic-or-imenu better,
-;; or use moo-jump-local instead
-(use-package function-args
-  :config
-  (fa-config-default)
-  (add-to-list 'auto-mode-alist '("\\.h\\'" . c++-mode))
-  (set-default 'semantic-case-fold t)
-  ;; NOTE Add the backslash before M,
-  ;; or don't take effect
-  (define-key function-args-mode-map "\M-u" nil))
 
 
 ;;; Keybindings --------------------
