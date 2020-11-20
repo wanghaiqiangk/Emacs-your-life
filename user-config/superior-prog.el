@@ -41,45 +41,6 @@
 ;;       encapsulate as function and load after cmake-ide
 
 
-;; Check xcscope+.el if someday you need it.
-;; `https://www.emacswiki.org/emacs/xcscope+.el'
-;; It won't automatically update database for every searching
-(use-package xcscope
-  :config
-  (cscope-setup)
-  ;; (setq cscope-program "gtags-cscope")
-  )
-
-
-(use-package counsel-gtags
-  :bind-keymap ("C-c g" . counsel-gtags-command-map)
-  :custom
-  (counsel-gtags-auto-update t)
-  (counsel-gtags-ignore-case t)
-  (counsel-gtags-use-suggested-key-map t)
-  (counsel-gtags-use-input-at-point t)
-  :hook (c-mode-common-hook . (lambda ()
-                                (when (derived-mode-p 'c-mode 'c++-mode)
-                                  (counsel-gtags-mode 1)))))
-;;; ggtags
-;;
-;; (require 'counsel-gtags)
-;; (setq counsel-gtags-auto-update t
-;;       counsel-gtags-ignore-case t
-;;       counsel-gtags-prefix-key "C-cg"
-;;       counsel-gtags-use-suggested-key-map t
-;;       counsel-gtags-use-input-at-point t)
-
-;; (add-hook 'c-mode-common-hook
-;;           (lambda ()
-;;             (when (derived-mode-p 'c-mode 'c++-mode 'java-mode 'asm-mode)
-;;               (counsel-gtags-mode 1))))
-
-;; (define-key counsel-gtags-mode-map (kbd "M-.") 'counsel-gtags-dwim)
-;; (define-key counsel-gtags-mode-map (kbd "M-,") 'counsel-gtags-go-backward)
-;; (define-key counsel-gtags-mode-map (kbd "C-c >") 'counsel-gtags-go-forward)
-
-
 ;;; Auto Completion
 ;; Company and Irony
 (use-package company-try-hard
