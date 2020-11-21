@@ -434,6 +434,17 @@ which can be very annoying."
             ;; (dired-omit-mode 1)
             ))
 
+;;; directory variables
+;;
+(defun my/add-dir-local-variable (&optional prefix)
+  "Without PREFIX add directory variables, remove otherwise."
+  (interactive "p")
+  (when (= prefix 1)
+    (call-interactively 'add-dir-local-variable))
+  (when (= prefix 4)
+    (call-interactively 'delete-dir-local-variable)))
+(global-set-key (kbd "C-c a d") 'my/add-dir-local-variable)
+
 
 ;; (require 'doremi)
 ;; (require 'doremi-cmd)

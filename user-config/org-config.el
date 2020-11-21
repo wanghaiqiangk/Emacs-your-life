@@ -24,7 +24,7 @@
   (interactive)
   (find-file "~/.emacs.d/org/agenda.org"))
 
-(global-set-key (kbd "C-c a g") 'my/open-my-agenda-file)
+(global-set-key (kbd "C-c a t") 'my/open-my-agenda-file)
 
 (eval-after-load "org"
   '(my/org-settings))
