@@ -9,33 +9,8 @@
         (awk-mode . "awk")
         (other . "linux")))
 
-;;; Default bsd style use 8 offset, I use 4 offset
-;;
 (setq-default indent-tabs-mode nil)
 (setq-default tab-width 4)
-
-;;; Indent rigidly like vim << or >>
-;;
-(defun shift-text (distance)
-  (if (use-region-p)
-      (let ((mark (mark)))
-        (save-excursion
-          (indent-rigidly (region-beginning)
-                          (region-end)
-                          distance)
-          (push-mark mark t t)
-          (setq deactivate-mark nil)))
-    (indent-rigidly (line-beginning-position)
-                    (line-end-position)
-                    distance)))
-
-(defun shift-right (count)
-  (interactive "p")
-  (shift-text count))
-
-(defun shift-left (count)
-  (interactive "p")
-  (shift-text (- count)))
 
 (defun set-auto-indentation-offset ()
   "My prefer indentation style."
@@ -45,11 +20,13 @@
   (c-set-offset 'case-label '+)
   (c-set-offset 'template-args-cont 0)
   (c-set-offset 'inextern-lang 0))
+
 (add-hook 'c-mode-common-hook 'set-auto-indentation-offset)
 (add-hook 'c-mode-hook 'set-auto-indentation-offset)
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
-;; Highlight indentation
+;;; Highlight indentation
+;;
 (use-package highlight-indent-guides
   :hook (prog-mode . highlight-indent-guides-mode)
   :diminish
@@ -74,8 +51,8 @@
 
 ;;; git client
 ;;
-(use-package magit
-  :bind ("C-x g" . magit-status))
+;; (use-package magit
+;;   :bind ("C-x g" . magit-status))
 
 ;;; diff-hl
 ;;
@@ -121,11 +98,11 @@
 
 ;;; projectile is a project manager, like any IDE does
 ;;
-(use-package projectile
-  :bind-keymap
-  ("C-c p" . projectile-command-map)
-  :config
-  (projectile-mode +1))
+;; (use-package projectile
+;;   :bind-keymap
+;;   ("C-c p" . projectile-command-map)
+;;   :config
+;;   (projectile-mode +1))
 
 
 ;;; Backward delete word

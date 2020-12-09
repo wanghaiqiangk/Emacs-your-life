@@ -21,10 +21,6 @@
 (require 'bind-key)
 (require 'vlf-setup)
 
-;;; Enable key-chord
-;;
-;; (use-package use-package-chords
-;;   :config (key-chord-mode 1))
 (menu-bar-mode -1)
 (column-number-mode 1)
 (global-display-fill-column-indicator-mode 1)
@@ -306,8 +302,6 @@
   :bind
   ("C-c 9" . ace-jump-mode)
   ("s-f" . ace-jump-mode))
-;; (global-set-key (kbd "C-c a w") #'avy-goto-char)
-;; (global-set-key (kbd "C-c a l") #'avy-goto-line)
 
 
 ;;; Ivy, counsel, and swiper for emacs completion, function, and search
@@ -402,10 +396,11 @@ which can be very annoying."
 (use-package which-key
   :hook (after-init . which-key-mode))
 
-;;; rgrep
-(use-package grep
+;;; rg
+(use-package rg
+  :bind ("s-." . rg)
   :config
-  (add-to-list 'grep-files-aliases '("chp" . "*.[ch] *.[ch]pp")))
+  (add-to-list 'rg-custom-type-aliases '("chp" . "*.[chH] *.[ch]pp *.cc *.C")))
 
 (use-package dumb-jump
   :init
@@ -423,16 +418,7 @@ which can be very annoying."
 
 (add-hook 'dired-load-hook
           (lambda ()
-            (load "dired-x")
-            ;; Set dired-x global variables here.  For example:
-            ;; (setq dired-guess-shell-gnutar "gtar")
-            ;; (setq dired-x-hands-off-my-keys nil)
-            ))
-(add-hook 'dired-mode-hook
-          (lambda ()
-            ;; Set dired-x buffer-local variables here.  For example:
-            ;; (dired-omit-mode 1)
-            ))
+            (load "dired-x")))
 
 ;;; directory variables
 ;;
@@ -444,10 +430,6 @@ which can be very annoying."
   (when (= prefix 4)
     (call-interactively 'delete-dir-local-variable)))
 (global-set-key (kbd "C-c a d") 'my/add-dir-local-variable)
-
-
-;; (require 'doremi)
-;; (require 'doremi-cmd)
 
 
 (provide 'basic-config)
