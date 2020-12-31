@@ -159,6 +159,20 @@ properly define this variable.")))
       (add-to-list 'cmake-ide-flags-c (concat flag-prefix sys-include-flag))
       (add-to-list 'cmake-ide-flags-c++ (concat flag-prefix sys-include-flag)))))
 
+(use-package rust-mode
+  :hook (rust-mode . (lambda ()
+                       (setq indent-tabs-mode nil)))
+  :config
+  (setq rust-format-on-save t) ; C-c C-f rust-format-buffer
+  :bind ("C-c C-c" . rust-run)
+  )
+(use-package rustic
+  :hook (eglot--managed-mode . (lambda () (flymake-mode -1)))
+  :config
+  (setq rustic-lsp-server 'rls)
+  (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
+  (setq rustic-lsp-client 'eglot))
+
 
 ;; (setq gdb-show-main t)
 
