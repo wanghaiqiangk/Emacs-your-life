@@ -15,8 +15,7 @@
 
 ;;; basic settings for use-package
 ;;
-(eval-when-compile
-  (require 'use-package))
+(require 'use-package)
 (require 'diminish)
 (require 'bind-key)
 (require 'vlf-setup)

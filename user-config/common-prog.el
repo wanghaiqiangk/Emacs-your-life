@@ -25,7 +25,7 @@
 (add-hook 'c-mode-hook 'set-auto-indentation-offset)
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
-(load "clang-format.el")
+(load "clang-format")
 ;;; Highlight indentation
 ;;
 (use-package highlight-indent-guides
