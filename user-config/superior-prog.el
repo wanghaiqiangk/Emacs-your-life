@@ -43,8 +43,9 @@
 
 ;;; Auto Completion
 ;; Company and Irony
-(use-package company-try-hard
-  :bind ("C-x p" . company-try-hard))
+;; (use-package company-try-hard
+;; ; Conflict with project
+;;   :bind ("C-x p" . company-try-hard))
 
 
 (use-package company
@@ -172,6 +173,13 @@ properly define this variable.")))
   (setq rustic-lsp-server 'rls)
   (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
   (setq rustic-lsp-client 'eglot))
+
+(use-package eglot
+  :config
+  (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
+  ;; (add-hook 'c-mode-hook 'eglot-ensure)
+  ;; (add-hook 'c++-mode-hook 'eglot-ensure)
+  )
 
 
 ;; (setq gdb-show-main t)
