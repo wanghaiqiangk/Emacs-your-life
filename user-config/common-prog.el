@@ -137,6 +137,19 @@ With argument ARG, do this that many times."
   :init
   (add-to-list 'auto-mode-alist '("\\.yml\\'" . yaml-mode)))
 
+(use-package hideshow
+  :diminish hs-minor-mode
+  :hook (prog-mode . hs-minor-mode))
+(defconst hideshow-folded-face '((t (:inherit 'font-lock-comment-face :box t))))
+
+(defun hideshow-folded-overlay-fn (ov)
+    (when (eq 'code (overlay-get ov 'hs))
+      (let* ((nlines (count-lines (overlay-start ov) (overlay-end ov)))
+             (info (format " ... #%d " nlines)))
+        (overlay-put ov 'display (propertize info 'face hideshow-folded-face)))))
+
+(setq hs-set-up-overlay 'hideshow-folded-overlay-fn)
+
 
 (provide 'common-prog)
 

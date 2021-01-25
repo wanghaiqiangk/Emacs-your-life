@@ -243,6 +243,7 @@
 ;;; Whitespace newline character
 ;;
 (use-package whitespace
+  :hook (before-save . whitespace-cleanup)
   :config
   (global-whitespace-newline-mode 1)
   (progn
@@ -288,6 +289,10 @@
   (lazy-highlight-cleanup nil)
   (lazy-highlight-max-at-a-time nil)
   (lazy-highlight-initial-delay 0)
+  (isearch-lazy-count t)                ; this can replace anzu package
+  (lazy-count-prefix-format "%s/%s ")
+  :bind (:map isearch-mode-map
+              ([remap isearch-delete-char] . isearch-del-char))
   :config
   (bind-key "C-." 'isearch-forward-symbol-at-point))
 
@@ -409,12 +414,6 @@ which can be very annoying."
   ;; (setq dumb-jump-quiet t)
   )
 
-(use-package anzu
-  :config
-  (global-anzu-mode +1)
-  (set-face-attribute 'anzu-mode-line nil
-                      :foreground "yellow" :weight 'bold))
-
 (add-hook 'dired-load-hook
           (lambda ()
             (load "dired-x")))
@@ -429,6 +428,24 @@ which can be very annoying."
   (when (= prefix 4)
     (call-interactively 'delete-dir-local-variable)))
 (global-set-key (kbd "C-c a d") 'my/add-dir-local-variable)
+
+;; If one line is too long then native Emacs may have trouble to open
+;; such file. In so long mode, Emacs will try to detect such case and
+;; suspend some modes which may cause freezing.
+(use-package so-long
+  :config (global-so-long-mode 1))
+
+;; If a file is opened in Emacs buffer and is changed on disk, Emacs
+;; will automatically revert the buffer to retrieve latest contents.
+(use-package autorevert
+  :hook (after-init . global-auto-revert-mode))
+
+;; When using CamelCase naming convertion, the word separated by
+;; capital character is called subword in Emacs. If not superword mode
+;; (default), then Emacs can correctly handle forwarding/backwarding
+;; words based on CamelCase's style. This is called subword mode.
+(use-package subword
+  :hook (c-mode-common-hook . subword-mode))
 
 
 (provide 'basic-config)
