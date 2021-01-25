@@ -247,7 +247,7 @@
   :config
   (global-whitespace-newline-mode 1)
   (progn
-    (setq whitespace-style (quote (face tabs trailing tab-mark newline newline-mark)))
+    (setq whitespace-style (quote (face tabs trailing tab-mark)))
     (setq whitespace-display-mappings
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
           '(
