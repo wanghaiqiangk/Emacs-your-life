@@ -245,7 +245,8 @@
 (use-package whitespace
   :hook (before-save . whitespace-cleanup)
   :config
-  (global-whitespace-newline-mode 1)
+  ;; (global-whitespace-newline-mode 1)
+  (global-whitespace-mode 1)
   (progn
     (setq whitespace-style (quote (face tabs trailing tab-mark)))
     (setq whitespace-display-mappings
