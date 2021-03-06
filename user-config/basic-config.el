@@ -243,7 +243,7 @@
 ;;; Whitespace newline character
 ;;
 (use-package whitespace
-  :hook (before-save . whitespace-cleanup)
+  ;; :hook (before-save . whitespace-cleanup)
   :config
   ;; (global-whitespace-newline-mode 1)
   (global-whitespace-mode 1)
@@ -252,7 +252,6 @@
     (setq whitespace-display-mappings
           ;; all numbers are unicode codepoint in decimal. e.g. (insert-char 182 1)
           '(
-            ;; (newline-mark 10 [10])
             (tab-mark 9 [10155 9] [92 9])
             )))
   (if (display-graphic-p)
