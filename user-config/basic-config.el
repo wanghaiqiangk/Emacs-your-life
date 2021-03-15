@@ -237,9 +237,6 @@
 (use-package term
   :bind ("s-t" . my/set-system-terminal-emulator))
 
-(use-package vterm
-  :bind ([f1] . vterm))
-
 ;;; Whitespace newline character
 ;;
 (use-package whitespace
@@ -325,12 +322,6 @@
 ;;
 (use-package smart-replace
   :bind ("C-c C-r" . smart-replace-mode))
-;; Fuzzy isearch
-(use-package flx-isearch
-  :bind (([remap isearch-forward-regexp] . flx-isearch-forward)
-         ([remap isearch-backward-regexp] . flx-isearch-backward)))
-;; key-chord
-;; (key-chord-define-global "gg" 'goto-line)
 
 ;;; Tramp bug maybe
 ;;
