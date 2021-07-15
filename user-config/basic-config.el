@@ -392,7 +392,8 @@ which can be very annoying."
 
 ;;; rg
 (use-package rg
-  :bind ("s-." . rg)
+  :bind (("s-." . rg)
+         ("C-c s" . rg-kill-current))
   :config
   (add-to-list 'rg-custom-type-aliases '("chp" . "*.[chH] *.[ch]pp *.cc *.C")))
 
@@ -436,6 +437,9 @@ which can be very annoying."
 ;; words based on CamelCase's style. This is called subword mode.
 (use-package subword
   :hook (c-mode-common-hook . subword-mode))
+
+(use-package ibuffer
+  :bind ("C-c b" . ibuffer))
 
 
 (provide 'basic-config)
