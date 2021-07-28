@@ -288,9 +288,7 @@
   (lazy-highlight-initial-delay 0)
   (isearch-lazy-count t)                ; this can replace anzu package
   (lazy-count-prefix-format "%s/%s ")
-  :bind (("C-." . isearch-forward-symbol-at-point)
-         :map isearch-mode-map
-         ([remap isearch-delete-char] . isearch-del-char)))
+  :bind (("C-." . isearch-forward-symbol-at-point)))
 
 ;;; avy quick locater, oralternatively use ace-jump-mode
 ;;
