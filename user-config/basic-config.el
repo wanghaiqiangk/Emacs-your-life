@@ -295,13 +295,12 @@
 ;;; avy quick locater, oralternatively use ace-jump-mode
 ;;
 (use-package ace-jump-mode
-  :custom
-  (ace-jump-mode-submode-list '(ace-jump-char-mode
-                                ace-jump-word-mode
-                                ace-jump-line-mode))
   :bind
-  ("C-c 9" . ace-jump-mode)
-  ("s-f" . ace-jump-mode))
+  ("C-c f" . ace-jump-mode)
+  :config
+  (setq ace-jump-mode-submode-list '(ace-jump-char-mode
+                                     ace-jump-word-mode
+                                     ace-jump-line-mode)))
 
 
 ;;; Ivy, counsel, and swiper for emacs completion, function, and search
@@ -311,6 +310,7 @@
           (not prefer-graphical-helm))
   :bind
   (("C-x C-b" . counsel-ibuffer)
+   ("C-c l" . counsel-list-processes)
    ("C-c m" . counsel-semantic-or-imenu)
    ("C-h f" . counsel-describe-function)
    ("C-h v" . counsel-describe-variable)
