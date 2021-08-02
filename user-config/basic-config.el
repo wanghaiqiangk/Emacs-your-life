@@ -180,14 +180,14 @@
 ;;
 (use-package display-line-numbers
   :if (>= emacs-major-version 26)
-  :hook (find-file . (lambda () (display-line-numbers-mode 1)))
+  :hook ((find-file after-change-major-mode) . (lambda () (display-line-numbers-mode 1)))
   :config
   (set-face-background 'line-number-current-line "yellow")
   (set-face-foreground 'line-number-current-line "black"))
 
 (use-package linum
   :if (<= emacs-major-version 25)
-  :hook (find-file . (lambda () (global-linum-mode 1))))
+  :hook ((find-file after-change-major-mode) . (lambda () (global-linum-mode 1))))
 
 ;;; Enable clipboard
 ;;
