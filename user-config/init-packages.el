@@ -26,8 +26,10 @@ There are two things you can do about this warning:
   ;; (add-to-list 'package-archives (cons "melpa" (concat proto "://elpa.emacs-china.org/melpa/")) t)
   ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/")) t)
   ;;; Tencent mirrors
-  (add-to-list 'package-archives (cons "melpa" (concat proto "://mirrors.cloud.tencent.com/elpa/melpa/")) t)
-  (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.cloud.tencent.com/elpa/gnu/")) t)
+  ;; (add-to-list 'package-archives (cons "melpa" (concat proto "://mirrors.cloud.tencent.com/elpa/melpa/")) t)
+  ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.cloud.tencent.com/elpa/gnu/")) t)
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.gnu.org/packages/")) t)
   (when (< emacs-major-version 24)
     ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://mirrors.tuna.tsinghua.edu.cn/elpa/gnu/")))
     ;; (add-to-list 'package-archives (cons "gnu" (concat proto "://elpa.emacs-china.org/gnu/")))
