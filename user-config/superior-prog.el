@@ -99,8 +99,8 @@ properly define this variable.")))
 ;;    run irony-cdb-json-add-compile-commands-path
 ;;    to setup root directory and path to compile_commands.json,
 ;;    and always check irony-cdb-menu for validation.
-(use-package irony
-  :hook ((c-mode c++-mode) . (lambda () (irony-mode t))))
+;; (use-package irony
+;;   :hook ((c-mode c++-mode) . (lambda () (irony-mode t))))
 
 (use-package irony-cdb
   :requires (irony)
@@ -168,7 +168,7 @@ properly define this variable.")))
   :bind ("C-c C-c" . rust-run)
   )
 (use-package rustic
-  :hook (eglot--managed-mode . (lambda () (flymake-mode -1)))
+  :hook (eglot-managed-mode . (lambda () (flymake-mode -1)))
   :config
   (setq rustic-lsp-server 'rls)
   (setq lsp-rust-analyzer-server-command '("~/.cargo/bin/rust-analyzer"))
