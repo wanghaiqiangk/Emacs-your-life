@@ -3,7 +3,7 @@
 ;;; Code:
 
 ;;; Code style
-;;
+;; TODO refactor using style variable, refer to https://emacs.stackexchange.com/questions/26172/cc-styles-c-offsets-alist-setting-for-c11-lambda-brace-indentation
 (setq c-default-style
       '((java-mode . "java")
         (awk-mode . "awk")
