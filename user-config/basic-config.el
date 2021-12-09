@@ -289,6 +289,7 @@
   (isearch-lazy-count t)                ; this can replace anzu package
   (lazy-count-prefix-format "%s/%s ")
   :bind (("C-." . isearch-forward-symbol-at-point)))
+(eval-after-load "isearch" '(require 'isearch+))
 
 ;;; avy quick locater, oralternatively use ace-jump-mode
 ;;

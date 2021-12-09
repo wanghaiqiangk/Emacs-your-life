@@ -25,7 +25,7 @@
 (add-hook 'c-mode-hook 'set-auto-indentation-offset)
 (add-hook 'c++-mode-hook 'set-auto-indentation-offset)
 
-(load "clang-format")
+(require 'clang-format)
 ;;; Highlight indentation
 ;;
 (use-package highlight-indent-guides
@@ -52,8 +52,8 @@
 
 ;;; git client
 ;;
-;; (use-package magit
-;;   :bind ("C-x g" . magit-status))
+(use-package magit
+  :bind ("C-x g" . magit-status))
 
 ;;; diff-hl
 ;;
