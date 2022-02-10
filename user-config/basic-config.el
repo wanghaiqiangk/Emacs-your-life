@@ -440,6 +440,11 @@ which can be very annoying."
 (use-package ibuffer
   :bind ("C-c b" . ibuffer))
 
+(use-package vimish-fold
+  :bind (("C-c @ f" . vimish-fold)
+         ("C-c @ t" . vimish-fold-toggle)
+         ("C-c @ d" . vimish-fold-delete)))
+
 
 (provide 'basic-config)
 
