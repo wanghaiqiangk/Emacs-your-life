@@ -1,37 +1,71 @@
-;;; basic-config.el --- basic configuration
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+;;; basic-config.el --- customized basic configuration
+
+;; Copyright © 2016-2022 Wang Haiqiang and contributors
+
+;; Author: Wang Haiqiang
+;; URL: https://github.com/wanghaiqiangk/Emacs-your-life
+;; Package-Requires: ((emacs "24.1"))
+
+;; This file is NOT part of GNU Emacs.
+
 ;;; Commentary:
-;;
+
 ;;  The settings shown below affect how Emacs itself works.
 ;;  For examples, the behaviors of functions, the appearances
 ;;  how Emacs looks like, common keybindings for convenience, etc.
-;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;
+
 ;;; Code:
 
-
-;;; basic settings for use-package
-;;
 (require 'use-package)
 (require 'diminish)
 (require 'bind-key)
 (require 'vlf-setup)
 
-(menu-bar-mode -1)
-(column-number-mode 1)
-(global-display-fill-column-indicator-mode 1)
+;; https://git.sr.ht/~technomancy/better-defaults
+(progn
+  (unless (memq window-system '(mac ns))
+    (menu-bar-mode -1))
+  (when (fboundp 'tool-bar-mode)
+    (tool-bar-mode -1))
+  (when (fboundp 'scroll-bar-mode)
+    (scroll-bar-mode -1))
+  (when (fboundp 'horizontal-scroll-bar-mode)
+    (horizontal-scroll-bar-mode -1))
+  ;; (inhibit-startup-screen t)
+
+  (autoload 'zap-up-to-char "misc"
+    "Kill up to, but not including ARGth occurrence of CHAR." t)
+
+  ;; https://www.emacswiki.org/emacs/SavePlace
+  (save-place-mode 1)
+  (electric-pair-mode 1)
+  (show-paren-mode 1)
+  ;; (savehist-mode 1) ;; refer (use-package savehist) following
+  (column-number-mode 1)
+  (global-display-fill-column-indicator-mode 1)
+
+  (global-set-key (kbd "C-x C-b") 'ibuffer)
+  (global-set-key (kbd "M-z") 'zap-up-to-char)
+  (global-set-key (kbd "M-/") 'hippie-expand)
+
+  (setq-default indent-tabs-mode nil)
+  (setq save-interprogram-paste-before-kill t
+        apropos-do-all t
+        mouse-yank-at-point t
+        require-final-newline t
+        visible-bell t
+        load-prefer-newer t
+        backup-by-copying t
+        custom-file (expand-file-name "custom.el" user-emacs-directory))
+
+  (unless backup-directory-alist
+    (setq backup-directory-alist `(("." . ,(concat user-emacs-directory
+                                                   "backups"))))))
 
 ;;; GUI basic settings
 ;;
 (use-package emacs
   :if (display-graphic-p)
-  :custom
-  ;; (inhibit-startup-screen t "No startup screen")
-  (tool-bar-mode nil "No tool bar at the top of window")
-  (scroll-bar-mode nil "No scroll bar")
   :custom-face
   (default ((t (:height 180))))
   ;; Font is Monospace Regular
@@ -41,7 +75,6 @@
   (add-to-list 'initial-frame-alist '(fullscreen . maximized))
   (load-theme 'solarized-light t)
   (mouse-avoidance-mode 'exile)
-  (setq mouse-yank-at-point t)
 
   ;; A common bug is that the Emacs is likely be unable to wake up after suspending.
   ;; Therefore, globally unset the pertinent keybindings to temporary obliterate this bug
@@ -77,11 +110,6 @@
 (set-keyboard-coding-system 'utf-8)
 (setq x-select-request-type '(UTF8_STRING COMPOUND_TEXT TEXT STRING))
 (define-coding-system-alias 'UTF-8 'utf-8)
-
-
-;;;
-;;
-(setq require-final-newline t)
 
 
 ;;; Ease your M-x, using smex or helm
@@ -170,12 +198,6 @@
   :config
   (flx-ido-mode 1))
 
-
-;;; Disable backup
-;;
-(setq make-backup-files nil)
-(setq backup-directory-alist '(("." . "./.emacs.bak")))
-
 ;;; Display line number
 ;;
 (use-package display-line-numbers
@@ -198,11 +220,6 @@
   :config
   (xclip-mode 1))
 
-;;; For paren
-;;
-(electric-pair-mode 1)
-(show-paren-mode 1)
-
 ;;; Show current line after scrolling
 ;;
 (use-package beacon
@@ -221,10 +238,6 @@
 ;;
 (use-package ace-window
   :bind ("C-x o" . ace-window))
-
-;;; trailing whitespace
-;;
-;; (setq show-trailing-whitespace t)
 
 ;;; shell in emacs
 ;;
@@ -308,8 +321,7 @@
   :if (or (not (display-graphic-p))
           (not prefer-graphical-helm))
   :bind
-  (("C-x C-b" . counsel-ibuffer)
-   ("C-c l" . counsel-list-processes)
+  (("C-c l" . counsel-list-processes)
    ("C-c m" . counsel-semantic-or-imenu)
    ("C-h f" . counsel-describe-function)
    ("C-h v" . counsel-describe-variable)
@@ -437,14 +449,10 @@ which can be very annoying."
 (use-package subword
   :hook (c-mode-common-hook . subword-mode))
 
-(use-package ibuffer
-  :bind ("C-c b" . ibuffer))
-
 (use-package vimish-fold
   :bind (("C-c @ f" . vimish-fold)
          ("C-c @ t" . vimish-fold-toggle)
          ("C-c @ d" . vimish-fold-delete)))
-
 
 (provide 'basic-config)
 
