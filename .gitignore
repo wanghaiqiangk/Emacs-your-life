@@ -25,3 +25,4 @@ session*
 request/
 places
 backups/
+custom.el
