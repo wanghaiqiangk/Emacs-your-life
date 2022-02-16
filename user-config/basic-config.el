@@ -48,6 +48,13 @@
   (global-set-key (kbd "M-z") 'zap-up-to-char)
   (global-set-key (kbd "M-/") 'hippie-expand)
 
+  (setq hippie-expand-try-functions-list-backup hippie-expand-try-functions-list
+        hippie-expand-try-functions-list-without
+        (remove 'try-expand-list hippie-expand-try-functions-list))
+  (if t
+      (setq hippie-expand-try-functions-list hippie-expand-try-functions-list-without)
+    (setq hippie-expand-try-functions-list hippie-expand-try-functions-list-backup))
+
   (setq-default indent-tabs-mode nil)
   (setq save-interprogram-paste-before-kill t
         apropos-do-all t
