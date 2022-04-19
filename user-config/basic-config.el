@@ -461,6 +461,12 @@ which can be very annoying."
          ("C-c @ t" . vimish-fold-toggle)
          ("C-c @ d" . vimish-fold-delete)))
 
+(defun wang/emacs-start-up-time ()
+  (message "Emacs startup cost %.2f seconds"
+           (string-to-number (car (split-string (emacs-init-time))))))
+
+(add-hook 'emacs-startup-hook #'wang/emacs-start-up-time)
+
 (provide 'basic-config)
 
 ;;; basic-config.el ends here
