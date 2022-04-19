@@ -44,7 +44,8 @@
   :init (require 'company-rtags)
   :hook (after-init . global-company-mode)
   :custom
-  (company-idel-delay 0.5)
+  (company-idle-delay 0.5)
+  (company-show-numbers t)
   (company-backends '(company-files
                       company-keywords
                       company-capf
@@ -106,8 +107,6 @@ properly define this variable.")))
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  ;; (add-hook 'c-mode-hook 'eglot-ensure)
-  ;; (add-hook 'c++-mode-hook 'eglot-ensure)
   )
 
 
