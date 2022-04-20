@@ -20,28 +20,7 @@
                        (when (derived-mode-p 'cmake-mode)
                          (cmake-font-lock-activate)))))
 
-
-;;; RTags
-;;
-(use-package rtags
-  :hook (c-mode-common-hook . (lambda ()
-                                (when (derived-mode-p 'c-mode 'c++-mode)
-                                  (rtags-start-process-unless-running))))
-  :custom
-  (rtags-completions-enabled t)
-  ;; (rtags-autostart-diagnostics t)
-  (rtags-display-result-backend 'helm)
-  (rtags-symbolnames-case-insensitive t)
-  ;; (rtags-display-current-error-as-tooltip nil)
-  :config
-  (rtags-enable-standard-keybindings))
-
-;; New functionality, indicating whether current buffer is indexed
-;; idea: use `rtags-is-indexed' to change mode-line
-;;       encapsulate as function and load after cmake-ide
-
 (use-package company
-  :init (require 'company-rtags)
   :hook (after-init . global-company-mode)
   :custom
   (company-idle-delay 0.5)
@@ -58,7 +37,6 @@
   ((c-mode c++-mode) . (lambda ()
                          (add-to-list (make-local-variable 'company-backends)
                                       '(company-capf
-                                        company-rtags
                                         company-c-headers
                                         ))))
   (python-mode . (lambda ()
