@@ -66,22 +66,6 @@ properly define this variable.")))
   (python-mode . anaconda-eldoc-mode))
 
 
-;;; cmake-ide, should be called after rtags required
-;;
-(defun my/cmake-ide-setup ()
-  "Manually start camke-ide as well as rtags."
-  (interactive)
-  (cmake-ide-maybe-run-cmake)
-  (cmake-ide-maybe-start-rdm))
-(use-package cmake-ide
-  :bind ("C-c a p" . my/cmake-ide-setup)
-  :config
-  (dolist (sys-include-flag default-searching-path)
-    (let* ((flag-prefix "-I"))
-      (add-to-list 'cmake-ide-flags-c (concat flag-prefix sys-include-flag))
-      (add-to-list 'cmake-ide-flags-c++ (concat flag-prefix sys-include-flag)))))
-
-
 (use-package eglot
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
