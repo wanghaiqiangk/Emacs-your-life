@@ -311,15 +311,14 @@
   :bind (("C-." . isearch-forward-symbol-at-point)))
 (eval-after-load "isearch" '(require 'isearch+))
 
-;;; avy quick locater, oralternatively use ace-jump-mode
-;;
-(use-package ace-jump-mode
-  :bind
-  ("C-c f" . ace-jump-mode)
-  :config
-  (setq ace-jump-mode-submode-list '(ace-jump-char-mode
-                                     ace-jump-word-mode
-                                     ace-jump-line-mode)))
+(defun wang/jump-to-char-one-more (query-char)
+  "Move the cursor to one more position after the QUERY-CHAR."
+  (interactive (list (read-char "Query Char:")))
+  ;; possible APIs are provided by avy or ace-jump
+  (avy-goto-char-in-line query-char)
+  (forward-char 1))
+
+(global-set-key (kbd "C-c f") 'wang/jump-to-char-one-more)
 
 
 ;;; Ivy, counsel, and swiper for emacs completion, function, and search
