@@ -3,6 +3,8 @@
 ;;;   None
 ;;; Code:
 
+(setq completion-ignore-case t)
+
 ;;; Keybinding for c/c++
 ;;
 (add-hook 'c-mode-common-hook
@@ -72,9 +74,14 @@ properly define this variable.")))
   )
 
 
-(require 'citre)
-(require 'citre-config)
-(setq citre-peek-fill-fringe nil)
+(use-package citre
+  :defer t
+  :init
+  (require 'citre-config)
+  :config
+  (setq
+   citre-peek-fill-fringe nil
+   citre-completion-case-sensitive nil))
 
 
 ;; (setq gdb-show-main t)
