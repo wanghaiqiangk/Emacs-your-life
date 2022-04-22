@@ -69,9 +69,22 @@ properly define this variable.")))
 
 
 (use-package eglot
+  :ensure t
+  :defer t
+  :init
+  (require 'eldoc-box)
+  (setq x-gtk-resize-child-frames 'resize-mode)
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
-  )
+  (add-to-list 'eglot-stay-out-of 'flymake)
+  (setq eglot-ignored-server-capabilites '(:documentHighlightProvider))
+  :hook
+  (eglot-managed-mode . (lambda () (progn
+                                     (flymake-mode -1)
+                                     (eldoc-box-hover-mode t)))))
+
+(use-package eldoc-box
+  :ensure t)
 
 
 (use-package citre
