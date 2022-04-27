@@ -149,6 +149,12 @@ With argument ARG, do this that many times."
 
 (setq hs-set-up-overlay 'hideshow-folded-overlay-fn)
 
+(use-package xref
+  :config
+  (substitute-key-definition 'xref-next-line 'xref-next-line-no-show xref--xref-buffer-mode-map)
+  (substitute-key-definition 'xref-prev-line 'xref-prev-line-no-show xref--xref-buffer-mode-map)
+)
+
 
 (provide 'common-prog)
 
