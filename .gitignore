@@ -26,3 +26,4 @@ request/
 places
 backups/
 custom.el
+*undo-tree*
