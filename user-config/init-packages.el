@@ -29,7 +29,7 @@ There are two things you can do about this warning:
 
 ;; Packages list in need
 (setq my-package-list
-      '(vimish-fold imenu-anywhere clang-format magit citre visual-fill-column gitignore-mode yaml-mode go-mode dumb-jump which-key syslog-mode systemd solarized-theme helm-descbinds helm-describe-modes use-package-chords diminish use-package rg benchmark-init ace-mc iedit multiple-cursors tramp pinyin-search ace-pinyin beacon ace-window anaconda-mode company helm helm-core ivy undo-tree rainbow-delimiters python company-anaconda company-try-hard company-c-headers zeal-at-point neotree diff-hl hl-todo idle-highlight-mode flx-ido smex flx yasnippet-snippets yasnippet cmake-font-lock cmake-mode projectile flycheck-clang-analyzer flycheck json-mode xclip vlf switch-window markdown-mode highlight-indent-guides gnu-elpa-keyring-update counsel))
+      '(use-package use-package-chords vimish-fold imenu-anywhere clang-format magit citre visual-fill-column yaml-mode go-mode dumb-jump which-key syslog-mode systemd solarized-theme helm-descbinds helm-describe-modes diminish rg benchmark-init ace-mc iedit multiple-cursors tramp pinyin-search ace-pinyin beacon ace-window anaconda-mode company helm helm-core ivy undo-tree rainbow-delimiters python company-anaconda company-try-hard company-c-headers zeal-at-point neotree diff-hl hl-todo idle-highlight-mode flx-ido smex flx yasnippet-snippets yasnippet cmake-font-lock cmake-mode projectile flycheck-clang-analyzer flycheck json-mode xclip vlf switch-window markdown-mode highlight-indent-guides gnu-elpa-keyring-update counsel))
 
 (package-initialize)
 ;; (setq package-enable-at-startup nil)
@@ -40,6 +40,7 @@ There are two things you can do about this warning:
 (defun wang/install-custom-packages ()
     "Check required thirdparty packages and install them if they are
 not yet in the system."
+    (interactive)
     (dolist (package my-package-list)
       (unless (package-installed-p package)
         (package-install package))))
