@@ -154,6 +154,26 @@ With argument ARG, do this that many times."
   (substitute-key-definition 'xref-next-line 'xref-next-line-no-show xref--xref-buffer-mode-map)
   (substitute-key-definition 'xref-prev-line 'xref-prev-line-no-show xref--xref-buffer-mode-map))
 
+(defvar wang/switch-arglist-cont-nonempty-lineup
+  [(c-lineup-gcc-asm-reg c-lineup-arglist) (+)])
+
+(defun wang/switch-arglist-cont-nonempty-lineup ()
+  (interactive)
+  (let ((old (assoc 'arglist-cont-nonempty c-offsets-alist))
+        (old-lineup nil))
+    (if (not old)
+        (message "arglist-cont-nonempty is not properly defined.")
+      (seq-doseq (lineup wang/switch-arglist-cont-nonempty-lineup)
+        (if (equal (cdr old) lineup)
+            (setq old-lineup lineup)))
+      (if (not old-lineup)
+          (message "arglist-cont-nonempty cannot be changed.")
+        (seq-doseq (lineup wang/switch-arglist-cont-nonempty-lineup)
+          (if (not (equal lineup old-lineup))
+              (progn
+                (c-set-offset 'arglist-cont-nonempty lineup)
+                (message "arglist-cont-nonempty is set to %s." lineup))))))))
+
 
 (provide 'common-prog)
 
