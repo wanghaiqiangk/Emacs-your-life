@@ -239,7 +239,13 @@
 (use-package undo-tree
   :diminish
   :config
-  (global-undo-tree-mode))
+  (global-undo-tree-mode)
+  (progn
+    (let ((undo-tree-history
+           (concat user-emacs-directory "undo-tree-history")))
+      (unless (file-directory-p undo-tree-history)
+        (make-directory undo-tree-history))
+      (setq undo-tree-history-directory-alist (list (cons "." undo-tree-history))))))
 
 ;;; change window
 ;;
