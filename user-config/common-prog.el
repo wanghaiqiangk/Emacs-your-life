@@ -54,14 +54,28 @@
 (use-package magit
   :bind ("C-x g" . magit-status))
 
-;;; diff-hl
-;;
-(use-package diff-hl
+;; Derived from https://ianyepan.github.io/posts/emacs-git-gutter/
+(use-package git-gutter
+  :ensure t
   :config
-  (global-diff-hl-mode)
-  (diff-hl-flydiff-mode)
-  (if (not (display-graphic-p))
-      (diff-hl-margin-mode t)))
+  (when (bound-and-true-p linum-mode)
+    (git-gutter:linum-setup))
+  (global-git-gutter-mode t)
+  (setq git-gutter:update-interval 0.3)
+  :bind
+  (("C-x v [" . 'git-gutter:previous-hunk)
+   ("C-x v ]" . 'git-gutter:next-hunk)
+   ("C-x v c" . 'git-gutter:cancel-update-timer)
+   ([remap vc-create-tag] . 'git-gutter:start-update-timer)
+   ([remap vc-retrieve-tag] . 'git-gutter:set-start-revision)))
+
+(use-package git-gutter-fringe
+  :ensure t
+  :config
+  (set-face-foreground 'git-gutter-fr:added "green")
+  (define-fringe-bitmap 'git-gutter-fr:added [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:modified [224] nil nil '(center repeated))
+  (define-fringe-bitmap 'git-gutter-fr:deleted [128 192 224 240 248 252] nil nil 'bottom))
 
 
 ;;; yasnippet configuration
