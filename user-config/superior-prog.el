@@ -40,10 +40,7 @@
                          (add-to-list (make-local-variable 'company-backends)
                                       '(company-capf
                                         company-c-headers
-                                        ))))
-  (python-mode . (lambda ()
-                   (add-to-list (make-local-variable 'company-backends)
-                                '(company-anaconda)))))
+                                        )))))
 
 (let* ((local-def-file "~/.emacs.d/user-config/local-def.el"))
   (if (file-exists-p local-def-file)
@@ -60,13 +57,18 @@ properly define this variable.")))
     (add-to-list 'company-c-headers-path-system includepath)))
 
 
-;;; Python complete
-;;
-(use-package anaconda-mode
-  :hook
-  (python-mode . anaconda-mode)
-  (python-mode . anaconda-eldoc-mode))
-
+;;; Python
+(use-package elpy
+  :ensure t
+  :defer t
+  :init
+  (advice-add 'python-mode :before 'elpy-enable)
+  :config
+  (setenv "PYTHONPATH" "/usr/local/lib/python3.9/site-packages/")
+  (setq elpy-shell-echo-output nil ;; This solve strange '^G's in Ipython output.
+        elpy-rpc-python-command "/usr/local/bin/python3.9"
+	    python-shell-interpreter "python3"
+	    python-shell-interpreter-args "-i --simple-prompt"))
 
 (use-package eglot
   :ensure t

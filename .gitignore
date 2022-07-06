@@ -27,3 +27,4 @@ places
 backups/
 custom.el
 *undo-tree*
+elpy/
