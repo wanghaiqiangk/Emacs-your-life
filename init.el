@@ -13,6 +13,7 @@
 
 (load "init-packages")
 (load "basic-config")
+(load custom-file)
 (load "common-prog")
 (load "superior-prog")
 (load "org-config")

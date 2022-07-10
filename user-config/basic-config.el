@@ -472,6 +472,24 @@ which can be very annoying."
 
 (add-hook 'emacs-startup-hook #'wang/emacs-start-up-time)
 
+(defgroup wang nil
+  "Wang's customization."
+  :group 'convenience)
+
+(defcustom wang-python3-binary-path nil
+  "Path to python3 interpreter"
+  :type '(string)
+  :options '("/usr/bin/python3" "/usr/local/bin/python3")
+  :group 'wang)
+
+(defun wang/set-python3-binary-path (path)
+  "Set the path to python3 interperter."
+  (interactive "spython3 path: ")
+  (if (and path
+           (file-exists-p path))
+      (customize-save-variable 'wang-python3-binary-path path)
+    (error "%s is not found" path)))
+
 (provide 'basic-config)
 
 ;;; basic-config.el ends here

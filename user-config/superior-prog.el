@@ -56,7 +56,6 @@ properly define this variable.")))
   (dolist (includepath default-searching-path)
     (add-to-list 'company-c-headers-path-system includepath)))
 
-
 ;;; Python
 (use-package elpy
   :ensure t
@@ -64,11 +63,11 @@ properly define this variable.")))
   :init
   (advice-add 'python-mode :before 'elpy-enable)
   :config
-  (setenv "PYTHONPATH" "/usr/local/lib/python3.9/site-packages/")
+  (if (not wang-python3-binary-path)
+      (call-interactively #'wang/set-python3-binary-path))
   (setq elpy-shell-echo-output nil ;; This solve strange '^G's in Ipython output.
-        elpy-rpc-python-command "/usr/local/bin/python3.9"
-	    python-shell-interpreter "python3"
-	    python-shell-interpreter-args "-i --simple-prompt"))
+        elpy-rpc-python-command wang-python3-binary-path
+	    python-shell-interpreter "python3"))
 
 (use-package eglot
   :ensure t
