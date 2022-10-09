@@ -95,7 +95,10 @@ properly define this variable.")))
   :config
   (setq
    citre-peek-fill-fringe nil
-   citre-completion-case-sensitive nil))
+   citre-completion-case-sensitive nil
+   ;; citre-project-root-function #'projectile-project-root
+   citre-use-project-root-when-creating-tags t
+   citre-prompt-language-for-ctags-command t))
 
 
 ;; (setq gdb-show-main t)
