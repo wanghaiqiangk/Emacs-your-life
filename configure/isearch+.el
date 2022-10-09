@@ -3654,14 +3654,14 @@ Note: You cannot use `DEL' (Backspace) to remove the failed portion of
   "Cycle option `isearchp-drop-mismatch'.
 See also option `isearchp-drop-mismatch-regexp-flag'."
   (interactive)
-  (setq isearchp-drop-mismatch  (case isearchp-drop-mismatch
+  (setq isearchp-drop-mismatch  (cl-case isearchp-drop-mismatch
                                   (replace-last  nil)
                                   ((nil)         t)
                                   (otherwise     'replace-last)))
   (if (and isearchp-drop-mismatch  (not (eq 'replace-last isearchp-drop-mismatch)))
       (add-hook 'isearch-update-post-hook 'isearchp-remove-mismatch)
     (remove-hook 'isearch-update-post-hook 'isearchp-remove-mismatch))
-  (case isearchp-drop-mismatch
+  (cl-case isearchp-drop-mismatch
     (replace-last  (message "Automatic REPLACEMENT of last mismatched input is now ON"))
     ((nil)         (message "Automatic removal of mismatched input is now OFF"))
     (otherwise     (message "Automatic removal of ALL mismatched input is now ON")))
@@ -3804,7 +3804,7 @@ Toggles between nil and the last non-nil value."
   (when search-invisible (setq isearchp-last-non-nil-invisible  search-invisible))
   (setq search-invisible   (if search-invisible nil isearchp-last-non-nil-invisible)
         isearch-invisible  search-invisible)
-  (message "Option `search-invisible' is now `%s'" (case search-invisible
+  (message "Option `search-invisible' is now `%s'" (cl-case search-invisible
                                                      (open  'OPEN)
                                                      ((nil) 'OFF)
                                                      (t     'ON)))
@@ -3902,7 +3902,7 @@ The new value takes effect only when the current search is exited."
 (defun isearchp-set-region-around-search-target ()
   "Set the region around the last search or query-replace target."
   (interactive)
-  (case last-command
+  (cl-case last-command
     ((isearch-forward isearch-backward isearch-forward-regexp isearch-backward-regexp)
      (push-mark isearch-other-end t 'activate))
     (t (push-mark (match-beginning 0) t 'activate)))
@@ -6625,7 +6625,7 @@ See `isearchp-add-filter-predicate' for descriptions of other args."
                     pred    (nth 0 pred)) ; (PREDICATE)
             (setq pred  (nth 0 pred)))))
       (add-function where isearch-filter-predicate pred
-                    (append (and (or name  (case isearchp-prompt-for-filter-name
+                    (append (and (or name  (cl-case isearchp-prompt-for-filter-name
                                              (always      (not flip-read-name-p))
                                              (non-symbol  (if (not (symbolp pred))
                                                               (not flip-read-name-p)
@@ -7589,10 +7589,10 @@ Optional arg TEST is the test function.  If nil, test with `equal'.
 See `make-hash-table' for possible values of TEST."
       (setq test  (or test  #'equal))
       (let ((htable  (make-hash-table :test test)))
-        (loop for elt in sequence
+        (cl-loop for elt in sequence
               unless (gethash elt htable)
               do     (puthash elt elt htable)
-              finally return (loop for i being the hash-values in htable collect i))))
+              finally return (cl-loop for i being the hash-values in htable collect i))))
 
   (defun isearchp-remove-duplicates (list &optional use-eq)
     "Copy of LIST with duplicate elements removed.
