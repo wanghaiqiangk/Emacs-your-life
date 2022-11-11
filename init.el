@@ -17,5 +17,6 @@
 (load "common-prog")
 (load "superior-prog")
 (load "org-config")
+(load "text-manipulate")
 
 ;;; init.el ends here

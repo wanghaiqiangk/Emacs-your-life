@@ -373,8 +373,7 @@ which can be very annoying."
 ;;; Multiple cursors
 ;;
 (use-package ace-mc
-  :bind (("C-c a m" . ace-mc-add-multiple-cursors)
-         ("s-c" . ace-mc-add-multiple-cursors)))
+  :bind (("s-c" . ace-mc-add-multiple-cursors)))
 
 ;;; Iedit mode
 ;;
@@ -441,7 +440,6 @@ which can be very annoying."
     (call-interactively 'add-dir-local-variable))
   (when (= prefix 4)
     (call-interactively 'delete-dir-local-variable)))
-(global-set-key (kbd "C-c a d") 'my/add-dir-local-variable)
 
 ;; If one line is too long then native Emacs may have trouble to open
 ;; such file. In so long mode, Emacs will try to detect such case and
