@@ -427,9 +427,8 @@ which can be very annoying."
   ;; (setq dumb-jump-quiet t)
   )
 
-(add-hook 'dired-load-hook
-          (lambda ()
-            (load "dired-x")))
+(with-eval-after-load "dired"
+  (load "dired-x"))
 
 ;;; directory variables
 ;;
