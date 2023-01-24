@@ -71,7 +71,7 @@ properly define this variable.")))
   :config
   (add-to-list 'eglot-server-programs '((c++-mode c-mode) "clangd"))
   (add-to-list 'eglot-stay-out-of 'flymake)
-  (setq eglot-ignored-server-capabilites '(:documentHighlightProvider))
+  (setq eglot-ignored-server-capabilities '(:documentHighlightProvider))
   :hook
   (eglot-managed-mode . (lambda () (progn
                                      (flymake-mode -1)
