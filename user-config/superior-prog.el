@@ -27,20 +27,13 @@
   :custom
   (company-idle-delay 0.5)
   (company-show-numbers t)
-  (company-backends '(company-files
-                      company-keywords
-                      company-capf
-                      company-dabbrev
-                      company-dabbrev-code))
   :hook
-  (cmake-mode . (lambda ()
-                  (add-to-list (make-local-variable 'company-backends)
-                               'company-cmake)))
   ((c-mode c++-mode) . (lambda ()
-                         (add-to-list (make-local-variable 'company-backends)
-                                      '(company-capf
-                                        company-c-headers
-                                        )))))
+                         (progn
+                           (setq company-backends (delete 'company-semantic company-backends))
+                           (add-to-list (make-local-variable 'company-backends) 'company-c-headers)
+                           (define-key c-mode-map [(tab)] 'company-complete)
+                           (define-key c++-mode-map [(tab)] 'company-complete)))))
 
 (let* ((local-def-file "~/.emacs.d/user-config/local-def.el"))
   (if (file-exists-p local-def-file)
