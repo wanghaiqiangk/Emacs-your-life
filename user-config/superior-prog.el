@@ -32,8 +32,8 @@
                          (progn
                            (setq company-backends (delete 'company-semantic company-backends))
                            (add-to-list (make-local-variable 'company-backends) 'company-c-headers)
-                           (define-key c-mode-map [(tab)] 'company-complete)
-                           (define-key c++-mode-map [(tab)] 'company-complete)))))
+                           (define-key c-mode-map (kbd "C-c p") 'company-complete)
+                           (define-key c++-mode-map (kbd "C-c p") 'company-complete)))))
 
 (let* ((local-def-file "~/.emacs.d/user-config/local-def.el"))
   (if (file-exists-p local-def-file)
