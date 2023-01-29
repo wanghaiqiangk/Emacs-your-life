@@ -526,6 +526,11 @@ using the specified hippie-expand function."
 
 (global-set-key (kbd "M-/") 'my-ido-hippie-expand)
 
+(let ((slime-file (expand-file-name "~/.quicklisp/slime-helper.el")))
+  (when (file-exists-p slime-file)
+    (load slime-file)
+    (setq inferior-lisp-program "sbcl")))
+
 (provide 'basic-config)
 
 ;;; basic-config.el ends here
