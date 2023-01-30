@@ -75,7 +75,7 @@ properly define this variable.")))
   :hook
   (eglot-managed-mode . (lambda () (progn
                                      (flymake-mode -1)
-                                     (eldoc-box-hover-mode t)))))
+                                     (eldoc-box-hover-mode nil)))))
 
 (use-package eldoc-box
   :ensure t)
