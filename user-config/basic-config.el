@@ -378,7 +378,7 @@ which can be very annoying."
 ;;; Iedit mode
 ;;
 (use-package iedit
-  :bind ("C-c i" . iedit-mode))
+  :ensure t)
 
 ;;; Recent file functionality
 ;;
