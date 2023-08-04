@@ -65,6 +65,13 @@ properly define this variable.")))
                                      (eldoc-box-hover-mode nil)))))
 
 (use-package eldoc-box
+  :ensure t
+  :init
+  (require 'text-property-search)
+  :config
+  (when (= emacs-major-version 27)
+    (setq x-gtk-resize-child-frames 'resize-mode))
+  (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
   :ensure t)
 
 
