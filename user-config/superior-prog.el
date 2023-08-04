@@ -49,19 +49,6 @@ properly define this variable.")))
   (dolist (includepath default-searching-path)
     (add-to-list 'company-c-headers-path-system includepath)))
 
-;;; Python
-(use-package elpy
-  :ensure t
-  :defer t
-  :init
-  (advice-add 'python-mode :before 'elpy-enable)
-  :config
-  (if (not wang-python3-binary-path)
-      (call-interactively #'wang/set-python3-binary-path))
-  (setq elpy-shell-echo-output nil ;; This solve strange '^G's in Ipython output.
-        elpy-rpc-python-command wang-python3-binary-path
-	    python-shell-interpreter "python3"))
-
 (use-package eglot
   :ensure t
   :defer t

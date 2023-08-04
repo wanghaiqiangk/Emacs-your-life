@@ -10,6 +10,7 @@
 
 (add-to-list 'load-path "~/.emacs.d/configure")
 (add-to-list 'load-path "~/.emacs.d/user-config")
+(add-to-list 'load-path "~/.emacs.d/user-config/langs")
 
 (load "init-packages")
 (load "basic-config")
@@ -18,5 +19,6 @@
 (load "superior-prog")
 (load "org-config")
 (load "text-manipulate")
+(load "python-lang")
 
 ;;; init.el ends here
