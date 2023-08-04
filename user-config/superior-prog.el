@@ -72,6 +72,13 @@ properly define this variable.")))
   (when (= emacs-major-version 27)
     (setq x-gtk-resize-child-frames 'resize-mode))
   (add-hook 'eglot-managed-mode-hook #'eldoc-box-hover-mode t))
+
+(use-package tree-sitter
+  :ensure t
+  :config
+  (global-tree-sitter-mode)
+  (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode))
+(use-package tree-sitter-langs
   :ensure t)
 
 
